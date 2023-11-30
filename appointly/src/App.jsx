@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Button, ButtonGroup } from "@nextui-org/react";
 import "./styles/App.css";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
     <>
       <div>
-        <Button color="primary">Button</Button>
+      <LandingPage/>
+
       </div>
     </>
   );
