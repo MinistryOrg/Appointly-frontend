@@ -9,10 +9,21 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "landing-page": "url('../../src/styles/images/lp.png')",
+        "service1-lp": "url('../../src/styles/images/service1.webp')",
+      },
       colors: {
         "primary-purple": "#342AA1",
         "white-text": "#FFFFFF",
         "btn-purple": "#6769ED",
+        "div-lp": "#FAFAFA",
+        "hover-dp": "#efeeff",
+        "primary": "#342AA1",
+        "secondary": "#686868",
+        "lp-bg": "#F3F5FF",
+        "footerClr": "#34307F",
+        "divider": "#A7B5FA",
       },
     },
   },
