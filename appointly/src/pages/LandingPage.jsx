@@ -25,7 +25,7 @@ export default function LandingPage() {
           <div className="w-full ">
             <h1 className="font-bold text-4xl text-center">Booking made easy</h1>
           </div>
-          <div className="h-auto my-unit-3xl flex justify-center gap-unit-5xl">
+          <div className="h-auto my-unit-3xl flex xsm:flex-col lg:flex-row justify-center sm:gap-unit-md lg:gap-unit-5xl">
             <div className="justify-center">
               <Card radius="lg" shadow="none" className="border-none">
                 <Image
@@ -76,8 +76,8 @@ export default function LandingPage() {
         */}
         </div>
         <div className="m-unit-xl mx-0">
-          <div className="w-screen h-auto bg-lp-bg">
-            <div className="grid grid-cols-2 gap-2 w-screen py-unit-xl px-unit-5xl">
+          <div className="w-screen xsm:h-1/3 lg:h-auto bg-lp-bg">
+            <div className="grid xsm:grid-cols-1 lg:grid-cols-2 gap-2 w-screen xsm:py-unit-md lg:py-unit-xl xsm:px-unit-xl lg:px-unit-5xl">
               <div>
                 <h1 className="font-bold text-2xl text-primary">
                   Do you wish your Service to be part of our apointly community?
@@ -97,7 +97,7 @@ export default function LandingPage() {
                   Become a member now!
                 </Button>
               </div>
-              <div className="place-self-end">
+              <div className="place-self-end xsm:invisible lg:visible">
                 <Image
                   width={250}
                   className="justify-end"

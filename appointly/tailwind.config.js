@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xsm' : '430px'
+      },
       backgroundImage: {
         "landing-page": "url('../../src/styles/images/lp.png')",
         "service1-lp": "url('../../src/styles/images/service1.webp')",
@@ -21,6 +24,7 @@ export default {
         "hover-dp": "#efeeff",
         "primary": "#342AA1",
         "secondary": "#686868",
+        "main-clr": "#3E3D3D",
         "lp-bg": "#F3F5FF",
         "footerClr": "#34307F",
         "divider": "#A7B5FA",

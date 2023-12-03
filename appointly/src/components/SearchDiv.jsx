@@ -25,13 +25,13 @@ export default function SearchDiv() {
   );
 
   return (
-    <div className="bg-div-lp shadow-md rounded-md h-16 max-w-3xl min-w-fit p-2 my-8 flex flex-row gap-4">
-      <div className="basis-1/2">
+    <div className="bg-div-lp shadow-md rounded-md lg:h-16 sm:h-auto lg:max-w-3xl sm:w-auto p-2 my-8 flex lg:flex-row xsm:flex-col gap-4">
+      <div className="lg:basis-1/2 xsm:basis-1/3">
         <Dropdown>
           <DropdownTrigger>
             <Button
               variant="bordered"
-              className="capitalize h-full w-unit-5xl font-bold text-lg"
+              className="capitalize h-full lg:w-unit-5xl xsm:w-full font-bold text-lg"
             >
               {selectedValue}
             </Button>
@@ -65,12 +65,12 @@ export default function SearchDiv() {
           </DropdownMenu>
         </Dropdown>
       </div>
-      <div className="basis-1/2">
+      <div className="lg:basis-1/2 xsm:basis-1/3">
         <Dropdown>
           <DropdownTrigger>
             <Button
               variant="bordered"
-              className="capitalize h-full w-unit-5xl font-bold text-lg"
+              className="capitalize h-full lg:w-unit-5xl xsm:w-full font-bold text-lg"
             >
               {selectedValue2}
             </Button>
@@ -102,9 +102,9 @@ export default function SearchDiv() {
           </DropdownMenu>
         </Dropdown>
       </div>
-      <div className="basis-1/2">
+      <div className="lg:basis-1/2 xsm:basis-1/3">
         <Button
-          className="capitalize h-full w-unit-5xl font-bold text-lg bg-primary text-white"
+          className="capitalize h-full lg:w-unit-5xl xsm:w-full font-bold text-lg bg-primary text-white"
           startContent={<MagnifyingGlassIcon />}
         >
           Search
