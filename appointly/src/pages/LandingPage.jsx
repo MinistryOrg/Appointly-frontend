@@ -3,6 +3,7 @@ import { BriefcaseIcon } from "@heroicons/react/24/solid";
 import logo from "../../src/styles/images/apoinlty_logo.png";
 import NavBar from "../components/Navbar";
 import SearchDiv from "../components/SearchDiv";
+import Footer from "../components/Footer";
 
 export default function LandingPage() {
   return (
@@ -108,32 +109,7 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-        <footer className="bg-footerClr mx-0 w-screen h-auto">
-          <div className="grid grid-cols-2 md:grid-cols-3">
-            <div className="p-unit-xl m-unit-lg">
-              <Image
-                width={300}
-                radius="none"
-                className="justify-end"
-                alt="NextUI hero Image"
-                src={logo}
-              />
-            </div>
-            <div className="text-white font-bold my-unit-xl">
-              <h2>Usefull links</h2>
-              <ul className="list-disc">
-                <li>Blog</li>
-                <li>About</li>
-                <li>Contact</li>
-                <li>Privacy policy</li>
-                <li>Terms & conditions</li>
-              </ul>
-            </div>
-          </div>
-          <div className="w-full m-0">
-              <p className="text-gray-600 text-center">Copyrights © 2023 -2030 MinistryOrg</p>
-          </div>
-        </footer>
+        <Footer/>
       </main>
     </>
   );

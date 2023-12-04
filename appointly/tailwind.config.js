@@ -28,6 +28,8 @@ export default {
         "lp-bg": "#F3F5FF",
         "footerClr": "#34307F",
         "divider": "#A7B5FA",
+        "btn-sign": "#6769ED",
+        "border-clr": "#D1D1D1",
       },
     },
   },
