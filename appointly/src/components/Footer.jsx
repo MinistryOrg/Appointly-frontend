@@ -67,7 +67,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="text-white bg-footerClr px-unit-3xl py-5 mx-0 w-screen h-auto md:px-8">
+    <footer className="text-white bg-footerClr px-unit-3xl py-5 w-full h-auto md:px-8 rounded-t-lg">
       <div className="gap-6 justify-between md:flex px-unit-xl my-unit-md">
         <div className="flex-1 ">
           <div className="max-w-xs">
@@ -82,9 +82,9 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="w-full p-2.5 outline-none rounded-md text-main-clr"
+                className="w-full p-2.5 outline-none rounded-r-none rounded-md text-main-clr"
               />
-              <button className="p-2.5 rounded-md text-white bg-indigo-600 outline-none shadow-md focus:shadow-none sm:px-5">
+              <button className="p-2.5 rounded-l-none rounded-md text-white bg-indigo-600 outline-none shadow-md focus:shadow-none sm:px-5">
                 Subscribe
               </button>
             </div>

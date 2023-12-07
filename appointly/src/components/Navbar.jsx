@@ -21,7 +21,7 @@ export default function NavBar() {
     <Navbar
       shouldHideOnScroll
       onMenuOpenChange={setIsMenuOpen}
-      className="bg-primary-purple overflow-x-hidden"
+      className="bg-primary-purple overflow-x-hidden rounded-b-lg"
       maxWidth="2xl"
       height={`4.5rem`}
     >
