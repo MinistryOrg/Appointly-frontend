@@ -1,6 +1,5 @@
 import { Card, Image, Button } from "@nextui-org/react";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
-import logo from "../../src/styles/images/apoinlty_logo.png";
 import NavBar from "../components/Navbar";
 import SearchDiv from "../components/SearchDiv";
 import Footer from "../components/Footer";

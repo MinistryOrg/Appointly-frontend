@@ -78,7 +78,10 @@ export default function SingIn() {
             </button>
           </form>
           <p className="text-center">
-            Don't have an account?&nbsp;
+            {
+              // eslint-disable-next-line react/no-unescaped-entities
+              }
+            Dont have an account?&nbsp;
             <a
               href="javascript:void(0)"
               className="font-medium text-primary hover:text-indigo-500"

@@ -1,11 +1,12 @@
 import BrowseShops from "./pages/BrowseShops";
+import Shop from "./pages/Shop";
 import "./styles/App.css";
 
 function App() {
   return (
     <>
       <div>
-        <BrowseShops />
+        <Shop />
       </div>
     </>
   );
