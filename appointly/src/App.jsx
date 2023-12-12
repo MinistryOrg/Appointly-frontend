@@ -1,12 +1,11 @@
-import BrowseShops from "./pages/BrowseShops";
-import Shop from "./pages/Shop";
+import Appointment from "./pages/Appointment";
 import "./styles/App.css";
 
 function App() {
   return (
     <>
       <div>
-        <Shop />
+        <Appointment />
       </div>
     </>
   );
