@@ -1,14 +1,14 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from "react";
 import {
-    Dropdown,
-    DropdownTrigger,
-    DropdownMenu,
-    DropdownItem,
-    Button,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+  Link,
 } from "@nextui-org/react";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-
 
 export default function SearchDiv() {
   const [selectedKeys, setSelectedKeys] = useState(new Set(["Location"]));
@@ -16,9 +16,7 @@ export default function SearchDiv() {
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]
   );
-  const [selectedKeys2, setSelectedKeys2] = useState(
-    new Set(["Service"])
-  );
+  const [selectedKeys2, setSelectedKeys2] = useState(new Set(["Service"]));
   const selectedValue2 = useMemo(
     () => Array.from(selectedKeys2).join(", ").replaceAll("_", " "),
     [selectedKeys2]
@@ -106,6 +104,8 @@ export default function SearchDiv() {
         <Button
           className="capitalize h-full lg:w-unit-5xl xsm:w-full font-bold text-lg bg-primary text-white"
           startContent={<MagnifyingGlassIcon />}
+          as={Link}
+          href="/search"
         >
           Search
         </Button>

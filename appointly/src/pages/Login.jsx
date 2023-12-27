@@ -5,7 +5,7 @@ import { Input, Checkbox } from "@nextui-org/react";
 import { EyeFilledIcon } from "../assets/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../assets/EyeSlashFilledIcon";
 
-export default function SingIn() {
+export default function Login() {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -80,7 +80,7 @@ export default function SingIn() {
           <p className="text-center">
             {
               // eslint-disable-next-line react/no-unescaped-entities
-              }
+            }
             Dont have an account?&nbsp;
             <a
               href="javascript:void(0)"

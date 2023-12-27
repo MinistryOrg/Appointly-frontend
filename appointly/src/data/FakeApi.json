@@ -1,0 +1,12 @@
+{
+  "register": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "johndoe@example.com",
+    "password": "password123"
+  },
+  "authenticate": {
+    "email": "johndoe@example.com",
+    "password": "password123"
+  }
+}

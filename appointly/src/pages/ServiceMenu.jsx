@@ -7,7 +7,7 @@ export default function ServicesMenu() {
     <>
       <NavBar />
       <main>
-        <div className="max-w-full border-1.5 h-auto mx-unit-2xl my-unit-lg rounded-md shadow-lg">
+        <div className="max-w-full border-1.5 h-auto mx-unit-2xl my-unit-lg rounded-md shadow-lg bg-white">
           <div className="w-full">
             <h1 className="text-center font-bold text-main-clr text-4xl my-4">
               Services

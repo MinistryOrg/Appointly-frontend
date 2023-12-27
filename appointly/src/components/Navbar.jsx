@@ -12,10 +12,27 @@ import {
 } from "@nextui-org/react";
 import logo from "../../src/styles/images/apoinlty_logo.webp";
 import { useState } from "react";
+import "../styles/Navbar.css";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import ScrollToHashElement from "./ScrollToHashElement";
 
 export default function NavBar() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuItems = ["Home", "Services", "About", "Contact"];
+  const menuItems = [
+    { navText: "Home", link: "/" },
+    { navText: "Services", link: "/#services" },
+    { navText: "About", link: "/#about" },
+    { navText: "Contact", link: "/#contact" },
+  ];
+  const isLinkActive = (link) => {
+    if (link === "/") {
+      return location.pathname === link;
+    } else {
+      return location.hash === link || (location.hash === "" && link === "/");
+    }
+  };
 
   return (
     <Navbar
@@ -25,48 +42,52 @@ export default function NavBar() {
       maxWidth="2xl"
       height={`4.5rem`}
     >
+      <ScrollToHashElement />
       <NavbarContent className="hidden sm:flex gap-10" justify="start">
-        <NavbarItem>
-          <Link className="text-white font-semibold" href="#">
-            Home
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link className="text-white font-semibold" href="#">
-            Services
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link className="text-white font-semibold" href="#">
-            About
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link className="text-white font-semibold" href="#">
-            Contact
-          </Link>
-        </NavbarItem>
+        {menuItems.map((menuItem, index) => (
+          <NavbarItem key={index}>
+            <Link
+              href={menuItem.link}
+              className={` hover:text-gray-100 ${
+                isLinkActive(menuItem.link)
+                  ? `text-white font-bold ${console.log("NAI")}` // Apply active styles here
+                  : `text-slate-300 font-semibold${console.log("OXIIII")}`
+              }`}
+            >
+              {console.log(menuItem.link)}
+              {menuItem.navText}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden text-white"
         />
-        <NavbarBrand justify="center" className="justify-center">
-          <Image width={150} src={logo} radius="none" />
+        <NavbarBrand justify="center" className="justify-center cursor-pointer">
+          <Image
+            width={150}
+            src={logo}
+            radius="none"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/");
+            }}
+          />
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent justify="end" className="gap-6">
         <NavbarItem className="hidden lg:flex">
-          <Link className="text-white font-semibold" href="#">
+          <NavLink className="text-white font-semibold" to="/login">
             Login
-          </Link>
+          </NavLink>
         </NavbarItem>
         <NavbarItem>
           <Button
             className="bg-btn-purple text-white font-semibold"
             as={Link}
-            href="#"
+            href="/register"
             variant="flat"
           >
             Sign Up
@@ -76,12 +97,8 @@ export default function NavBar() {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              className="w-full font-bold text-main-clr"
-              href="#"
-              size="lg"
-            >
-              {item}
+            <Link className="w-full font-bold text-main-clr" href="#" size="lg">
+              {item.navText}
             </Link>
           </NavbarMenuItem>
         ))}
