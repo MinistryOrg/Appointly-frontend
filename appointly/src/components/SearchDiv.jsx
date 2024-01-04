@@ -10,6 +10,32 @@ import {
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
+const dropDownStyles = {
+  base: [
+    "rounded-md",
+    "text-default-500",
+    "font-bold",
+    "transition-opacity",
+    "data-[hover=true]:font-bold",
+    "data-[hover=true]:bg-hover-dp",
+    "dark:data-[hover=true]:bg-bg-hover-dp",
+    "data-[selectable=true]:focus:bg-bg-hover-dp font-bold",
+    "data-[pressed=true]:font-bold",
+    "data-[focus-visible=true]:ring-default-500",
+  ],
+};
+
+const dropdownOptions = {
+  Item1: [
+    { key: "Athens", label: "Athens, GR" },
+    { key: "Thessalonikh", label: "Thessalonikh, GR" },
+  ],
+  Item2: [
+    { key: "Barber", label: "Barber" },
+    { key: "Nails", label: "Nails" },
+  ],
+};
+
 export default function SearchDiv() {
   const [selectedKeys, setSelectedKeys] = useState(new Set(["Location"]));
   const selectedValue = useMemo(
@@ -42,24 +68,14 @@ export default function SearchDiv() {
             selectedKeys={selectedKeys}
             onSelectionChange={setSelectedKeys}
             itemClasses={{
-              base: [
-                "rounded-md",
-                "text-default-500",
-                "font-bold",
-                "transition-opacity",
-                "data-[hover=true]:font-bold",
-                "data-[hover=true]:bg-hover-dp",
-                "dark:data-[hover=true]:bg-bg-hover-dp",
-                "data-[selectable=true]:focus:bg-bg-hover-dp font-bold",
-                "data-[pressed=true]:font-bold",
-                "data-[focus-visible=true]:ring-default-500",
-              ],
+              dropDownStyles,
             }}
           >
-            <DropdownItem key="Athens" className="font-bold">
-              Athens, GR
-            </DropdownItem>
-            <DropdownItem key="Thessalonikh">Thessalonikh, GR</DropdownItem>
+            {dropdownOptions.Item1.map((option) => (
+              <DropdownItem key={option.key} className="font-bold">
+                {option.label}
+              </DropdownItem>
+            ))}
           </DropdownMenu>
         </Dropdown>
       </div>
@@ -81,22 +97,14 @@ export default function SearchDiv() {
             selectedKeys={selectedKeys2}
             onSelectionChange={setSelectedKeys2}
             itemClasses={{
-              base: [
-                "rounded-md",
-                "text-default-500",
-                "font-bold",
-                "transition-opacity",
-                "data-[hover=true]:font-bold",
-                "data-[hover=true]:bg-hover-dp",
-                "dark:data-[hover=true]:bg-bg-hover-dp",
-                "data-[selectable=true]:focus:bg-bg-hover-dp font-bold",
-                "data-[pressed=true]:font-bold",
-                "data-[focus-visible=true]:ring-default-500",
-              ],
+              dropDownStyles,
             }}
           >
-            <DropdownItem key="Barber">Barber</DropdownItem>
-            <DropdownItem key="Nails">Nails</DropdownItem>
+            {dropdownOptions.Item2.map((option) => (
+              <DropdownItem key={option.key} className="font-bold">
+                {option.label}
+              </DropdownItem>
+            ))}
           </DropdownMenu>
         </Dropdown>
       </div>

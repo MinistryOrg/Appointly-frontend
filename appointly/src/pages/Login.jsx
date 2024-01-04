@@ -1,14 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
 import { Input, Checkbox } from "@nextui-org/react";
 import { EyeFilledIcon } from "../assets/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../assets/EyeSlashFilledIcon";
+import { jwtDecode } from "jwt-decode";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useLogin } from "../contexts/LoginContext";
+
+const BASE_URL = `https://appointly-production.up.railway.app/api/v1/auth/appointly`;
 
 export default function Login() {
-  const [isVisible, setIsVisible] = useState(false);
+  const { loggedin, changeLoggedIn } = useLogin();
 
+  const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  async function login(e) {
+    e.preventDefault();
+    const abortController = new AbortController();
+    const url = BASE_URL + `/authenticate`;
+    try {
+      const res = await fetch(url, {
+        signal: abortController.signal,
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      if (!res.ok) throw new Error("something went wrong");
+
+      const data = await res.json();
+      localStorage.setItem("token", data.token);
+      // console.log(localStorage);
+      // console.log(data.token);
+      const decode = jwtDecode(data.token);
+      // console.log(decode);
+      // console.log(decode.email);
+      // console.log(decode.firstname);
+      // console.log(decode.lastname);
+      changeLoggedIn(true, decode.email);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <>
       <NavBar />
@@ -19,15 +68,17 @@ export default function Login() {
               Sign in
             </h1>
           </div>
-          <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+          <form onSubmit={login} className="space-y-5">
             <div>
               <Input
-                isClearable
                 type="email"
                 label="Email"
+                value={email}
+                onValueChange={setEmail}
                 labelPlacement="outside"
                 radius="sm"
                 variant="bordered"
+                isClearable
                 classNames={{
                   inputWrapper: ["border-1", "font-bold"],
                 }}
@@ -36,6 +87,8 @@ export default function Login() {
             <div className="py-1">
               <Input
                 label="Password"
+                value={password}
+                onValueChange={setPassword}
                 labelPlacement="outside"
                 variant="bordered"
                 radius="sm"
@@ -67,7 +120,7 @@ export default function Login() {
                 </Checkbox>
               </div>
               <a
-                href="javascript:void(0)"
+                href="/#"
                 className="text-center text-main-clr hover:text-indigo-500"
               >
                 Forgot password?
@@ -78,12 +131,9 @@ export default function Login() {
             </button>
           </form>
           <p className="text-center">
-            {
-              // eslint-disable-next-line react/no-unescaped-entities
-            }
             Dont have an account?&nbsp;
             <a
-              href="javascript:void(0)"
+              href="/register"
               className="font-medium text-primary hover:text-indigo-500"
             >
               Sign up

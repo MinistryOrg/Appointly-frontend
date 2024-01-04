@@ -3,6 +3,8 @@ import Footer from "../components/Footer";
 import Service from "../components/Service";
 import Home from "../components/Home";
 import Partneship from "../components/Partneship";
+import { useLogin } from "../contexts/LoginContext";
+import { useEffect } from "react";
 // import TestNav from "../components/TestNav";
 
 export default function LandingPage() {

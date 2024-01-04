@@ -7,25 +7,33 @@ import {
   NavbarMenuToggle,
   NavbarMenuItem,
   Link,
-  Button,
   Image,
 } from "@nextui-org/react";
 import logo from "../../src/styles/images/apoinlty_logo.webp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Navbar.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import ScrollToHashElement from "./ScrollToHashElement";
+import { useLogin } from "../contexts/LoginContext";
+import { UserIcon } from "../assets/UserIcon";
 
 export default function NavBar() {
+  const { loggedin, changeLoggedIn, email } = useLogin();
+
+  useEffect(() => {
+    console.log(loggedin);
+  });
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuItems = [
+
+  const navItems = [
     { navText: "Home", link: "/" },
     { navText: "Services", link: "/#services" },
     { navText: "About", link: "/#about" },
     { navText: "Contact", link: "/#contact" },
   ];
+
   const isLinkActive = (link) => {
     if (link === "/") {
       return location.pathname === link;
@@ -44,17 +52,16 @@ export default function NavBar() {
     >
       <ScrollToHashElement />
       <NavbarContent className="hidden sm:flex gap-10" justify="start">
-        {menuItems.map((menuItem, index) => (
+        {navItems.map((menuItem, index) => (
           <NavbarItem key={index}>
             <Link
               href={menuItem.link}
               className={` hover:text-gray-100 ${
                 isLinkActive(menuItem.link)
-                  ? `text-white font-bold ${console.log("NAI")}` // Apply active styles here
-                  : `text-slate-300 font-semibold${console.log("OXIIII")}`
+                  ? `text-white font-bold` // Apply active styles here
+                  : `text-slate-300 font-semibold`
               }`}
             >
-              {console.log(menuItem.link)}
               {menuItem.navText}
             </Link>
           </NavbarItem>
@@ -78,24 +85,46 @@ export default function NavBar() {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent justify="end" className="gap-6">
-        <NavbarItem className="hidden lg:flex">
-          <NavLink className="text-white font-semibold" to="/login">
-            Login
-          </NavLink>
+        <NavbarItem className=" lg:flex">
+          {loggedin ? (
+            <span className="flex gap-2 text-white">
+              <p className="text-white">{email}</p>
+              <UserIcon />
+            </span>
+          ) : (
+            <NavLink className="text-white font-semibold" to="/login">
+              Login
+            </NavLink>
+          )}
         </NavbarItem>
         <NavbarItem>
-          <Button
-            className="bg-btn-purple text-white font-semibold"
-            as={Link}
-            href="/register"
-            variant="flat"
-          >
-            Sign Up
-          </Button>
+          {loggedin ? (
+            <NavLink
+              className="transition duration-300 ease-in-out bg-btn-purple text-white font-semibold px-3 py-2 rounded-md hover:bg-h-btn-purple "
+              as={Link}
+              to="#"
+              onClick={() => {
+                changeLoggedIn(false);
+                localStorage.clear();
+              }}
+              variant="flat"
+            >
+              Log out
+            </NavLink>
+          ) : (
+            <NavLink
+              className="transition duration-300 ease-in-out bg-btn-purple text-white font-semibold px-3 py-2 rounded-md hover:bg-h-btn-purple"
+              as={Link}
+              to="/register"
+              variant="flat"
+            >
+              Sign up
+            </NavLink>
+          )}
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => (
+        {navItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link className="w-full font-bold text-main-clr" href="#" size="lg">
               {item.navText}
