@@ -17,6 +17,8 @@ import ScrollToHashElement from "./ScrollToHashElement";
 import { useLogin } from "../contexts/LoginContext";
 import { UserIcon } from "../assets/UserIcon";
 
+//! When refresh doent show email at navbar. FIX!
+
 export default function NavBar() {
   const { loggedin, changeLoggedIn, email } = useLogin();
 
