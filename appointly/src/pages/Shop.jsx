@@ -2,8 +2,14 @@ import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
 import { Image, Avatar, Button, Card, CardFooter } from "@nextui-org/react";
 import StarIcon from "../../src/styles/images/staricon.svg";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 export default function Shop() {
+  const { id } = useParams();
+  const [shopData, setShopData] = useState(null);
+
+  console.log(id);
   return (
     <>
       <NavBar />
@@ -14,21 +20,21 @@ export default function Shop() {
         <div className="grid md:grid-rows-2 lg:grid-flow-col xsm:grid-flow-row lg:gap-y-2 lg:gap-x-5 xsm:gap-y-4 md:gap-x-9 lg:mx-unit-5xl lg:{mt-unit-2xl, mb-unit-xl} xsm:mx-unit-sm xsm:my-unit-sm h-1/2">
           <div className="lg:row-span-2 xsm:row-span-1 h-auto p-0 m-0">
             <Image
-              alt="NextUI hero Image"
+              alt="NextUI hero "
               src="../../src/styles/images/shop_prev_1.png"
               className="lg:w-screen md:w-screen sm:w-7/12 p-0 m-0 object-fill"
             />
           </div>
           <div className="col h-auto p-0 m-0 rounded-md">
             <img
-              alt="NextUI hero Image"
+              alt="NextUI hero "
               src="../../src/styles/images/shop_prev_2.png"
               className="lg:w-11/12 md:w-screen sm:w-7/12 p-0 m-0 rounded-xl"
             />
           </div>
           <div className="col-span-1 h-auto p-0 m-0">
             <img
-              alt="NextUI hero Image"
+              alt="NextUI hero "
               src="../../src/styles/images/shop_prev_3.png"
               className="lg:w-11/12 md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-md"
             />
@@ -139,9 +145,10 @@ export default function Shop() {
         <div className="lg:mx-unit-5xl xsm:mx-unit-2xl my-8 flex xsm:flex-col lg:flex-row sm:gap-unit-md lg:gap-unit-5xl xsm:gap-y-unit-xl">
           <div>
             <iframe
+              title="map"
               src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4577.842990050212!2d23.73682231937162!3d37.98011804890466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sgr!4v1702313232633!5m2!1sen!2sgr"
               className="border-none lg:w-unit-9xl lg:h-unit-8xl xsm:w-unit-6xl xsm:h-unit-7xl"
-              allowfullscreen=""
+              allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>

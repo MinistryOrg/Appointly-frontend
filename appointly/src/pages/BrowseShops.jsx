@@ -1,26 +1,66 @@
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
-import { Avatar, Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Image,
+} from "@nextui-org/react";
 import StarIcon from "../../src/styles/images/staricon.svg";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function BrowseShops() {
-  const componentArray = [1, 2, 3, 4];
+  const { state } = useLocation();
+  const shopsData = state?.shopsData || [];
+  const selectedService = state?.selectedService || "";
+  const navigate = useNavigate();
 
+  console.log(state);
+  console.log("ShopDATA ", shopsData);
+  console.log("shop id", shopsData[0].id);
+
+  const generateTitle = (selectedService) => {
+    switch (selectedService) {
+      case "Barber-shop":
+        return "Barber Shops";
+      case "Nails-salon":
+        return "Nails Salons";
+      case "Mechanic":
+        return "Mechanic Services";
+      case "Trainer":
+        return "Personal Trainer";
+      default:
+        return "Shops"; // Default title
+    }
+  };
+
+  const pageTitle = generateTitle(selectedService);
+
+  function handleCardClick(shopId) {
+    console.log("shopId ", shopId);
+    navigate(`/shop/${shopId}`);
+    // Navigate to the individual shop with its ID
+  }
   return (
     <>
       <NavBar />
       <div className="max-w-full border-1.5 h-auto mx-unit-2xl my-unit-lg rounded-md shadow-lg bg-white">
         <div className="w-full text-center font-bold my-10">
-          <h1 className="text-2xl">Barber Shops</h1>
+          <h1 className="text-2xl">{pageTitle}</h1>
         </div>
         <div className="grid lg:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1 gap-9 lg:mx-unit-5xl sm:mx-unit-sm lg:my-unit-lg sm:my-unit-sm">
-          {componentArray.map((item, index) => (
+          {shopsData.map((shop, index) => (
             <div className="p-0 m-0" key={index}>
               <Card
                 shadow="sm"
                 radius="sm"
                 isPressable
-                onPress={() => console.log("item pressed")}
+                onPress={() => {
+                  console.log(shop.id);
+                  handleCardClick(shop.id);
+                }}
               >
                 <CardBody className="overflow-visible p-0">
                   <Image
@@ -41,16 +81,22 @@ export default function BrowseShops() {
                       />
                     </div>
                     <div className="text-start font-bold mt-1.5" key={index}>
-                      <p>Name</p>
-                      <p>Location</p>
+                      <p>{shop.name}</p>
+                      <p>{shop.location}</p>
                       <p>telephone</p>
                       <p>Rating</p>
                     </div>
                     <div>
-                      <div className="bg-primary rounded-md w-auto text-center px-4 py-1 flex flex-row">
-                        <img src={StarIcon} width={20} />
-                        <p className="text-white font-bold text-sm text-center">&nbsp;PARTNER</p>
-                      </div>
+                      {shop.partner ? (
+                        <div className="bg-primary rounded-md w-auto text-center px-4 py-1 flex flex-row">
+                          <img src={StarIcon} width={20} alt="" />
+                          <p className="text-white font-bold text-sm text-center">
+                            &nbsp;PARTNER
+                          </p>
+                        </div>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
                 </CardFooter>

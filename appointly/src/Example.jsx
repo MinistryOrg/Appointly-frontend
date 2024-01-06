@@ -108,3 +108,49 @@ export function Register() {
     registerData();
   }, []);
 }
+
+export function Shops() {
+  const [shop, setShop] = useState([]);
+
+  useEffect(function () {
+    const abortController = new AbortController();
+    const queryParams = new URLSearchParams({
+      location: "Athens",
+      service: "Nails-salon",
+    });
+
+    async function ShopData() {
+      try {
+        const res = await fetch(
+          `https://appointly-production.up.railway.app/api/v1/auth/appointly/shopsByLocationService?${queryParams}`,
+          {
+            signal: abortController.signal,
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            mode: "cors",
+          }
+        );
+
+        if (!res.ok) throw new Error("something went wrong");
+        const data = res.json();
+        console.log(data);
+        data.then((shop) => {
+          setShop(shop);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    ShopData();
+    // Cleanup function for useEffect
+    return () => abortController.abort();
+  }, []);
+
+  console.log(shop);
+}
+
+//  https://appointly-production.up.railway.app/api/v1/auth/appointly/shopsByLocationService?location=Athens&service=Barber-shop
