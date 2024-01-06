@@ -3,8 +3,8 @@ import { BriefcaseIcon } from "@heroicons/react/24/solid";
 function Partneship() {
   return (
     <div className="m-unit-xl mx-0" id="contact">
-      <div className="w-screen xsm:h-1/3 lg:h-auto bg-lp-bg">
-        <div className="grid xsm:grid-cols-1 lg:grid-cols-2 gap-2 w-screen xsm:py-unit-md lg:py-unit-xl xsm:px-unit-xl lg:px-unit-5xl">
+      <div className="w-full xsm:h-1/3 lg:h-auto bg-lp-bg">
+        <div className="grid xsm:grid-cols-1 lg:grid-cols-2 gap-2 w-full xsm:py-unit-md lg:py-unit-xl xsm:px-unit-xl lg:px-unit-5xl">
           <div>
             <h1 className="font-bold text-2xl text-primary">
               Do you wish your Service to be part of our apointly community?

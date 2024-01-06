@@ -22,7 +22,7 @@ export default {
         "white-text": "#FFFFFF",
         "btn-purple": "#6769ED",
         "h-btn-purple": "#4648D4",
-        "div-lp": "#FAFAFA",
+        "div-lp": "#FFFFFF",
         "hover-dp": "#efeeff",
         primary: "#342AA1",
         secondary: "#686868",
