@@ -21,7 +21,7 @@ function Partneship() {
               className="capitalize w-auto h-auto py-3 px-5 font-bold text-lg bg-primary text-white"
               startContent={<BriefcaseIcon />}
               as={Link}
-              href="/test"
+              href="#"
             >
               Become a member now!
             </Button>

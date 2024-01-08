@@ -10,6 +10,7 @@ import {
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import { useShops } from "../contexts/ShopContext";
 
 const dropdownOptions = {
   Loc: [
@@ -25,59 +26,15 @@ const dropdownOptions = {
 };
 
 export default function SearchDiv() {
-  const [locationKeys, setLocationKeys] = useState(new Set(["Location"]));
-  const selectedLocation = useMemo(
-    () => Array.from(locationKeys).join(", ").replaceAll("_", " "),
-    [locationKeys]
-  );
-  const [serviceKeys, setServiceKeys] = useState(new Set(["Service"]));
-  const selectedService = useMemo(
-    () => Array.from(serviceKeys).join(", ").replaceAll("_", " "),
-    [serviceKeys]
-  );
-  console.log("Selected Location " + selectedLocation);
-  console.log("Selected Service " + selectedService);
-
-  const navigate = useNavigate();
-
-  const handleSearch = async () => {
-    if (locationKeys.has("Location") || serviceKeys.has("Service")) {
-      // Both location and service must be selected
-      alert("Please select both location and service!");
-      return;
-    }
-
-    const queryParams = new URLSearchParams({
-      location: selectedLocation,
-      service: selectedService,
-    });
-
-    try {
-      const res = await fetch(
-        `https://appointly-production.up.railway.app/api/v1/auth/appointly/shopsByLocationService?${queryParams}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          mode: "cors",
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error("Something went wrong");
-      }
-
-      const data = await res.json();
-      console.log(data);
-
-      // Navigate to the shops page with the fetched data or handle as required
-      navigate(`/shops`, { state: { shopsData: data, selectedService } });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {
+    locationKeys,
+    setLocationKeys,
+    serviceKeys,
+    setServiceKeys,
+    selectedLocation,
+    selectedService,
+    handleSearchShop,
+  } = useShops();
 
   return (
     <div className="bg-div-lp shadow-md rounded-md lg:h-16 sm:h-auto lg:max-w-3xl sm:w-auto p-2 my-8 flex lg:flex-row xsm:flex-col gap-4">
@@ -166,7 +123,7 @@ export default function SearchDiv() {
         <Button
           className="capitalize h-full lg:w-unit-5xl xsm:w-full font-bold text-lg bg-primary text-white"
           startContent={<MagnifyingGlassIcon />}
-          onClick={handleSearch}
+          onClick={handleSearchShop}
         >
           Search
         </Button>

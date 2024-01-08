@@ -153,4 +153,28 @@ export function Shops() {
   console.log(shop);
 }
 
+export function Something() {
+  const [currentShop, setCurrentShop] = useState({});
+  const id = 2;
+
+  useEffect(function () {
+    async function fetchShop() {
+      try {
+        const res = await fetch(
+          `https://appointly-production.up.railway.app/api/v1/auth/appointly/searchShopById?id=${id}`
+        );
+        const data = await res.json();
+        console.log("Fetch ", data);
+        setCurrentShop(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchShop();
+  }, []);
+
+  console.log("current shop ", currentShop);
+}
+
 //  https://appointly-production.up.railway.app/api/v1/auth/appointly/shopsByLocationService?location=Athens&service=Barber-shop

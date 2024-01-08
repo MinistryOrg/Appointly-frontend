@@ -1,0 +1,92 @@
+Auth : /api/v1/auth/appointly
+
+    PostMapping : /register 
+
+χρειάζεαι body τύπου 
+
+{
+    "firstname": "panic_admin",
+    "lastname": "geo_admin",
+    "email": "admin@gmail.com",
+    "password": "1234"
+}
+
+PostMapping : /authenticate
+
+χρειάζεται body τύπου
+
+{
+    "email": "admin@gmail.com",
+    "password": "1234"
+}
+
+PatchMapping : /changePassword
+
+χρειάζεται body τύπου
+
+{
+    "oldPassword": "1234"
+    "newPassword": "12345"
+    "confirmationPassword": "12345"
+}
+
+Admin "/api/v1/appointly/admin"
+
+ GetMapping : "/users" 
+    επιστρέφει τους χρήστες
+
+ GetMapping : "/shops"
+    επιστρέφει τα shops που έχει ο admin
+
+  PostMapping : "/addShop"
+    χρειάζεται body τυπου
+        {
+            "id": 1,
+            "name": "Sex shop",
+            "type": "barber shop"
+        }
+
+  PatchMapping : "/editShop"
+    χρειάζεται body τυπου
+        {
+            "id": 1,
+            "name": "Sex shop",
+            "type": "barber shop"
+        }
+
+   DeleteMapping : "/deleteShop" 
+        περνάς ως παράμετρο το όνομα του μαγαζιού
+
+   GetMapping : "/appointments"
+        περνάς ως παράμετρο το όνομα του μαγαζιού και επιστρέφει τα ραντεβού του συγκεκριμένου μαγαζιού
+
+    User "/api/v1/appointly/user"
+
+    PostMapping : "/makeAppointment"
+        περνάς ως παράμετρο το όνομα του μαγαζιού και περνάς και body 
+        π.χ /api/v1/appointly/user/makeAppointment?shopName=Sex shop
+        {
+            "service": "hair cut",
+            "personnel": "dawa",
+	        "cost": "10.0",
+            "date": "2023-12-08",
+            "time": "12:00:00"
+        }
+
+
+    PutMapping "/editAppointment"
+        {
+            "id": 1,
+            "date": "2023-12-08",
+            "time": "12:00:00"
+        }
+
+
+    DeleteMapping "/cancelAppointment"
+        περνάς ως παράμετρο το id του appointment 
+
+    GetMapping("/dates")
+        περνας ως παράμετρο το ονομα του μαγαζιού και επιστρέφει τα dates και την ώρα σε ένα μαπ όπου έγιναν τα ραντεβού, φάση την τάδε ημερομηνία θα έχει μι αλιστα με της ώρες που έγιναν ραντεβούκαι είναι κρατημένες 
+
+/api/v1/appointly/user/shopsByLocationService
+ είναι get request και περνάς ως παραμέτρους στο api το location  και ο service
