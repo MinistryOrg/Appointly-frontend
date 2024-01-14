@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import { Breadcrumbs, Navbar } from "@nextui-org/react";
+import Calendar from "./components/Calendar";
+import Footer from "./components/Footer";
+import NavBar from "./components/Navbar";
 
 const dataTest = {
   email: "alogo@gmail.com",
@@ -178,3 +182,19 @@ export function Something() {
 }
 
 //  https://appointly-production.up.railway.app/api/v1/auth/appointly/shopsByLocationService?location=Athens&service=Barber-shop
+
+export function TestCalendar() {
+  return (
+    <>
+      <div className="max-w-full border-1.5 h-auto mx-unit-2xl my-unit-lg rounded-md shadow-lg bg-white">
+        <div className="w-full text-center font-bold my-10">
+          <h1 className="text-2xl">name</h1>
+          <h2 className="text-xl my-5">Book Appointment</h2>
+        </div>
+
+        <Calendar />
+      </div>
+      <Footer />
+    </>
+  );
+}

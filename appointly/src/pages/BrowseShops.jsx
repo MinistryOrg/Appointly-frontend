@@ -56,6 +56,7 @@ export default function BrowseShops() {
               <Card
                 shadow="sm"
                 radius="sm"
+                className=""
                 isPressable
                 onPress={() => {
                   console.log(shop.id);
@@ -65,7 +66,7 @@ export default function BrowseShops() {
                 <CardBody className="overflow-visible p-0">
                   <Image
                     shadow="sm"
-                    width={400}
+                    width={500}
                     radius="none"
                     alt="awdawdwa"
                     className="w-full object-cover"
@@ -80,24 +81,29 @@ export default function BrowseShops() {
                         className="w-24 h-24"
                       />
                     </div>
-                    <div className="text-start font-bold mt-1.5" key={index}>
+                    <div
+                      className={`text-start font-bold mt-1.5 ${
+                        shop.partner ? "" : "w-max"
+                      }`}
+                      key={index}
+                    >
                       <p>{shop.name}</p>
                       <p>{shop.location}</p>
-                      <p>telephone</p>
-                      <p>Rating</p>
+                      <p>{shop.telephone}</p>
+                      <p>{shop.rating}</p>
                     </div>
-                    <div>
-                      {shop.partner ? (
+                    {shop.partner ? (
+                      <div>
                         <div className="bg-primary rounded-md w-auto text-center px-4 py-1 flex flex-row">
                           <img src={StarIcon} width={20} alt="" />
                           <p className="text-white font-bold text-sm text-center">
                             &nbsp;PARTNER
                           </p>
                         </div>
-                      ) : (
-                        ""
-                      )}
-                    </div>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </CardFooter>
               </Card>

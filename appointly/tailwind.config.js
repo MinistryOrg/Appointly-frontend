@@ -32,6 +32,7 @@ export default {
         divider: "#A7B5FA",
         "btn-sign": "#6769ED",
         "border-clr": "#D1D1D1",
+        "grid-clr": "#fafafa",
       },
     },
   },

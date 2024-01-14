@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const shop_url =
@@ -72,6 +72,11 @@ function ShopProvider({ children }) {
     }
   }
 
+  const getShopName = () => {
+    // Implement logic to get the shop name
+    return currentShop ? currentShop.name : "";
+  };
+
   return (
     <ShopContext.Provider
       value={{
@@ -85,6 +90,7 @@ function ShopProvider({ children }) {
         currentShop,
         setCurrentShop,
         getShop,
+        getShopName,
       }}
     >
       {children}

@@ -26,7 +26,7 @@ export default function Shop() {
     [id]
   );
 
-  const { name, location, partner } = currentShop;
+  const { name, location, partner, telephone, rating, dis } = currentShop;
 
   function handleBookAppointment() {
     navigate(`/appointment/${id}`);
@@ -53,8 +53,8 @@ export default function Shop() {
           <div className="md:text-start xsm:text-center font-bold lg:my-8 xsm:my-2 lg:basis-unit-6xl md:basis-unit-xl xsm:basis-auto">
             <p>{name}</p>
             <p>{location}</p>
-            <p>telephone</p>
-            <p>Rating</p>
+            <p>{telephone}</p>
+            <p>{rating}</p>
           </div>
           <div className="basis-full">
             <div className="w-full my-9 flex justify-end">
@@ -96,17 +96,7 @@ export default function Shop() {
           <h1 className="text-2xl">About us</h1>
         </div>
         <div>
-          <p className="lg:mx-unit-5xl xsm:mx-unit-md my-5">
-            Lorem ipsum dolor sit amet consectetur. Non arcu malesuada nunc
-            aliquam amet neque sollicitudin bibendum. Cursus blandit parturient
-            neque felis sed feugiat aenean egestas. Pellentesque velit odio ut
-            sed eget aliquam. Consequat bibendum ut hendrerit montes. Cursus
-            aliquet non id amet dui nisi. Nunc dictum commodo augue volutpat
-            egestas. Quam viverra et convallis amet vestibulum euismod arcu. At
-            fermentum netus neque eget. Nulla consectetur odio sed pellentesque
-            aliquam. Semper tellus at at et id. Mattis velit nascetur at vitae
-            quis eget. Amet a leo ornare at quam. Fringilla.
-          </p>
+          <p className="lg:mx-unit-5xl xsm:mx-unit-md my-5">{dis}</p>
         </div>
         <div className="lg:w-fit xsm:w-full md:text-start xsm:text-center font-bold my-10 md:mx-unit-5xl xsm:mx-unit-0">
           <h1 className="text-2xl">Where to find us</h1>
@@ -116,7 +106,7 @@ export default function Shop() {
             <iframe
               title="map"
               src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4577.842990050212!2d23.73682231937162!3d37.98011804890466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sgr!4v1702313232633!5m2!1sen!2sgr"
-              className="border-none lg:w-unit-9xl lg:h-unit-8xl xsm:w-unit-6xl xsm:h-unit-7xl"
+              className="border-none rounded-lg lg:w-unit-9xl lg:h-unit-8xl xsm:w-unit-6xl xsm:h-unit-7xl"
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

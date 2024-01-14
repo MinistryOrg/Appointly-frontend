@@ -9,7 +9,6 @@ import {
 } from "@nextui-org/react";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { useNavigate } from "react-router-dom";
 import { useShops } from "../contexts/ShopContext";
 
 const dropdownOptions = {
@@ -18,8 +17,8 @@ const dropdownOptions = {
     { key: "Thessalonikh", label: "Thessalonikh, GR" },
   ],
   Serv: [
-    { key: "Barber-shop", label: "Barber" },
-    { key: "Nails-salon", label: "Nails" },
+    { key: "Barber Shop", label: "Barber" },
+    { key: "Nail Salon", label: "Nails" },
     { key: "Mechanic", label: "Mechanic" },
     { key: "Trainer", label: "Personal Trainer" },
   ],

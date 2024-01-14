@@ -28,6 +28,9 @@ export default function Appointment() {
   );
 
   const { name } = currentShop;
+  // const name = "name";
+
+  const isBackButtonVisible = currentPage !== "service";
 
   const handleNext = (key) => {
     setCurrentPage(key);
@@ -42,13 +45,26 @@ export default function Appointment() {
       handleNext("pers"); // Update state to move to the 'personnel' section
     } else if (currentPage === "pers") {
       handleNext("date"); // Update state to move to the 'date & time' section
+    } else if (currentPage === "date") {
+      navigate("/summary", { state: { shopName: name } });
+    }
+    // Add more conditions for other sections as needed
+  };
+
+  const goToBack = () => {
+    // Add logic to navigate to the previous option
+    // For example, moving back from 'personnel' to 'service'
+    if (currentPage === "pers") {
+      handleNext("service"); // Update state to move back to the 'service' section
+    } else if (currentPage === "date") {
+      handleNext("pers"); // Update state to move back to the 'personnel' section
     }
     // Add more conditions for other sections as needed
   };
 
   return (
     <>
-      <NavBar />
+      {/* <NavBar /> */}
       <div className="max-w-full border-1.5 h-auto mx-unit-2xl my-unit-lg rounded-md shadow-lg bg-white">
         <div className="w-full text-center font-bold my-10">
           <h1 className="text-2xl">{name}</h1>
@@ -79,12 +95,26 @@ export default function Appointment() {
         {currentPage === "pers" && <Personnel />}
         {currentPage === "date" && <Calendar />}
 
-        <div className="w-full flex flex-row-reverse p-3">
+        <div
+          className={`w-full flex ${
+            isBackButtonVisible ? "justify-between" : "flex-row-reverse"
+          } p-3`}
+        >
+          {isBackButtonVisible && (
+            <Button
+              onClick={goToBack}
+              className="text-white font-bold bg-btn-purple"
+            >
+              Back
+            </Button>
+          )}
           <Button
             onClick={goToNext}
-            className=" text-white font-bold bg-btn-purple"
+            className={`text-white font-bold ${
+              currentPage === "date" ? "bg-primary" : "bg-btn-purple"
+            }`}
           >
-            Next
+            {currentPage === "date" ? "Finish" : "Next"}
           </Button>
         </div>
       </div>
