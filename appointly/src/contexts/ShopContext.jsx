@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const shop_url =
@@ -9,6 +9,7 @@ const ShopContext = createContext();
 function ShopProvider({ children }) {
   const [locationKeys, setLocationKeys] = useState(new Set(["Location"]));
   const [serviceKeys, setServiceKeys] = useState(new Set(["Service"]));
+  const [isOpen, setIsOpen] = useState(false);
 
   const selectedLocation = useMemo(
     () => Array.from(locationKeys).join(", ").replaceAll("_", " "),
@@ -73,9 +74,43 @@ function ShopProvider({ children }) {
   }
 
   const getShopName = () => {
-    // Implement logic to get the shop name
     return currentShop ? currentShop.name : "";
   };
+
+  useEffect(() => {
+    // Function to check if the shop is open or closed
+    const checkShopStatus = () => {
+      // Check if closeHour is defined
+      if (currentShop.closeHour) {
+        // Get the current time
+        const currentTime = new Date();
+
+        // Extract the current hour
+        const currentHour = currentTime.getHours();
+
+        // Extract the closing hour from the API response
+        const closingHour = parseInt(currentShop.closeHour.split(":")[0], 10);
+
+        // Compare the current hour with the closing hour
+        const isOpenNow = currentHour < closingHour;
+
+        // Update the state based on the comparison
+        setIsOpen(isOpenNow);
+      }
+    };
+
+    // Call the function to check the shop status
+    checkShopStatus();
+
+    // You can also set up a timer to periodically update the status
+    // For example, every 5 minutes:
+    const intervalId = setInterval(() => {
+      checkShopStatus();
+    }, 5 * 60 * 1000); // 5 minutes in milliseconds
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(intervalId);
+  }, [currentShop.closeHour]); // Run the effect whenever closeHour changes
 
   return (
     <ShopContext.Provider
@@ -91,6 +126,7 @@ function ShopProvider({ children }) {
         setCurrentShop,
         getShop,
         getShopName,
+        isOpen,
       }}
     >
       {children}

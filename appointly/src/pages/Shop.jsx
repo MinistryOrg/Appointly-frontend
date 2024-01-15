@@ -6,18 +6,19 @@ import {
   Button,
   Card,
   CardFooter,
-  Link,
+  Badge,
 } from "@nextui-org/react";
-import StarIcon from "../../src/styles/images/staricon.svg";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useShops } from "../contexts/ShopContext";
 import ShopImageGrid from "../components/ShopImageGrid";
-import { barber } from "../data/shopData";
+import { PartnerStar } from "../components/ui/Partner";
+import StarRating from "../components/ui/StarRating";
+import StarIcon from "../styles/images/staricon.svg";
 
 export default function Shop() {
   const { id } = useParams();
-  const { getShop, currentShop } = useShops();
+  const { getShop, currentShop, isOpen } = useShops();
   const navigate = useNavigate();
   useEffect(
     function () {
@@ -26,44 +27,88 @@ export default function Shop() {
     [id]
   );
 
-  const { name, location, partner, telephone, rating, dis } = currentShop;
+  const {
+    name,
+    address,
+    location,
+    partner,
+    telephone,
+    rating,
+    dis,
+    servicesOptions,
+    closeHour,
+    openHour,
+  } = currentShop;
 
   function handleBookAppointment() {
     navigate(`/appointment/${id}`);
   }
 
+  console.log(typeof rating);
+
   return (
     <>
       <NavBar />
       <div className="max-w-full border-1.5 h-auto mx-unit-2xl my-unit-lg rounded-md shadow-lg bg-white">
-        <div className="w-full text-center font-bold my-10">
-          <h1 className="text-2xl">{name}</h1>
+        <div className="w-full text-center font-bold my-8">
+          <h1 className="text-3xl">{name}</h1>
+          <p className="t text-gray-400">{dis}</p>
         </div>
         <ShopImageGrid />
-        <div className="flex lg:flex-row md:flex-row lg:flex-nowrap md:flex-wrap xsm:flex-col w-auto lg:mx-unit-6xl lg:mb-unit-xl xsm:mx-unit-xl content-center">
+        <div className="flex lg:flex-row md:flex-row lg:flex-nowrap md:flex-wrap xsm:flex-col w-auto lg:mx-unit-5xl lg:mb-unit-xl xsm:mx-unit-xl content-center">
           <div className="lg:basis-1/4 md:basis-1/3 xsm:basis-1/2 shrink items-center">
             <div className="xsm:flex justify-center">
-              <Avatar
-                isBordered
-                src="../../src/styles/images/shop_logo.png"
-                className="h-44 w-44"
-              />
+              {partner ? (
+                <Badge
+                  content={<PartnerStar />}
+                  showOutline={false}
+                  size="lg"
+                  className="bg-transparent"
+                >
+                  <Avatar
+                    isBordered
+                    src="../../src/styles/images/shop_logo.png"
+                    className="h-44 w-44"
+                  />
+                </Badge>
+              ) : (
+                <Avatar
+                  isBordered
+                  src="../../src/styles/images/shop_logo.png"
+                  className="h-44 w-44"
+                />
+              )}
             </div>
           </div>
-          <div className="md:text-start xsm:text-center font-bold lg:my-8 xsm:my-2 lg:basis-unit-6xl md:basis-unit-xl xsm:basis-auto">
-            <p>{name}</p>
-            <p>{location}</p>
+          <div className=" w-full md:text-start xsm:text-center font-bold lg:my-8 xsm:my-2 lg:basis-unit-8xl md:basis-unit-xl xsm:basis-auto">
+            <p className="text-2xl">{name}</p>
+            <div className="flex flex-row xsm:justify-center md:justify-normal  w-full">
+              <p className={isOpen ? "text-lime-900" : "text-red-800"}>
+                {isOpen ? "Open " : "Closed. "}&nbsp;
+              </p>
+              <p>{isOpen ? ` until ${closeHour}` : ` Opens at ${openHour}`}</p>
+            </div>
+            <p>
+              {address}, {location}
+            </p>
             <p>{telephone}</p>
-            <p>{rating}</p>
+            <div className="flex flex-row xsm:justify-center md:justify-normal  gap-x-3w-full">
+              <p>{rating}</p>
+              <StarRating rating={rating} />
+            </div>
           </div>
-          <div className="basis-full">
-            <div className="w-full my-9 flex justify-end">
-              <Button
-                className="capitalize lg:w-unit-5xl xsm:w-full p-6 font-bold text-lg bg-primary text-white"
-                onClick={handleBookAppointment}
-              >
-                Book Apointly
-              </Button>
+          <div className="basis-full flex xsm:justify-center md:justify-end">
+            <div className="my-8 flex gap-y-10 justify-end">
+              {/* <div className="my-8 flex flex-col gap-y-10 justify-end"> */}
+              {/* <div className="mx-5">{partner ? <Partner /> : ""}</div> */}
+              <div className="w-full">
+                <Button
+                  className="capitalize lg:w-unit-5xl xsm:w-full p-6 font-bold text-lg bg-book text-white"
+                  onClick={handleBookAppointment}
+                >
+                  Book Apointly
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -71,26 +116,30 @@ export default function Shop() {
           <h1 className="text-2xl">Services</h1>
         </div>
         <div className="h-auto my-unit-3xl xsm:mx-unit-2xl lg:mx-unit-0 flex xsm:flex-col lg:flex-row justify-center sm:gap-unit-md lg:gap-unit-5xl xsm:gap-y-unit-xl">
-          {barber.map((card, index) => (
-            <div key={index} className="justify-center">
-              <Card radius="lg" shadow="none" className="border-none">
-                <Image
-                  alt="service1"
-                  className="object-cover"
-                  height={250}
-                  src={card.service_img}
-                  width={280}
-                />
-                <CardFooter className="justify-between  overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)]  ml-1 z-10">
-                  <div className="w-full">
-                    <h1 className="text-center font-bold text-2xl my-unit-md">
-                      {card.service_dis}
-                    </h1>
-                  </div>
-                </CardFooter>
-              </Card>
-            </div>
-          ))}
+          {servicesOptions && servicesOptions.length > 0 ? (
+            servicesOptions.map((_, index) => (
+              <div key={index} className="justify-center">
+                <Card radius="lg" shadow="none" className="border-none">
+                  <Image
+                    alt={`service${index + 1}`}
+                    className="object-cover"
+                    height={250}
+                    src={`../../src/styles/images/haircut_srv_1.svg`}
+                    width={280}
+                  />
+                  <CardFooter className="justify-between  overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)]  ml-1 z-10">
+                    <div className="w-full">
+                      <h1 className="text-center font-bold text-2xl my-unit-md">
+                        {servicesOptions[index]}
+                      </h1>
+                    </div>
+                  </CardFooter>
+                </Card>
+              </div>
+            ))
+          ) : (
+            <p>No services available.</p>
+          )}
         </div>
         <div className="lg:w-fit xsm:w-full md:text-start xsm:text-center font-bold my-10 md:mx-unit-5xl xsm:mx-unit-0">
           <h1 className="text-2xl">About us</h1>

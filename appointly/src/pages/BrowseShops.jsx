@@ -1,15 +1,9 @@
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
-import {
-  Avatar,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  Image,
-} from "@nextui-org/react";
-import StarIcon from "../../src/styles/images/staricon.svg";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Avatar, Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Partner } from "../components/ui/Partner";
+import StarRating from "../components/ui/StarRating";
 
 export default function BrowseShops() {
   const { state } = useLocation();
@@ -20,12 +14,13 @@ export default function BrowseShops() {
   console.log(state);
   console.log("ShopDATA ", shopsData);
   console.log("shop id", shopsData[0].id);
+  console.log(selectedService);
 
   const generateTitle = (selectedService) => {
     switch (selectedService) {
-      case "Barber-shop":
+      case "Barber Shop":
         return "Barber Shops";
-      case "Nails-salon":
+      case "Nails Salon":
         return "Nails Salons";
       case "Mechanic":
         return "Mechanic Services";
@@ -43,14 +38,15 @@ export default function BrowseShops() {
     navigate(`/shop/${shopId}`);
     // Navigate to the individual shop with its ID
   }
+
   return (
     <>
       <NavBar />
-      <div className="max-w-full border-1.5 h-auto mx-unit-2xl my-unit-lg rounded-md shadow-lg bg-white">
+      <div className="max-w-full border-1.5 h-auto mx-unit-3xl my-unit-lg rounded-md shadow-lg bg-white">
         <div className="w-full text-center font-bold my-10">
           <h1 className="text-2xl">{pageTitle}</h1>
         </div>
-        <div className="grid lg:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1 gap-9 lg:mx-unit-5xl sm:mx-unit-sm lg:my-unit-lg sm:my-unit-sm">
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1 gap-10 lg:mx-unit-3xl sm:mx-unit-sm lg:my-unit-xl sm:my-unit-sm">
           {shopsData.map((shop, index) => (
             <div className="p-0 m-0" key={index}>
               <Card
@@ -90,20 +86,12 @@ export default function BrowseShops() {
                       <p>{shop.name}</p>
                       <p>{shop.location}</p>
                       <p>{shop.telephone}</p>
-                      <p>{shop.rating}</p>
-                    </div>
-                    {shop.partner ? (
-                      <div>
-                        <div className="bg-primary rounded-md w-auto text-center px-4 py-1 flex flex-row">
-                          <img src={StarIcon} width={20} alt="" />
-                          <p className="text-white font-bold text-sm text-center">
-                            &nbsp;PARTNER
-                          </p>
-                        </div>
+                      <div className="flex flex-row gap-x-3 w-full">
+                        <p className="text-lg">{shop.rating}</p>
+                        <StarRating rating={shop.rating} />
                       </div>
-                    ) : (
-                      ""
-                    )}
+                    </div>
+                    {shop.partner ? <Partner /> : ""}
                   </div>
                 </CardFooter>
               </Card>

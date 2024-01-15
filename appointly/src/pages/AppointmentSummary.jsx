@@ -13,7 +13,7 @@ function AppointmentSummary() {
     bookAppointment,
   } = useAppointment();
   const { currentShop } = useShops();
-  const { name, location, telephone, rating, address } = currentShop;
+  const { name, location, telephone, address } = currentShop;
 
   return (
     <>
@@ -30,7 +30,7 @@ function AppointmentSummary() {
               <h2>Personnel: {personnel}</h2>
               <h2>Date: {formattedDate}</h2>
               <h2>Time: {formattedTime}</h2>
-              <h2>Cost: {cost}$</h2>
+              <h2>Cost: {cost} €</h2>
             </div>
           </div>
 

@@ -1,11 +1,9 @@
-import { useState, useMemo } from "react";
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
   Button,
-  Link,
 } from "@nextui-org/react";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
@@ -54,6 +52,7 @@ export default function SearchDiv() {
             selectionMode="single"
             selectedKeys={locationKeys}
             onSelectionChange={setLocationKeys}
+            disabledKeys={["Thessalonikh"]}
             itemClasses={{
               base: [
                 "rounded-md",

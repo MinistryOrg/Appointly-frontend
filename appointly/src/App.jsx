@@ -9,14 +9,16 @@ import Shop from "./pages/Shop";
 import Appointment from "./pages/Appointment";
 import AppointmentSummary from "./pages/AppointmentSummary";
 
-import { LoginProvider } from "./contexts/LoginContext";
 import { ShopProvider } from "./contexts/ShopContext";
 import { AppointmentProvider } from "./contexts/AppointmentContext";
+import { AuthProvider } from "./contexts/AuthContext";
+
+import { TestDate } from "./Example";
 
 function App() {
   return (
     <>
-      <LoginProvider>
+      <AuthProvider>
         <BrowserRouter>
           <ShopProvider>
             <AppointmentProvider>
@@ -34,7 +36,9 @@ function App() {
             </AppointmentProvider>
           </ShopProvider>
         </BrowserRouter>
-      </LoginProvider>
+      </AuthProvider>
+
+      {/* <TestDate /> */}
     </>
   );
 }

@@ -4,60 +4,31 @@ import NavBar from "../components/Navbar";
 import { Input, Checkbox } from "@nextui-org/react";
 import { EyeFilledIcon } from "../assets/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../assets/EyeSlashFilledIcon";
-import { jwtDecode } from "jwt-decode";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useLogin } from "../contexts/LoginContext";
-
-const BASE_URL = `https://appointly-production.up.railway.app/api/v1/auth/appointly`;
+import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const { loggedin, changeLoggedIn } = useLogin();
+  const {
+    login,
+    logEmail,
+    setLogEmail,
+    isInvalid,
+    password,
+    setPassword,
+    loggedIn,
+  } = useAuth();
 
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const location = useLocation();
   const navigate = useNavigate();
 
-  async function login(e) {
-    e.preventDefault();
-    const abortController = new AbortController();
-    const url = BASE_URL + `/authenticate`;
-    try {
-      const res = await fetch(url, {
-        signal: abortController.signal,
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+  useEffect(
+    function () {
+      if (loggedIn) navigate("/");
+    },
+    [loggedIn, navigate]
+  );
 
-      if (!res.ok) throw new Error("something went wrong");
-
-      const data = await res.json();
-      localStorage.setItem("token", data.token);
-      // console.log(localStorage);
-      // console.log(data.token);
-      const decode = jwtDecode(data.token);
-      // console.log(decode);
-      // console.log(decode.email);
-      // console.log(decode.firstname);
-      // console.log(decode.lastname);
-      changeLoggedIn(true, decode.email);
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
-  }
   return (
     <>
       <NavBar />
@@ -73,12 +44,14 @@ export default function Login() {
               <Input
                 type="email"
                 label="Email"
-                value={email}
-                onValueChange={setEmail}
+                value={logEmail}
+                onValueChange={setLogEmail}
                 labelPlacement="outside"
                 radius="sm"
                 variant="bordered"
                 isClearable
+                isRequired
+                isInvalid={isInvalid}
                 classNames={{
                   inputWrapper: ["border-1", "font-bold"],
                 }}
@@ -93,6 +66,8 @@ export default function Login() {
                 variant="bordered"
                 radius="sm"
                 description="Enter 12 characters and try to use Aa1?/-"
+                isRequired
+                isInvalid={isInvalid}
                 endContent={
                   <button
                     className="focus:outline-none"
@@ -129,6 +104,13 @@ export default function Login() {
             <button className="w-full px-4 py-2 text-white font-medium bg-btn-sign hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
               Sign in
             </button>
+            {isInvalid ? (
+              <p className="text-center text-error font-semibold">
+                Wrong email or password!
+              </p>
+            ) : (
+              ""
+            )}
           </form>
           <p className="text-center">
             Dont have an account?&nbsp;

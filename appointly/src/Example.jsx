@@ -182,19 +182,38 @@ export function Something() {
 }
 
 //  https://appointly-production.up.railway.app/api/v1/auth/appointly/shopsByLocationService?location=Athens&service=Barber-shop
+const appoin_url =
+  "https://appointly-production.up.railway.app/api/v1/appointly/user";
 
-export function TestCalendar() {
-  return (
-    <>
-      <div className="max-w-full border-1.5 h-auto mx-unit-2xl my-unit-lg rounded-md shadow-lg bg-white">
-        <div className="w-full text-center font-bold my-10">
-          <h1 className="text-2xl">name</h1>
-          <h2 className="text-xl my-5">Book Appointment</h2>
-        </div>
+// "https://appointly-production.up.railway.app/api/v1/appointly/user/dates?shopName=Sharp_Cuts;
 
-        <Calendar />
-      </div>
-      <Footer />
-    </>
+export function TestDate() {
+  const [shopName, setShopName] = useState("Sharp Cuts");
+  useEffect(
+    function () {
+      async function fetchDates() {
+        try {
+          const res = await fetch(`${appoin_url}/dates?shopName=${shopName}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+
+          const data = res.json();
+          data.then((date) => {
+            console.log(date);
+          });
+          console.log("dates gamw thn ", data);
+        } catch (error) {
+          console.error("Error booking appointment:", error);
+        }
+      }
+      fetchDates();
+    },
+    [shopName]
   );
+
+  return <></>;
 }

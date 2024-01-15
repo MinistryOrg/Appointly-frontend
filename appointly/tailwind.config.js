@@ -19,6 +19,7 @@ export default {
       },
       colors: {
         "primary-purple": "#342AA1",
+        book: "#5f5ef6",
         "white-text": "#FFFFFF",
         "btn-purple": "#6769ED",
         "h-btn-purple": "#4648D4",
@@ -33,6 +34,7 @@ export default {
         "btn-sign": "#6769ED",
         "border-clr": "#D1D1D1",
         "grid-clr": "#fafafa",
+        error: "#F64582",
       },
     },
   },

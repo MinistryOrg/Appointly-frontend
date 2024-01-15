@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
-import {
-  Breadcrumbs,
-  BreadcrumbItem,
-  Card,
-  CardFooter,
-  Image,
-  Button,
-} from "@nextui-org/react";
+import { Breadcrumbs, BreadcrumbItem, Button } from "@nextui-org/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useShops } from "../contexts/ShopContext";
 import ServiceOption from "../components/ServiceOption";
@@ -64,7 +57,7 @@ export default function Appointment() {
 
   return (
     <>
-      {/* <NavBar /> */}
+      <NavBar />
       <div className="max-w-full border-1.5 h-auto mx-unit-2xl my-unit-lg rounded-md shadow-lg bg-white">
         <div className="w-full text-center font-bold my-10">
           <h1 className="text-2xl">{name}</h1>
@@ -96,7 +89,7 @@ export default function Appointment() {
         {currentPage === "date" && <Calendar />}
 
         <div
-          className={`w-full flex ${
+          className={`w-full px-unit-2xl flex ${
             isBackButtonVisible ? "justify-between" : "flex-row-reverse"
           } p-3`}
         >
