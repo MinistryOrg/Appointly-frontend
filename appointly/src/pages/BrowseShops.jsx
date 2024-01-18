@@ -20,7 +20,7 @@ export default function BrowseShops() {
     switch (selectedService) {
       case "Barber Shop":
         return "Barber Shops";
-      case "Nails Salon":
+      case "Nail Salon":
         return "Nails Salons";
       case "Mechanic":
         return "Mechanic Services";
@@ -34,7 +34,6 @@ export default function BrowseShops() {
   const pageTitle = generateTitle(selectedService);
 
   function handleCardClick(shopId) {
-    console.log("shopId ", shopId);
     navigate(`/shop/${shopId}`);
     // Navigate to the individual shop with its ID
   }
@@ -66,14 +65,15 @@ export default function BrowseShops() {
                     radius="none"
                     alt="awdawdwa"
                     className="w-full object-cover"
-                    src="../../src/styles/images/shop1.jpg"
+                    src={shop.backgroundImgPath}
                   />
                 </CardBody>
                 <CardFooter className="text-small justify-between rounded-none">
                   <div className="w-full grid lg:grid-cols-3 xsm:grid-cols-2">
                     <div className="px-0">
                       <Avatar
-                        src="../../src/styles/images/shop_logo.png"
+                        src="../../src/styles/images/shop_logo_2.png"
+                        isBordered
                         className="w-24 h-24"
                       />
                     </div>

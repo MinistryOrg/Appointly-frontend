@@ -12,8 +12,8 @@ import AppointmentSummary from "./pages/AppointmentSummary";
 import { ShopProvider } from "./contexts/ShopContext";
 import { AppointmentProvider } from "./contexts/AppointmentContext";
 import { AuthProvider } from "./contexts/AuthContext";
-
 import { TestDate } from "./Example";
+import AdminPanel from "./pages/AdminPanel";
 
 function App() {
   return (
@@ -30,7 +30,7 @@ function App() {
                 <Route path="shop/:id" element={<Shop />} />
                 <Route path="appointment/:id" element={<Appointment />} />
                 <Route path="summary" element={<AppointmentSummary />} />
-                <Route path="admin" element={<p>admin reeeeee</p>} />
+                <Route path="admin" element={<AdminPanel />} />
                 <Route path="*" element={<p>Not found re</p>} />
               </Routes>
             </AppointmentProvider>
@@ -38,7 +38,7 @@ function App() {
         </BrowserRouter>
       </AuthProvider>
 
-      {/* <TestDate /> */}
+      {/* <TestDate/> */}
     </>
   );
 }

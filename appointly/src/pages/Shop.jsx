@@ -9,12 +9,11 @@ import {
   Badge,
 } from "@nextui-org/react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useShops } from "../contexts/ShopContext";
 import ShopImageGrid from "../components/ShopImageGrid";
 import { PartnerStar } from "../components/ui/Partner";
 import StarRating from "../components/ui/StarRating";
-import StarIcon from "../styles/images/staricon.svg";
 
 export default function Shop() {
   const { id } = useParams();
@@ -38,13 +37,14 @@ export default function Shop() {
     servicesOptions,
     closeHour,
     openHour,
+    shopImg,
+    serviceImg,
+    about,
   } = currentShop;
 
   function handleBookAppointment() {
     navigate(`/appointment/${id}`);
   }
-
-  console.log(typeof rating);
 
   return (
     <>
@@ -54,7 +54,36 @@ export default function Shop() {
           <h1 className="text-3xl">{name}</h1>
           <p className="t text-gray-400">{dis}</p>
         </div>
-        <ShopImageGrid />
+        {/* <ShopImageGrid shopImgs={shopImg} /> */}
+        <div className="grid md:grid-rows-2 lg:grid-flow-col xsm:grid-flow-row lg:gap-y-2 lg:gap-x-5 xsm:gap-y-4 md:gap-x-9 lg:mx-unit-5xl lg:{mt-unit-2xl, mb-unit-xl} xsm:mx-unit-sm xsm:my-unit-sm h-1/2">
+          {shopImg && shopImg.length === 3 ? (
+            <>
+              <div className="lg:row-span-2 xsm:row-span-1 h-auto p-0 mb-6">
+                <img
+                  alt="NextUI hero "
+                  src={shopImg[0]}
+                  className="lg:w-full h-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-xl"
+                />
+              </div>
+              <div className="col h-auto p-0 m-0 rounded-md">
+                <img
+                  alt="NextUI hero "
+                  src={shopImg[1]}
+                  className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 rounded-xl"
+                />
+              </div>
+              <div className="col-span-1 h-auto p-0 m-0">
+                <img
+                  alt="NextUI hero "
+                  src={shopImg[2]}
+                  className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-md"
+                />
+              </div>
+            </>
+          ) : (
+            <p>Error: Invalid shopImg data</p>
+          )}
+        </div>
         <div className="flex lg:flex-row md:flex-row lg:flex-nowrap md:flex-wrap xsm:flex-col w-auto lg:mx-unit-5xl lg:mb-unit-xl xsm:mx-unit-xl content-center">
           <div className="lg:basis-1/4 md:basis-1/3 xsm:basis-1/2 shrink items-center">
             <div className="xsm:flex justify-center">
@@ -99,8 +128,6 @@ export default function Shop() {
           </div>
           <div className="basis-full flex xsm:justify-center md:justify-end">
             <div className="my-8 flex gap-y-10 justify-end">
-              {/* <div className="my-8 flex flex-col gap-y-10 justify-end"> */}
-              {/* <div className="mx-5">{partner ? <Partner /> : ""}</div> */}
               <div className="w-full">
                 <Button
                   className="capitalize lg:w-unit-5xl xsm:w-full p-6 font-bold text-lg bg-book text-white"
@@ -124,7 +151,7 @@ export default function Shop() {
                     alt={`service${index + 1}`}
                     className="object-cover"
                     height={250}
-                    src={`../../src/styles/images/haircut_srv_1.svg`}
+                    src={serviceImg[index]}
                     width={280}
                   />
                   <CardFooter className="justify-between  overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)]  ml-1 z-10">
@@ -145,7 +172,7 @@ export default function Shop() {
           <h1 className="text-2xl">About us</h1>
         </div>
         <div>
-          <p className="lg:mx-unit-5xl xsm:mx-unit-md my-5">{dis}</p>
+          <p className="lg:mx-unit-5xl xsm:mx-unit-md my-5">{about}</p>
         </div>
         <div className="lg:w-fit xsm:w-full md:text-start xsm:text-center font-bold my-10 md:mx-unit-5xl xsm:mx-unit-0">
           <h1 className="text-2xl">Where to find us</h1>

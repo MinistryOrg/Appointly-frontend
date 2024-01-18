@@ -6,10 +6,10 @@ import { useAppointment } from "../contexts/AppointmentContext";
 function AppointmentSummary() {
   const {
     service,
-    personnel,
-    formattedDate,
-    formattedTime,
-    cost,
+    selectedPersonnel,
+    selectedDate,
+    selectedTime,
+    selectedCost,
     bookAppointment,
   } = useAppointment();
   const { currentShop } = useShops();
@@ -27,10 +27,10 @@ function AppointmentSummary() {
           <div className="col-span-1 p-8">
             <div className="font-bold text-lg space-y-5">
               <h2>Service: {service}</h2>
-              <h2>Personnel: {personnel}</h2>
-              <h2>Date: {formattedDate}</h2>
-              <h2>Time: {formattedTime}</h2>
-              <h2>Cost: {cost} €</h2>
+              <h2>Personnel: {selectedPersonnel}</h2>
+              <h2>Date: {selectedDate}</h2>
+              <h2>Time: {selectedTime}</h2>
+              <h2>Cost: {selectedCost} €</h2>
             </div>
           </div>
 

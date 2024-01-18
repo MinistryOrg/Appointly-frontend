@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { Breadcrumbs, Navbar } from "@nextui-org/react";
-import Calendar from "./components/Calendar";
-import Footer from "./components/Footer";
-import NavBar from "./components/Navbar";
 
 const dataTest = {
   email: "alogo@gmail.com",
@@ -183,7 +179,7 @@ export function Something() {
 
 //  https://appointly-production.up.railway.app/api/v1/auth/appointly/shopsByLocationService?location=Athens&service=Barber-shop
 const appoin_url =
-  "https://appointly-production.up.railway.app/api/v1/appointly/user";
+  "https://appointly-production.up.railway.app/api/v1/auth/appointly";
 
 // "https://appointly-production.up.railway.app/api/v1/appointly/user/dates?shopName=Sharp_Cuts;
 
@@ -197,7 +193,6 @@ export function TestDate() {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("token"),
             },
           });
 

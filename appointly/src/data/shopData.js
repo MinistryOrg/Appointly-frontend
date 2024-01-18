@@ -32,22 +32,31 @@ export const barber = [
   },
 ];
 
-export const barberPers = [
+export const persImg = [
   {
-    pers_img: `${img_url}/person.svg`,
-    pers_name: "John Doe",
+    img: `https://i.pravatar.cc/48`,
   },
   {
-    pers_img: `${img_url}/person.svg`,
-    pers_name: "John Doe",
+    img: `https://i.pravatar.cc/48`,
   },
   {
-    pers_img: `${img_url}/person.svg`,
-    pers_name: "John Doe",
+    img: `https://i.pravatar.cc/48`,
   },
 ];
 
 export const hoursAv = [
+  {
+    time: "8:00",
+  },
+  {
+    time: "8:30",
+  },
+  {
+    time: "9:00",
+  },
+  {
+    time: "9:30",
+  },
   {
     time: "10:00",
   },
@@ -89,5 +98,29 @@ export const hoursAv = [
   },
   {
     time: "16:30",
+  },
+  {
+    time: "17:00",
+  },
+  {
+    time: "17:30",
+  },
+  {
+    time: "18:00",
+  },
+  {
+    time: "18:30",
+  },
+  {
+    time: "19:00",
+  },
+  {
+    time: "19:30",
+  },
+  {
+    time: "20:00",
+  },
+  {
+    time: "20:30",
   },
 ];

@@ -2,12 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-
-body{
-    overflow-x: hidden;
-    background-color: #F8F8FE;
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
 }
 
-h1, h2, p{
-    color: #3E3D3D;
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ffffff00;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #34307f81;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #34307f81;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #f8f8fe;
+}
+
+h1,
+h2,
+p {
+  color: #3e3d3d;
 }

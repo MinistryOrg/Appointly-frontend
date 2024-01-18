@@ -7,11 +7,19 @@ import { useShops } from "../contexts/ShopContext";
 import ServiceOption from "../components/ServiceOption";
 import Personnel from "../components/Personnel";
 import Calendar from "../components/Calendar";
+import { useAppointment } from "../contexts/AppointmentContext";
 
 export default function Appointment() {
   const [currentPage, setCurrentPage] = useState("service");
   const { id } = useParams();
   const { getShop, currentShop } = useShops();
+  const {
+    service,
+    selectedPersonnel,
+    selectedDate,
+    selectedTime,
+    dateInValid,
+  } = useAppointment();
   const navigate = useNavigate();
   useEffect(
     function () {
@@ -20,39 +28,40 @@ export default function Appointment() {
     [id]
   );
 
-  const { name } = currentShop;
-  // const name = "name";
+  const { name, openHour, closeHour } = currentShop;
 
   const isBackButtonVisible = currentPage !== "service";
 
   const handleNext = (key) => {
     setCurrentPage(key);
-    // You can also perform additional actions here based on the selected breadcrumb item
-    // For example, navigate to a different route, fetch data, etc.
   };
 
   const goToNext = () => {
-    // Add logic to navigate to the next option
-    // For example, moving from 'service' to 'personnel'
     if (currentPage === "service") {
-      handleNext("pers"); // Update state to move to the 'personnel' section
+      handleNext("pers");
     } else if (currentPage === "pers") {
-      handleNext("date"); // Update state to move to the 'date & time' section
+      handleNext("date");
     } else if (currentPage === "date") {
-      navigate("/summary", { state: { shopName: name } });
+      if (
+        service &&
+        selectedPersonnel &&
+        selectedDate &&
+        selectedTime &&
+        !dateInValid
+      ) {
+        navigate("/summary", { state: { shopName: name } });
+      } else {
+        alert("Please fill in all required fields before finishing.");
+      }
     }
-    // Add more conditions for other sections as needed
   };
 
   const goToBack = () => {
-    // Add logic to navigate to the previous option
-    // For example, moving back from 'personnel' to 'service'
     if (currentPage === "pers") {
-      handleNext("service"); // Update state to move back to the 'service' section
+      handleNext("service");
     } else if (currentPage === "date") {
-      handleNext("pers"); // Update state to move back to the 'personnel' section
+      handleNext("pers");
     }
-    // Add more conditions for other sections as needed
   };
 
   return (
@@ -86,7 +95,9 @@ export default function Appointment() {
         </div>
         {currentPage === "service" && <ServiceOption />}
         {currentPage === "pers" && <Personnel />}
-        {currentPage === "date" && <Calendar />}
+        {currentPage === "date" && (
+          <Calendar openHour={openHour} closeHour={closeHour} />
+        )}
 
         <div
           className={`w-full px-unit-2xl flex ${

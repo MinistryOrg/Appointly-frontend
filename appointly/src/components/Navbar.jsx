@@ -22,9 +22,6 @@ import { UserIcon } from "../assets/UserIcon";
 export default function NavBar() {
   const { loggedIn, changeLoggedIn, lastname } = useAuth();
 
-  useEffect(() => {
-    console.log(loggedIn);
-  });
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);

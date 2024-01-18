@@ -5,6 +5,9 @@ import { useShops } from "./ShopContext";
 const appoin_url =
   "https://appointly-production.up.railway.app/api/v1/appointly/user";
 
+const date_url =
+  "https://appointly-production.up.railway.app/api/v1/auth/appointly";
+
 //
 
 const AppointmentContext = createContext();
@@ -12,15 +15,22 @@ const AppointmentContext = createContext();
 function AppointmentProvider({ children }) {
   // use state for service
   const [service, setService] = useState("");
-  const [cost, setCost] = useState("");
+  const [selectedCost, setSelectedCost] = useState("");
   //use state for personnel
-  const [personnel, setPersonnel] = useState("");
+  const [selectedPersonnel, setSelectedPersonnel] = useState("");
   //use state for calendar
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(
+    currentDate.toLocaleDateString("en-GB")
+  );
   const [selectedTime, setSelectedTime] = useState(null);
   const [formattedDate, setFormattedDate] = useState(null);
   const [formattedTime, setFormattedTime] = useState(null);
+  const [dateInValid, setDateInValid] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState({});
+
+  const [bookedTimes, setBookedTimes] = useState([]);
+  const [allTimesBooked, setAllTimesBooked] = useState(false);
 
   const { getShopName } = useShops();
 
@@ -41,8 +51,8 @@ function AppointmentProvider({ children }) {
           },
           body: JSON.stringify({
             service: service,
-            personnel: personnel,
-            cost: cost,
+            personnel: selectedPersonnel,
+            cost: selectedCost,
             date: formattedDate,
             time: formattedTime,
           }),
@@ -59,15 +69,35 @@ function AppointmentProvider({ children }) {
     }
   }
 
+  async function checkDates() {
+    const shopName = getShopName();
+    try {
+      const res = await fetch(`${date_url}/dates?shopName=${shopName}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = res.json();
+      data.then((date) => {
+        setAppointmentDate(date);
+        console.log(date);
+      });
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+    }
+  }
+
   return (
     <AppointmentContext.Provider
       value={{
         service,
         setService,
-        cost,
-        setCost,
-        personnel,
-        setPersonnel,
+        selectedCost,
+        setSelectedCost,
+        selectedPersonnel,
+        setSelectedPersonnel,
         currentDate,
         setCurrentDate,
         selectedDate,
@@ -79,6 +109,14 @@ function AppointmentProvider({ children }) {
         setFormattedDate,
         formattedTime,
         setFormattedTime,
+        dateInValid,
+        setDateInValid,
+        appointmentDate,
+        checkDates,
+        setBookedTimes,
+        bookedTimes,
+        allTimesBooked,
+        setAllTimesBooked,
       }}
     >
       {children}
