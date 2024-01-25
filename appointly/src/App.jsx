@@ -14,6 +14,7 @@ import { AppointmentProvider } from "./contexts/AppointmentContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { TestDate } from "./Example";
 import AdminPanel from "./pages/AdminPanel";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
                 <Route path="appointment/:id" element={<Appointment />} />
                 <Route path="summary" element={<AppointmentSummary />} />
                 <Route path="admin" element={<AdminPanel />} />
-                <Route path="*" element={<p>Not found re</p>} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </AppointmentProvider>
           </ShopProvider>

@@ -1,12 +1,14 @@
 import { Card, CardFooter, Image } from "@nextui-org/react";
 import { useAppointment } from "../contexts/AppointmentContext";
 import { useShops } from "../contexts/ShopContext";
+import { barber_url } from "../data/shopData";
 
 export default function ServiceOption() {
   const { setService, setSelectedCost, service, selectedCost } =
     useAppointment();
   const { currentShop } = useShops();
   const { servicesOptions, serviceImg, cost } = currentShop;
+
   return (
     <div>
       <div className="h-auto my-unit-3xl xsm:mx-unit-2xl lg:mx-unit-0 flex xsm:flex-col lg:flex-row justify-center sm:gap-unit-md lg:gap-unit-5xl xsm:gap-y-unit-xl">
@@ -27,7 +29,7 @@ export default function ServiceOption() {
                   alt="service1"
                   className="object-cover"
                   height={250}
-                  src={serviceImg[index]}
+                  src={`${barber_url}${serviceImg[index]}`}
                   width={280}
                 />
                 <CardFooter className="justify-between  overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)]  ml-1 z-10">

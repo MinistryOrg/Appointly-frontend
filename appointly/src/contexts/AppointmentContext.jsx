@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useShops } from "./ShopContext";
+import { useAuth } from "./AuthContext";
 
 const appoin_url =
   "https://appointly-production.up.railway.app/api/v1/appointly/user";
@@ -33,6 +34,8 @@ function AppointmentProvider({ children }) {
   const [allTimesBooked, setAllTimesBooked] = useState(false);
 
   const { getShopName } = useShops();
+  const { loggedIn } = useAuth();
+  console.log("loggedIn", loggedIn);
 
   const navigate = useNavigate();
 
@@ -41,6 +44,12 @@ function AppointmentProvider({ children }) {
 
     console.log("APO TO CONTEXT BROOO", shopName);
     try {
+      if (!loggedIn) {
+        // Redirect to the login page
+        navigate("/login");
+        return; // Stop further execution
+      }
+
       const res = await fetch(
         `${appoin_url}/makeAppointment?shopName=${shopName}`,
         {

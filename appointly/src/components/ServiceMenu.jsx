@@ -6,7 +6,7 @@ export default function ServicesMenu() {
     <>
       <div className="w-full">
         <h1 className="text-center font-bold text-main-clr text-4xl my-4">
-          Tailored Services, Just for{" "}
+          Tailored Services, Just for
           <span className="text-primary-purple">You</span>!
         </h1>
       </div>

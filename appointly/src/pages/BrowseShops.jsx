@@ -4,6 +4,7 @@ import { Avatar, Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Partner } from "../components/ui/Partner";
 import StarRating from "../components/ui/StarRating";
+import { barber_url } from "../data/shopData";
 
 export default function BrowseShops() {
   const { state } = useLocation();
@@ -65,7 +66,7 @@ export default function BrowseShops() {
                     radius="none"
                     alt="awdawdwa"
                     className="w-full object-cover"
-                    src={shop.backgroundImgPath}
+                    src={`${barber_url}${shop.backgroundImgPath}`}
                   />
                 </CardBody>
                 <CardFooter className="text-small justify-between rounded-none">

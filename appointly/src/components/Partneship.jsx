@@ -4,8 +4,8 @@ function Partneship() {
   return (
     <div className="m-unit-xl mx-0" id="contact">
       <div className="w-full xsm:h-1/3 lg:h-auto bg-lp-bg">
-        <div className="grid xsm:grid-cols-1 lg:grid-cols-2 gap-2 w-full xsm:py-unit-md lg:py-unit-xl xsm:px-unit-xl lg:px-unit-5xl">
-          <div>
+        <div className="flex xsm:flex-col lg:flex-row gap-2 w-full xsm:py-unit-md lg:py-unit-xl xsm:px-unit-xl lg:px-unit-5xl">
+          <div className="basis-1/2">
             <h1 className="font-bold text-2xl text-primary">
               Do you wish your Service to be part of our apointly community?
             </h1>
@@ -26,13 +26,15 @@ function Partneship() {
               Become a member now!
             </Button>
           </div>
-          <div className="place-self-end xsm:invisible lg:visible">
-            <Image
-              width={250}
-              className="justify-end"
-              alt="NextUI hero Image"
-              src="../../src/styles/images/memberImg.webp"
-            />
+          <div className="basis-1/2 xsm:hidden md:inline">
+            <div className="w-full flex flex-row justify-center">
+              <Image
+                width={250}
+                alt="NextUI hero Image"
+                src="../../src/styles/images/memberImg.webp"
+                className="justify-center"
+              />
+            </div>
           </div>
         </div>
       </div>

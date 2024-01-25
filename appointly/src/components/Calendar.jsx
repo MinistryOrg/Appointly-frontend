@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ChevronRightIcon, ChevronLeftIcon } from "../assets/Arrows";
 import { hoursAv } from "../data/shopData";
 import { useAppointment } from "../contexts/AppointmentContext";
-import { useShops } from "../contexts/ShopContext";
-import { useParams } from "react-router-dom";
 
 function Calendar({ openHour, closeHour }) {
   const {
@@ -117,10 +115,7 @@ function Calendar({ openHour, closeHour }) {
   }, [appointmentDate]);
 
   function renderCalendar() {
-    if (
-      Object.keys(appointmentDate).length === 0 ||
-      filteredHours.length === 0
-    ) {
+    if (filteredHours.length === 0) {
       return <div>Loading...</div>;
     }
 

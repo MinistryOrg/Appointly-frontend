@@ -14,6 +14,7 @@ import { useShops } from "../contexts/ShopContext";
 import ShopImageGrid from "../components/ShopImageGrid";
 import { PartnerStar } from "../components/ui/Partner";
 import StarRating from "../components/ui/StarRating";
+import { barber_url } from "../data/shopData";
 
 export default function Shop() {
   const { id } = useParams();
@@ -61,21 +62,21 @@ export default function Shop() {
               <div className="lg:row-span-2 xsm:row-span-1 h-auto p-0 mb-6">
                 <img
                   alt="NextUI hero "
-                  src={shopImg[0]}
+                  src={`${barber_url}${shopImg[0]}`}
                   className="lg:w-full h-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-xl"
                 />
               </div>
               <div className="col h-auto p-0 m-0 rounded-md">
                 <img
                   alt="NextUI hero "
-                  src={shopImg[1]}
+                  src={`${barber_url}${shopImg[1]}`}
                   className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 rounded-xl"
                 />
               </div>
               <div className="col-span-1 h-auto p-0 m-0">
                 <img
                   alt="NextUI hero "
-                  src={shopImg[2]}
+                  src={`${barber_url}${shopImg[2]}`}
                   className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-md"
                 />
               </div>
@@ -151,7 +152,7 @@ export default function Shop() {
                     alt={`service${index + 1}`}
                     className="object-cover"
                     height={250}
-                    src={serviceImg[index]}
+                    src={`${barber_url}${serviceImg[index]}`}
                     width={280}
                   />
                   <CardFooter className="justify-between  overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)]  ml-1 z-10">

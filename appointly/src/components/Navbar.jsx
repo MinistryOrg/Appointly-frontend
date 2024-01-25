@@ -10,7 +10,7 @@ import {
   Image,
 } from "@nextui-org/react";
 import logo from "../../src/styles/images/apoinlty_logo.webp";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../styles/Navbar.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import ScrollToHashElement from "./ScrollToHashElement";
