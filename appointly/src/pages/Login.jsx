@@ -123,7 +123,7 @@ export default function Login() {
           </p>
         </div>
       </main>
-      <section className="mt-unit-6xl">
+      <section className="mt-unit-xl">
         <Footer />
       </section>
     </>

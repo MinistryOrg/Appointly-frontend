@@ -75,14 +75,14 @@ function About() {
             fast-paced digital world.
           </p>
         </div>
-      </div>
-      <div className="xsm:mx-unit-lg xsm:my-unit-xl sm:mx-unit-sm sm:my-unit-2xl lg:mx-unit-8xl lg:my-unit-3xl ">
-        <p className="font-semibold text-xl bg-light-purple shadow-lg p-7 rounded-xl">
-          Our mission at Apointly is to simplify the process of appointment
-          booking and make it a stress-free experience for both customers and
-          service providers. So why wait? Start using Apointly today and say
-          goodbye to the hassle of scheduling appointments.
-        </p>
+        <div className="col-span-2 lg:mx-unit-3xl">
+          <p className="font-semibold text-xl p-7 rounded-xl border-2 border-light-purple">
+            Our mission at Apointly is to simplify the process of appointment
+            booking and make it a stress-free experience for both customers and
+            service providers. So why wait? Start using Apointly today and say
+            goodbye to the hassle of scheduling appointments.
+          </p>
+        </div>
       </div>
     </div>
   );

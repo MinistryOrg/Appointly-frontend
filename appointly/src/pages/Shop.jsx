@@ -173,7 +173,9 @@ export default function Shop() {
           <h1 className="text-2xl">About us</h1>
         </div>
         <div>
-          <p className="lg:mx-unit-5xl xsm:mx-unit-md my-5">{about}</p>
+          <p className="lg:mx-unit-5xl xsm:mx-unit-md my-5 font-semibold">
+            {about}
+          </p>
         </div>
         <div className="lg:w-fit xsm:w-full md:text-start xsm:text-center font-bold my-10 md:mx-unit-5xl xsm:mx-unit-0">
           <h1 className="text-2xl">Where to find us</h1>

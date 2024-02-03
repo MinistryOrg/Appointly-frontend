@@ -64,7 +64,7 @@ export default function Register() {
   return (
     <>
       <NavBar />
-      <main className="w-screen flex flex-col items-center justify-center my-unit-4xl sm:px-4">
+      <main className="w-auto flex flex-col items-center justify-center my-unit-xl sm:px-4">
         <div className="bg-white shadow-lg py-6 space-y-8 sm:p-6 sm:rounded-lg w-unit-8xl p-unit-lg">
           <div>
             <h1 className="text-center font-bold text-main-clr text-2xl">
@@ -205,7 +205,7 @@ export default function Register() {
           </p>
         </div>
       </main>
-      <section className="mt-unit-6xl">
+      <section className="mt-unit-xl">
         <Footer />
       </section>
     </>
