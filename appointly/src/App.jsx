@@ -38,8 +38,6 @@ function App() {
           </ShopProvider>
         </BrowserRouter>
       </AuthProvider>
-
-      {/* <TestDate/> */}
     </>
   );
 }
