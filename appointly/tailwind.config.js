@@ -19,6 +19,7 @@ export default {
       },
       colors: {
         "primary-purple": "#342AA1",
+        "dark-primary": "#272078",
         "light-purple": "#CCD5FF",
         book: "#5f5ef6",
         "white-text": "#FFFFFF",

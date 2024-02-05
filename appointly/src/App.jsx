@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import "./styles/App.css";
 import LandingPage from "./pages/LandingPage";
@@ -15,6 +15,10 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { TestDate } from "./Example";
 import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
+import Dashboard from "./components/Dashboard";
+import AppointmentsList from "./components/AppointmentsList";
+import EditShop from "./components/EditShop";
+import EditProfile from "./components/EditProfile";
 
 function App() {
   return (
@@ -31,7 +35,15 @@ function App() {
                 <Route path="shop/:id" element={<Shop />} />
                 <Route path="appointment/:id" element={<Appointment />} />
                 <Route path="summary" element={<AppointmentSummary />} />
-                <Route path="admin" element={<AdminPanel />} />
+                <Route element={<AdminPanel />}>
+                  <Route path="dashboard" element={<Dashboard />} />
+                  <Route
+                    path="appointmentList"
+                    element={<AppointmentsList />}
+                  />
+                  <Route path="editShop" element={<EditShop />} />
+                  <Route path="editProfile" element={<EditProfile />} />
+                </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AppointmentProvider>

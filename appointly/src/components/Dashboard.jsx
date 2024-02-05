@@ -1,12 +1,21 @@
 import img from "../styles/images/blur_img.png";
+import { PieChart } from "react-minimal-pie-chart";
+import { Tooltip } from "@nextui-org/react";
 
-function AdminLayout() {
+function Dashboard() {
+  const dataPie = [
+    { title: "One", value: 5, color: "#5f5ef6" },
+    { title: "Two", value: 25, color: "#4241AC" },
+    { title: "Three", value: 10, color: "#8D8DCD" },
+  ];
+
   return (
     <>
-      <main className="p-4 md:ml-64 h-auto pt-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+      <main className="p-10 md:ml-64 h-auto pt-20">
+        <h1 className="text-2xl font-semibold mx-unit-3xl">Shop Name</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 mx-unit-3xl">
           <div className="bg-white border-1 border-gray-200 rounded-lg h-16 md:h-32">
-            <div className="flex flex-row my-3">
+            <div className="flex flex-row my-3 mx-5">
               <div className="bg-blue-300 rounded-full p-3 m-5">
                 <svg
                   class="w-[43px] h-[43px] text-white"
@@ -29,7 +38,7 @@ function AdminLayout() {
             </div>
           </div>
           <div className="bg-white border-1 border-gray-200 rounded-lg h-16 md:h-32">
-            <div className="flex flex-row my-3">
+            <div className="flex flex-row my-3 mx-5">
               <div className="bg-green-300 rounded-full p-3 m-5">
                 <svg
                   class="w-[43px] h-[43px] text-white"
@@ -53,7 +62,7 @@ function AdminLayout() {
             </div>
           </div>
           <div className="bg-white border-1 border-gray-200 rounded-lg h-16 md:h-32">
-            <div className="flex flex-row my-3">
+            <div className="flex flex-row my-3 mx-5">
               <div className="bg-yellow-200 rounded-full p-3 m-5">
                 <svg
                   class="w-[43px] h-[43px] text-white"
@@ -72,7 +81,7 @@ function AdminLayout() {
             </div>
           </div>
           <div className="bg-white border-1 border-gray-200 rounded-lg h-16 md:h-32">
-            <div className="flex flex-row my-3">
+            <div className="flex flex-row my-3 mx-5">
               <div className="bg-purple-300 rounded-full p-3 m-5">
                 <svg
                   class="w-[43px] h-[43px] text-white"
@@ -97,25 +106,51 @@ function AdminLayout() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div className="bg-white border-1 border-gray-200 rounded-lg h-48 md:h-72">
+        <div className="grid grid-cols-2 gap-4 mb-4 mx-unit-3xl">
+          <div className="bg-white border-1 border-gray-200 rounded-lg h-48 md:h-full">
             <div className="w-full m-4">
-              <h1 className="font-semibold text-xl">Today</h1>
+              <h1 className="font-semibold text-xl">Today's Appointments</h1>
+            </div>
+            <hr className="bg-gray-800 mx-4" />
+          </div>
+          <div className="bg-white border-1 border-gray-200 rounded-lg h-48 md:h-full">
+            <div className="w-full m-4">
+              <h1 className="font-semibold text-xl">Your Services</h1>
+            </div>
+            <div className="flex flex-row mx-unit-3xl">
+              <div className="justify-start h-unit-6xl p-3">
+                <PieChart data={dataPie} lineWidth={25} paddingAngle={2} />
+              </div>
+              <div className="justify-center text-center my-unit-3xl mx-unit-3xl">
+                <p>
+                  <span className="bg-primary">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </span>
+                  &nbsp;abdjdaw
+                </p>
+                <p>abdjdaw</p>
+                <p>abdjdaw</p>
+              </div>
             </div>
           </div>
-          <div className="bg-white border-1 border-gray-200 rounded-lg h-48 md:h-72"></div>
         </div>
-        <div className="border-2 border-gray-200 rounded-lg mb-4">
+        <div className="border-2 border-gray-200 rounded-lg mb-4 mx-unit-3xl">
           <div className="relative h-96">
             <img
-              src={img} // replace with the path to your blurred image
+              src={img}
               alt="Blurred Background"
               className="absolute inset-0 w-full h-unit-7xl blur-lg"
             />
             <div className="absolute inset-0 flex items-center justify-center z-10">
-              <p className="text-xl font-bold text-white bg-primary p-3 rounded-xl">
-                Coming Soon
-              </p>
+              <Tooltip
+                showArrow={true}
+                placement="bottom"
+                content="Revenue Charts coming soon on Apointly!"
+              >
+                <p className="text-xl font-bold text-white bg-primary p-3 rounded-xl">
+                  Coming Soon
+                </p>
+              </Tooltip>
             </div>
           </div>
         </div>
@@ -124,4 +159,12 @@ function AdminLayout() {
   );
 }
 
-export default AdminLayout;
+export default Dashboard;
+
+//label={({ dataEntry }) => dataEntry.value}
+// labelStyle={(index) => ({
+//   fill: dataPie[index].color,
+//   fontSize: "5px",
+//   fontFamily: "sans-serif",
+// })}
+// labelPosition={60}

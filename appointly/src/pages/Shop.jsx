@@ -34,7 +34,7 @@ export default function Shop() {
     partner,
     telephone,
     rating,
-    dis,
+    discription,
     servicesOptions,
     closeHour,
     openHour,
@@ -53,7 +53,7 @@ export default function Shop() {
       <div className="max-w-full border-1.5 h-auto mx-unit-2xl my-unit-lg rounded-md shadow-lg bg-white">
         <div className="w-full text-center font-bold my-8">
           <h1 className="text-3xl">{name}</h1>
-          <p className="t text-gray-400">{dis}</p>
+          <p className="t text-gray-400">{discription}</p>
         </div>
         {/* <ShopImageGrid shopImgs={shopImg} /> */}
         <div className="grid md:grid-rows-2 lg:grid-flow-col xsm:grid-flow-row lg:gap-y-2 lg:gap-x-5 xsm:gap-y-4 md:gap-x-9 lg:mx-unit-5xl lg:{mt-unit-2xl, mb-unit-xl} xsm:mx-unit-sm xsm:my-unit-sm h-1/2">

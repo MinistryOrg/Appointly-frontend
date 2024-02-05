@@ -23,6 +23,10 @@
   background: #34307f81;
 }
 
+html {
+  background-color: #f8f8fe;
+}
+
 body {
   overflow-x: hidden;
   background-color: #f8f8fe;

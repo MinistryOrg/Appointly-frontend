@@ -41,14 +41,14 @@ function HorizontalNavBar() {
               <span className="sr-only">Toggle sidebar</span>
             </button>
             <a href="/" className="flex items-center justify-between mr-4">
-              <img src={logo} className="h-5 px-3" alt="Flowbite Logo" />
+              <img src={logo} className="h-5 px-6" alt="Flowbite Logo" />
             </a>
           </div>
-          <div className="flex items-center lg:order-2 px-9">
+          <div className="flex items-center lg:order-2 px-9 space-x-4">
             <p className="text-white font-semibold">Tade Tade</p>
-            <button
-              type="button"
-              className="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            <a
+              href="/editProfile"
+              className="flex mx-3 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 "
               id="user-menu-button"
               aria-expanded="false"
               data-dropdown-toggle="dropdown"
@@ -59,7 +59,27 @@ function HorizontalNavBar() {
                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
                 alt="user "
               />
-            </button>
+            </a>
+            <a
+              href="##"
+              className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300  group"
+            >
+              <svg
+                className="flex-shrink-0 w-5 h-5 text-white transition duration-75  group-hover:text-gray-300"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 18 16"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"
+                />
+              </svg>
+            </a>
           </div>
         </div>
       </nav>

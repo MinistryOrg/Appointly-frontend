@@ -1,3 +1,4 @@
+import { UsersIcon } from "@heroicons/react/24/solid";
 import logo from "../../src/styles/images/apoinlty_logo.webp";
 
 function SideBar() {
@@ -5,18 +6,18 @@ function SideBar() {
     <>
       <aside
         id="logo-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-primary border-r border-gray-200 sm:translate-x-0 rounded-br-lg"
+        className="fixed top-0 left-0 z-40 w-64 h-full pt-20 transition-transform -translate-x-full bg-dark-primary border-r border-gray-200 sm:translate-x-0 rounded-br-lg"
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 pb-4 overflow-y-auto bg-primary rounded-br-3xl">
+        <div className="h-full px-1 pb-4 overflow-y-auto bg-dark-primary rounded-br-3xl">
           <ul className="space-y-2 font-medium text-lg">
             <li>
               <a
-                href="##"
+                href="/dashboard"
                 className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300 group"
               >
                 <svg
-                  className="w-5 h-5 text-white transition duration-75  group-hover:text-gray-300 "
+                  className="w-6 h-6 text-white transition duration-75  group-hover:text-gray-300 "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
@@ -30,15 +31,15 @@ function SideBar() {
             </li>
             <li>
               <a
-                href="##"
+                href="/appointmentList"
                 className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300 group"
               >
                 <svg
-                  className="flex-shrink-0 w-5 h-5 text-white transition duration-75  group-hover:text-gray-300 "
+                  className="w-6 h-6 text-white transition duration-75  group-hover:text-gray-300 "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
-                  viewBox="0 0 23 19"
+                  viewBox="0 0 24 24"
                 >
                   <path
                     fill-rule="evenodd"
@@ -54,11 +55,11 @@ function SideBar() {
             </li>
             <li>
               <a
-                href="##"
-                className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300  group"
+                href="/editShop"
+                className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300 group"
               >
                 <svg
-                  class="w-[20px] h-[20px] text-white transition duration-75  group-hover:text-gray-300 "
+                  class="w-6 h-6 text-white transition duration-75  group-hover:text-gray-300 "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
@@ -74,44 +75,27 @@ function SideBar() {
                 <span className="flex-1 ms-3 whitespace-nowrap">Shop</span>
               </a>
             </li>
+            <hr className="opacity-75" />
             <li>
               <a
-                href="##"
+                href="/editProfile"
                 className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300  group"
               >
                 <svg
-                  className="flex-shrink-0 w-5 h-5 text-white transition duration-75  group-hover:text-gray-300"
+                  class="w-6 h-6 text-white transition duration-75  group-hover:text-gray-300"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="currentColor"
-                  viewBox="0 0 18 20"
-                >
-                  <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
-                </svg>
-                <span className="flex-1 ms-3 whitespace-nowrap">Products</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="##"
-                className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300  group"
-              >
-                <svg
-                  className="flex-shrink-0 w-5 h-5 text-white transition duration-75  group-hover:text-gray-300"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 18 16"
+                  viewBox="0 0 24 24"
                 >
                   <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"
+                    fill-rule="evenodd"
+                    d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"
+                    clip-rule="evenodd"
                   />
                 </svg>
-                <span className="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
+
+                <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
               </a>
             </li>
           </ul>
