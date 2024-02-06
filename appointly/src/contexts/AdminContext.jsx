@@ -115,6 +115,22 @@ function AdminProvider({ children }) {
     return "#FFFFFF";
   }
 
+  async function cancelAppointment(id) {
+    try {
+      const res = fetch(`${admin_url}/cancelAppointment?id=${id}`, {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        mode: "cors",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <AdminContext.Provider
       value={{

@@ -1,6 +1,11 @@
-import { useEffect } from "react";
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/react";
 import { useAdmin } from "../contexts/AdminContext";
-import { useAuth } from "../contexts/AuthContext";
 
 function AppointmentsList() {
   const labelsAppointment = [
@@ -12,10 +17,18 @@ function AppointmentsList() {
     "Cost",
     "Manage",
   ];
-  const { email } = useAuth();
 
-  const { fetchAppointments, listAppointments } = useAdmin();
+  const { listAppointments } = useAdmin();
   console.log("list", listAppointments);
+
+  function formatDate(dateString) {
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    const formattedDate = new Date(dateString).toLocaleDateString(
+      undefined,
+      options
+    );
+    return formattedDate;
+  }
 
   return (
     <>
@@ -52,7 +65,7 @@ function AppointmentsList() {
                     <p className="">{appointment.personnel}</p>
                   </div>
                   <div className="col my-2 w-full text-center  ">
-                    <p className="">{appointment.date}</p>
+                    <p className="">{formatDate(appointment.date)}</p>
                   </div>
                   <div className="col my-2 w-full text-center  ">
                     <p className="">{appointment.time.slice(0, 5)}</p>
@@ -60,8 +73,39 @@ function AppointmentsList() {
                   <div className="col my-2 w-full text-center  ">
                     <p className="">{appointment.cost} €</p>
                   </div>
-                  <div className="col my-2 w-full text-center  ">
-                    <p className="">edit</p>
+                  <div className="col my-2 w-full text-center flex items-center justify-center">
+                    <Dropdown>
+                      <DropdownTrigger>
+                        <Button variant="light">
+                          <svg
+                            class="w-7 h-7 text-gray-800"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-width="2"
+                              d="M12 6h0m0 6h0m0 6h0"
+                            />
+                          </svg>
+                        </Button>
+                      </DropdownTrigger>
+                      <DropdownMenu
+                        aria-label="Action event example"
+                        onAction={(key) => alert(key)}
+                      >
+                        <DropdownItem
+                          key="delete"
+                          className="text-danger"
+                          color="danger"
+                        >
+                          Cancel Appointment
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
                   </div>
                 </div>
               ))
