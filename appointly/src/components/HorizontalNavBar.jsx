@@ -1,6 +1,9 @@
+import { Link } from "react-router-dom";
 import logo from "../../src/styles/images/apoinlty_logo.webp";
+import { useAuth } from "../contexts/AuthContext";
 
 function HorizontalNavBar() {
+  const { loggedIn, changeLoggedIn, lastname, firstname } = useAuth();
   return (
     <>
       <nav className="bg-primary px-4 py-2.5 fixed left-0 right-0 top-0 z-50">
@@ -45,7 +48,9 @@ function HorizontalNavBar() {
             </a>
           </div>
           <div className="flex items-center lg:order-2 px-9 space-x-4">
-            <p className="text-white font-semibold">Tade Tade</p>
+            <p className="text-white font-semibold">
+              {lastname} {firstname}
+            </p>
             <a
               href="/editProfile"
               className="flex mx-3 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 "
@@ -60,9 +65,13 @@ function HorizontalNavBar() {
                 alt="user "
               />
             </a>
-            <a
-              href="##"
+            <Link
+              to="#"
               className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300  group"
+              onClick={() => {
+                changeLoggedIn(false);
+                localStorage.clear();
+              }}
             >
               <svg
                 className="flex-shrink-0 w-5 h-5 text-white transition duration-75  group-hover:text-gray-300"
@@ -79,7 +88,7 @@ function HorizontalNavBar() {
                   d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </nav>

@@ -1,5 +1,6 @@
 import { UsersIcon } from "@heroicons/react/24/solid";
 import logo from "../../src/styles/images/apoinlty_logo.webp";
+import { Link } from "react-router-dom";
 
 function SideBar() {
   return (
@@ -12,8 +13,8 @@ function SideBar() {
         <div className="h-full px-1 pb-4 overflow-y-auto bg-dark-primary rounded-br-3xl">
           <ul className="space-y-2 font-medium text-lg">
             <li>
-              <a
-                href="/dashboard"
+              <Link
+                to="/dashboard"
                 className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300 group"
               >
                 <svg
@@ -27,11 +28,11 @@ function SideBar() {
                   <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                 </svg>
                 <span className="ms-3">Dashboard</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/appointmentList"
+              <Link
+                to="/appointmentList"
                 className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300 group"
               >
                 <svg
@@ -51,11 +52,11 @@ function SideBar() {
                 <span className="flex-1 ms-3 whitespace-nowrap">
                   Appointments
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="/editShop"
+              <Link
+                to="/editShop"
                 className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300 group"
               >
                 <svg
@@ -73,12 +74,12 @@ function SideBar() {
                 </svg>
 
                 <span className="flex-1 ms-3 whitespace-nowrap">Shop</span>
-              </a>
+              </Link>
             </li>
             <hr className="opacity-75" />
             <li>
-              <a
-                href="/editProfile"
+              <Link
+                to="/editProfile"
                 className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300  group"
               >
                 <svg
@@ -96,7 +97,7 @@ function SideBar() {
                 </svg>
 
                 <span className="flex-1 ms-3 whitespace-nowrap">Profile</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

@@ -1,18 +1,76 @@
 import img from "../styles/images/blur_img.png";
 import { PieChart } from "react-minimal-pie-chart";
 import { Tooltip } from "@nextui-org/react";
+import { useAdmin } from "../contexts/AdminContext";
+import { useAuth } from "../contexts/AuthContext";
+import { useEffect } from "react";
 
 function Dashboard() {
-  const dataPie = [
-    { title: "One", value: 5, color: "#5f5ef6" },
-    { title: "Two", value: 25, color: "#4241AC" },
-    { title: "Three", value: 10, color: "#8D8DCD" },
-  ];
+  const colors = ["#5f5ef6", "#4241AC", "#8D8DCD"];
+  const { email } = useAuth();
+  const {
+    adminShop,
+    fetchShopAdmin,
+    fetchAppointments,
+    listAppointments,
+    getServices,
+    totalCost,
+    getServiceColor,
+  } = useAdmin();
+
+  useEffect(
+    function () {
+      const controller = new AbortController();
+      fetchShopAdmin(email, controller);
+      return function () {
+        controller.abort();
+      };
+    },
+    [email]
+  );
+
+  const { name, rating } = adminShop;
+
+  console.log("adminshop", adminShop);
+  console.log("name", name);
+
+  useEffect(
+    function () {
+      if (adminShop && name) {
+        const controller = new AbortController();
+        fetchAppointments(name, controller);
+        return function () {
+          controller.abort();
+        };
+      }
+    },
+    [adminShop]
+  );
+
+  const todayAppointments = listAppointments
+    ? listAppointments.filter((appointment) => {
+        const appointmentDate = new Date(appointment.date);
+        const today = new Date();
+        return (
+          appointmentDate.getFullYear() === today.getFullYear() &&
+          appointmentDate.getMonth() === today.getMonth() &&
+          appointmentDate.getDate() === today.getDate()
+        );
+      })
+    : [];
+
+  const servicesCount = getServices(listAppointments);
+
+  const dataPie = Object.keys(servicesCount).map((service) => ({
+    title: service,
+    value: servicesCount[service],
+    color: getServiceColor(service),
+  }));
 
   return (
     <>
       <main className="p-10 md:ml-64 h-auto pt-20">
-        <h1 className="text-2xl font-semibold mx-unit-3xl">Shop Name</h1>
+        <h1 className="text-2xl font-semibold mx-unit-3xl my-2">{name}</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 mx-unit-3xl">
           <div className="bg-white border-1 border-gray-200 rounded-lg h-16 md:h-32">
             <div className="flex flex-row my-3 mx-5">
@@ -33,7 +91,9 @@ function Dashboard() {
               </div>
               <div className="text-lg font-semibold flex flex-col my-5 w-full">
                 <p className="mx-5">Appointments</p>
-                <p className="mx-5">15</p>
+                <p className="mx-5">
+                  {listAppointments ? listAppointments?.length : "0"}
+                </p>
               </div>
             </div>
           </div>
@@ -57,7 +117,7 @@ function Dashboard() {
               </div>
               <div className="text-lg font-semibold flex flex-col my-5 w-full">
                 <p className="mx-5">Revenue</p>
-                <p className=" mx-5">1000$</p>
+                <p className=" mx-5">{totalCost} €</p>
               </div>
             </div>
           </div>
@@ -76,7 +136,7 @@ function Dashboard() {
               </div>
               <div className="text-lg font-semibold flex flex-col my-5 w-full">
                 <p className="mx-5">Rating</p>
-                <p className=" mx-5">4.5</p>
+                <p className=" mx-5">{rating}</p>
               </div>
             </div>
           </div>
@@ -112,24 +172,71 @@ function Dashboard() {
               <h1 className="font-semibold text-xl">Today's Appointments</h1>
             </div>
             <hr className="bg-gray-800 mx-4" />
+            <div className="w-full grid grid-cols-1 overflow-y-auto">
+              {/* APPOINTMENT LIST GOES HERE */}
+              {todayAppointments.length > 0 ? (
+                todayAppointments.map((appointment, index) => (
+                  <div
+                    key={appointment.id}
+                    className="grid grid-cols-4 mx-4 my-3 border-b-1 border-gray-100 font-semibold justify-items-center"
+                  >
+                    <div className="col">
+                      <p>
+                        {appointment.userFirstname} {appointment.userLastname}
+                      </p>
+                    </div>
+                    <div className="col bg-indigo-100 rounded-lg px-2">
+                      <p className="">{appointment.service}</p>
+                    </div>
+                    <div className="col">
+                      <p>{appointment.personnel}</p>
+                    </div>
+                    <div className="col">
+                      <p>{appointment.time.slice(0, 5)}</p>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="w-full my-5 text-center">
+                  <p className="font-semibold text-lg">
+                    No appointments for today.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
           <div className="bg-white border-1 border-gray-200 rounded-lg h-48 md:h-full">
             <div className="w-full m-4">
               <h1 className="font-semibold text-xl">Your Services</h1>
             </div>
+            <hr className="bg-gray-800 mx-4" />
+
             <div className="flex flex-row mx-unit-3xl">
-              <div className="justify-start h-unit-6xl p-3">
-                <PieChart data={dataPie} lineWidth={25} paddingAngle={2} />
-              </div>
-              <div className="justify-center text-center my-unit-3xl mx-unit-3xl">
-                <p>
-                  <span className="bg-primary">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </span>
-                  &nbsp;abdjdaw
-                </p>
-                <p>abdjdaw</p>
-                <p>abdjdaw</p>
+              {dataPie ? (
+                <div className="justify-start h-unit-6xl p-3">
+                  <PieChart data={dataPie} lineWidth={25} paddingAngle={2} />
+                </div>
+              ) : (
+                <div className="w-full my-5 text-center">
+                  <p className="font-semibold text-lg">
+                    No selected services yet
+                  </p>
+                </div>
+              )}
+              <div className="justify-center text-center my-unit-3xl mx-unit-xl space-y-3">
+                {/*PRINT SERVICE OPTIONS AND COLORS*/}
+                {Object.keys(servicesCount).map((service, index) => (
+                  <div
+                    key={service}
+                    className="flex items-center font-semibold"
+                  >
+                    <span style={{ backgroundColor: colors[index] }}>
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
+                    <p className="ml-2">{service}</p>
+                    <p className="ml-2">{servicesCount[service]}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -160,11 +267,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-//label={({ dataEntry }) => dataEntry.value}
-// labelStyle={(index) => ({
-//   fill: dataPie[index].color,
-//   fontSize: "5px",
-//   fontFamily: "sans-serif",
-// })}
-// labelPosition={60}

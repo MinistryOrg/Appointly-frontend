@@ -18,33 +18,53 @@ function EditProfile() {
           Update shop's general infromation
         </h2>
         <div className="bg-white border-1 border-gray-200 rounded-lg h-auto mx-unit-3xl my-5">
-          <div className="w-full grid grid-cols-2 p-5 gap-10 font-semibold my-5">
+          <div className="w-full grid grid-cols-1 p-5 gap-5 font-semibold my-5">
             <div className="col flex flex-row w-full px-10 ">
-              <p className="w-unit-4xl my-4">Name:</p>
+              <p className="w-auto">First Name:</p>
+            </div>
+            <div className="col flex flex-row w-full px-10">
               <Input
                 key="left"
                 placeholder="Insert Name"
                 variant="bordered"
-                className="my-2"
+                className=""
                 classNames={{
                   label: "font-semibold",
                   input: ["bg-white"],
-                  inputWrapper: ["border-1", "h-2/3"],
+                  inputWrapper: ["border-1", "h-2/3", "w-1/2"],
                 }}
               />
             </div>
             <div className="col flex flex-row w-full px-10 ">
-              <p className="w-unit-4xl my-4">Email:</p>
+              <p className="w-auto">Last Name:</p>
+            </div>
+            <div className="col flex flex-row w-full px-10">
+              <Input
+                key="left"
+                placeholder="Insert Name"
+                variant="bordered"
+                className=""
+                classNames={{
+                  label: "font-semibold",
+                  input: ["bg-white"],
+                  inputWrapper: ["border-1", "h-2/3", "w-1/2"],
+                }}
+              />
+            </div>
+            <div className="col flex flex-row w-full px-10 ">
+              <p className="w-auto">Email:</p>
+            </div>
+            <div className="col flex flex-row w-full px-10">
               <Input
                 key="left"
                 type="email"
                 placeholder="Email"
                 variant="bordered"
-                className="my-2"
+                className=""
                 classNames={{
                   label: "font-semibold",
                   input: ["bg-white"],
-                  inputWrapper: ["border-1", "h-2/3"],
+                  inputWrapper: ["border-1", "h-2/3", "w-1/2"],
                 }}
               />
             </div>
@@ -70,7 +90,7 @@ function EditProfile() {
         <div className="bg-white border-1 border-gray-200 rounded-lg h-auto mx-unit-3xl my-5">
           <div className="w-full grid grid-cols-1 p-5 gap-2 font-semibold my-5">
             <div className="col flex flex-row w-full px-10 ">
-              <p className="w-unit-4xl">Password:</p>
+              <p className="w-auto">Password:</p>
             </div>
             <div className="col flex flex-row w-full px-10">
               <Input
@@ -103,8 +123,10 @@ function EditProfile() {
                 }}
               />
             </div>
+            <div className="col flex flex-row w-full px-10 mt-5 ">
+              <p className="w-auto">Confirm Password:</p>
+            </div>
             <div className="col flex flex-row w-full px-10">
-              <p className="w-unit-4xl my-4">Confirm Password:</p>
               <Input
                 value={password}
                 onValueChange={setPassword}
@@ -127,7 +149,7 @@ function EditProfile() {
                   </button>
                 }
                 type={isVisible ? "text" : "password"}
-                className="my-2"
+                className=""
                 classNames={{
                   label: "font-semibold",
                   input: ["bg-white"],

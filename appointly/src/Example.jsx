@@ -212,3 +212,36 @@ export function TestDate() {
 
   return <></>;
 }
+
+const admin_url =
+  "https://appointly-production.up.railway.app/api/v1/appointly/admin";
+
+export function AdminTest() {
+  const [shop, setShop] = useState([]);
+  useEffect(function () {
+    async function fetchShopAdmin() {
+      try {
+        const res = await fetch(`${admin_url}/getShop?email=mia@email.com`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          mode: "cors",
+        });
+
+        if (!res.ok) throw new Error("something went wrong");
+        const data = res.json();
+        console.log(data);
+        data.then((sh) => {
+          setShop(sh);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchShopAdmin();
+  }, []);
+}

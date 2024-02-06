@@ -16,6 +16,7 @@ export default function Login() {
     password,
     setPassword,
     loggedIn,
+    isAdmin,
   } = useAuth();
 
   const [isVisible, setIsVisible] = useState(false);
@@ -24,7 +25,9 @@ export default function Login() {
 
   useEffect(
     function () {
-      if (loggedIn) navigate("/");
+      if (loggedIn) {
+        navigate("/");
+      }
     },
     [loggedIn, navigate]
   );

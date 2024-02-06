@@ -12,13 +12,15 @@ import AppointmentSummary from "./pages/AppointmentSummary";
 import { ShopProvider } from "./contexts/ShopContext";
 import { AppointmentProvider } from "./contexts/AppointmentContext";
 import { AuthProvider } from "./contexts/AuthContext";
-import { TestDate } from "./Example";
+import { AdminTest, TestDate } from "./Example";
 import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./components/Dashboard";
 import AppointmentsList from "./components/AppointmentsList";
 import EditShop from "./components/EditShop";
 import EditProfile from "./components/EditProfile";
+import { AdminProvider } from "./contexts/AdminContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -27,29 +29,38 @@ function App() {
         <BrowserRouter>
           <ShopProvider>
             <AppointmentProvider>
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
-                <Route path="shops" element={<BrowseShops />} />
-                <Route path="shop/:id" element={<Shop />} />
-                <Route path="appointment/:id" element={<Appointment />} />
-                <Route path="summary" element={<AppointmentSummary />} />
-                <Route element={<AdminPanel />}>
-                  <Route path="dashboard" element={<Dashboard />} />
+              <AdminProvider>
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="login" element={<Login />} />
+                  <Route path="register" element={<Register />} />
+                  <Route path="shops" element={<BrowseShops />} />
+                  <Route path="shop/:id" element={<Shop />} />
+                  <Route path="appointment/:id" element={<Appointment />} />
+                  <Route path="summary" element={<AppointmentSummary />} />
                   <Route
-                    path="appointmentList"
-                    element={<AppointmentsList />}
-                  />
-                  <Route path="editShop" element={<EditShop />} />
-                  <Route path="editProfile" element={<EditProfile />} />
-                </Route>
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+                    element={
+                      <ProtectedRoute>
+                        <AdminPanel />
+                      </ProtectedRoute>
+                    }
+                  >
+                    <Route path="dashboard" element={<Dashboard />} />
+                    <Route
+                      path="appointmentList"
+                      element={<AppointmentsList />}
+                    />
+                    <Route path="editShop" element={<EditShop />} />
+                    <Route path="editProfile" element={<EditProfile />} />
+                  </Route>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </AdminProvider>
             </AppointmentProvider>
           </ShopProvider>
         </BrowserRouter>
       </AuthProvider>
+      {/* <AdminTest /> */}
     </>
   );
 }

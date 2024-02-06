@@ -1,6 +1,4 @@
 import { Outlet } from "react-router-dom";
-import AppointmentsList from "../components/AppointmentsList";
-import Dashboard from "../components/Dashboard";
 import HorizontalNavBar from "../components/HorizontalNavBar";
 import SideBar from "../components/SideBar";
 

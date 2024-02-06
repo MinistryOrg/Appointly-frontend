@@ -11,11 +11,21 @@ function AuthProvider({ children }) {
   const [loggedIn, setLoggedIn] = useState(localStorage.token ? true : false);
   const [email, setEmail] = useState("");
   const [lastname, setLastname] = useState("");
+  const [firstname, setFirstname] = useState("");
 
   const [logEmail, setLogEmail] = useState("");
 
   const [password, setPassword] = useState("");
   const [isInvalid, setIsInvalid] = useState(false);
+  const [role, setRole] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (role) {
+      // Check if the role is "ADMIN"
+      setIsAdmin(role === "ADMIN");
+    }
+  }, [role]);
 
   async function login(e) {
     e.preventDefault();
@@ -53,9 +63,19 @@ function AuthProvider({ children }) {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        if (decodedToken && decodedToken.email && decodedToken.lastname) {
+        console.log(decodedToken);
+        if (
+          decodedToken &&
+          decodedToken.email &&
+          decodedToken.lastname &&
+          decodedToken.firstname &&
+          decodedToken.role
+        ) {
           setEmail(decodedToken.email);
           setLastname(decodedToken.lastname);
+          setFirstname(decodedToken.firstname);
+          setRole(decodedToken.role);
+          setIsAdmin(decodedToken.role === "ADMIN");
         }
       } catch (error) {
         console.error("Invalid token:", error.message);
@@ -63,17 +83,29 @@ function AuthProvider({ children }) {
     }
   }, [token]);
 
-  function changeLoggedIn(value, userEmail = "", lastname = "") {
+  function changeLoggedIn(
+    value,
+    userEmail = "",
+    lastname = "",
+    firstname = "",
+    role = ""
+  ) {
     setLoggedIn(value);
     setEmail(userEmail);
     setLastname(lastname);
+    setFirstname(firstname);
+    setRole(role);
+    setIsAdmin(role === "ADMIN");
 
     if (value === false) {
       localStorage.clear();
       setEmail("");
       setLastname("");
+      setFirstname("");
       setLogEmail("");
       setPassword("");
+      setRole("");
+      setIsAdmin(false);
       setIsInvalid(false);
     }
   }
@@ -84,6 +116,7 @@ function AuthProvider({ children }) {
         loggedIn,
         email,
         lastname,
+        firstname,
         changeLoggedIn,
         logEmail,
         setLogEmail,
@@ -91,6 +124,8 @@ function AuthProvider({ children }) {
         setPassword,
         isInvalid,
         login,
+        role,
+        isAdmin,
       }}
     >
       {children}

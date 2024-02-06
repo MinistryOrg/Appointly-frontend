@@ -17,10 +17,8 @@ import ScrollToHashElement from "./ScrollToHashElement";
 import { useAuth } from "../contexts/AuthContext";
 import { UserIcon } from "../assets/UserIcon";
 
-//! When refresh doent show email at navbar. FIX!
-
 export default function NavBar() {
-  const { loggedIn, changeLoggedIn, lastname } = useAuth();
+  const { loggedIn, changeLoggedIn, lastname, firstname, isAdmin } = useAuth();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,6 +39,7 @@ export default function NavBar() {
     }
   };
 
+  console.log("is admin", isAdmin);
   return (
     <Navbar
       shouldHideOnScroll
@@ -87,7 +86,9 @@ export default function NavBar() {
         <NavbarItem className=" lg:flex">
           {loggedIn ? (
             <span className="flex gap-2 text-white">
-              <p className="text-white font-semibold">{lastname}</p>
+              <p className="text-white font-semibold">
+                {firstname} {lastname}
+              </p>
               <UserIcon />
             </span>
           ) : (
