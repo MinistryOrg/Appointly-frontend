@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const admin_url =
   "https://appointly-production.up.railway.app/api/v1/appointly/admin";
+const user_url =
+  "https://appointly-production.up.railway.app/api/v1/appointly/user";
 
 const AdminContext = createContext();
 
@@ -52,13 +54,15 @@ function AdminProvider({ children }) {
       });
       if (!res.ok) throw new Error("something went wrong");
       const data = res.json();
-      console.log("appointment", data);
       data.then((appoint) => {
         setListAppointments(appoint);
       });
       const sum = calculateTotalCost(listAppointments);
       setTotalCost(sum);
     } catch (error) {
+      if (error === 403) {
+        console.log("Empty Array");
+      }
       console.log(error);
     }
   }
@@ -116,16 +120,107 @@ function AdminProvider({ children }) {
   }
 
   async function cancelAppointment(id) {
+    console.log(id);
     try {
-      const res = fetch(`${admin_url}/cancelAppointment?id=${id}`, {
-        method: "PUT",
+      const res = await fetch(`${admin_url}/cancelAppointment?id=${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      if (res.ok) {
+        console.log("Appointment canceled successfully");
+        const updatedAppointments = listAppointments.filter(
+          (appointment) => appointment.id !== id
+        );
+        setListAppointments(updatedAppointments);
+      } else {
+        // Handle errors
+        console.error(
+          "Failed to cancel appointment:",
+          res.status,
+          res.statusText
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  async function editAppointment(id, date, time, appointment) {
+    const [hours, minutes] = time.split(":");
+    const formattedTime = `${hours}:${minutes}:00`;
+    console.log(formattedTime);
+
+    const formattedDate = date.replace(/\//g, "-");
+    console.log(formattedDate);
+    console.log(id);
+    console.log(appointment);
+    try {
+      const res = await fetch(`${admin_url}/editAppointment`, {
+        method: "PATCH",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         mode: "cors",
+        body: JSON.stringify({
+          id: id,
+          cost: appointment.cost,
+          personnel: appointment.personnel,
+          service: appointment.service,
+          userFirstName: appointment.userFirstName,
+          userLastName: appointment.userLastName,
+          date: formattedDate,
+          time: formattedTime,
+        }),
       });
+      if (!res.ok) throw new Error("something went wrong");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function editShop(
+    id,
+    newCosts,
+    newServices,
+    newName,
+    newAddr,
+    newDescr,
+    newTelep
+  ) {
+    // console.log("mesa", id);
+    // console.log("mesa", newCosts);
+    // console.log("mesa", newServices);
+    // console.log("mesa", newName);
+    // console.log("mesa", newAddr);
+    // console.log("mesa", newDescr);
+    // console.log("mesa", newTelep);
+
+    try {
+      const res = fetch(`${admin_url}/editShop`, {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        mode: "cors",
+        body: JSON.stringify({
+          id: id,
+          name: newName,
+          address: newAddr,
+          description: newDescr,
+          telephone: newTelep,
+          cost: newCosts,
+          servicesOptions: newServices,
+        }),
+      });
+      if (!res.ok) throw new Error("something went wrong");
     } catch (error) {
       console.log(error);
     }
@@ -141,6 +236,9 @@ function AdminProvider({ children }) {
         getServices,
         totalCost,
         getServiceColor,
+        cancelAppointment,
+        editAppointment,
+        editShop,
       }}
     >
       {children}

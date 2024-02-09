@@ -12,7 +12,7 @@ function ProtectedRoute({ children }) {
       navigate("/login");
     } else if (!isAdmin) {
       // Redirect to home page or another route if not admin
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     }
   }, [loggedIn, isAdmin, navigate]);
 

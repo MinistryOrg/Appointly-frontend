@@ -54,6 +54,7 @@ function AuthProvider({ children }) {
       const data = await res.json();
       localStorage.setItem("token", data.token);
       const decode = jwtDecode(data.token);
+      console.log(decode);
       changeLoggedIn(true, decode.email);
     } catch (error) {
       console.log(error);
@@ -110,6 +111,40 @@ function AuthProvider({ children }) {
     }
   }
 
+  async function changePassword(oldPassword, newPassword, confirmPassword) {
+    console.log(oldPassword);
+    console.log(newPassword);
+    console.log(confirmPassword);
+
+    const url = BASE_URL + `/password`;
+    const abortController = new AbortController();
+    const res = await fetch(url, {
+      signal: abortController.signal,
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+      mode: "cors",
+      body: JSON.stringify({
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+        confirmationPassword: confirmPassword,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error("something went wrong");
+    } else {
+    }
+
+    try {
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -126,6 +161,7 @@ function AuthProvider({ children }) {
         login,
         role,
         isAdmin,
+        changePassword,
       }}
     >
       {children}

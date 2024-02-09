@@ -45,9 +45,8 @@ function AppointmentProvider({ children }) {
     console.log("APO TO CONTEXT BROOO", shopName);
     try {
       if (!loggedIn) {
-        // Redirect to the login page
         navigate("/login");
-        return; // Stop further execution
+        return;
       }
 
       const res = await fetch(

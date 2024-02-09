@@ -45,6 +45,7 @@ function App() {
                       </ProtectedRoute>
                     }
                   >
+                    <Route element={<Navigate replace to="dashboard" />} />
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route
                       path="appointmentList"
