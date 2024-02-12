@@ -1,12 +1,12 @@
 import img from "../styles/images/blur_img.png";
 import { PieChart } from "react-minimal-pie-chart";
-import { Tooltip } from "@nextui-org/react";
+import { Spinner, Tooltip } from "@nextui-org/react";
 import { useAdmin } from "../contexts/AdminContext";
 import { useAuth } from "../contexts/AuthContext";
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { DonutChart, Legend } from "@tremor/react";
 
 function Dashboard() {
-  const colors = ["#5f5ef6", "#4241AC", "#8D8DCD"];
   const { email } = useAuth();
   const {
     adminShop,
@@ -15,37 +15,37 @@ function Dashboard() {
     listAppointments,
     getServices,
     totalCost,
-    getServiceColor,
   } = useAdmin();
 
-  useEffect(
-    function () {
-      const controller = new AbortController();
-      fetchShopAdmin(email, controller);
-      return function () {
-        controller.abort();
-      };
-    },
-    [email]
+  const fetchShopAdminMemoized = useMemo(
+    () => fetchShopAdmin,
+    [fetchShopAdmin]
   );
 
+  const [appointmentsCount, setAppointmentsCount] = useState(undefined);
+  const [revenue, setRevenue] = useState(undefined);
+  useEffect(() => {
+    const delay = 500 + 500;
+    const timerId = setTimeout(() => {
+      const controller = new AbortController();
+      fetchShopAdminMemoized(email, controller);
+
+      if (adminShop && adminShop.name) {
+        fetchAppointments(adminShop.name, controller);
+      }
+
+      return () => {
+        controller.abort();
+      };
+    }, delay);
+
+    // Clear the timer if the dependencies change before the delay expires
+    return () => clearTimeout(timerId);
+  }, [email, adminShop, adminShop.name, fetchShopAdminMemoized]);
   const { name, rating } = adminShop;
 
   console.log("adminshop", adminShop);
-  console.log("name", name);
-
-  useEffect(
-    function () {
-      if (adminShop && name) {
-        const controller = new AbortController();
-        fetchAppointments(name, controller);
-        return function () {
-          controller.abort();
-        };
-      }
-    },
-    [adminShop]
-  );
+  console.log("appointment", listAppointments);
 
   const todayAppointments = listAppointments
     ? listAppointments.filter((appointment) => {
@@ -60,11 +60,11 @@ function Dashboard() {
     : [];
 
   const servicesCount = getServices(listAppointments);
+  const servicesOptions = adminShop.servicesOptions || [];
 
-  const dataPie = Object.keys(servicesCount).map((service) => ({
-    title: service,
-    value: servicesCount[service],
-    color: getServiceColor(service),
+  const dataPie = servicesOptions.map((service, index) => ({
+    name: service,
+    sales: servicesCount[service] || 0,
   }));
 
   return (
@@ -92,7 +92,7 @@ function Dashboard() {
               <div className="text-lg font-semibold flex flex-col my-5 w-full">
                 <p className="mx-5">Appointments</p>
                 <p className="mx-5">
-                  {listAppointments ? listAppointments?.length : "0"}
+                  {listAppointments?.length > 0 ? listAppointments.length : "0"}
                 </p>
               </div>
             </div>
@@ -117,7 +117,7 @@ function Dashboard() {
               </div>
               <div className="text-lg font-semibold flex flex-col my-5 w-full">
                 <p className="mx-5">Revenue</p>
-                <p className=" mx-5">{totalCost} €</p>
+                <p className=" mx-5">{totalCost ? totalCost : "0"} €</p>
               </div>
             </div>
           </div>
@@ -136,7 +136,9 @@ function Dashboard() {
               </div>
               <div className="text-lg font-semibold flex flex-col my-5 w-full">
                 <p className="mx-5">Rating</p>
-                <p className=" mx-5">{rating}</p>
+                <p className=" mx-5">
+                  {rating ? rating : <Spinner color="default" />}
+                </p>
               </div>
             </div>
           </div>
@@ -174,34 +176,38 @@ function Dashboard() {
             <hr className="bg-gray-800 mx-4" />
             <div className="w-full grid grid-cols-1 overflow-y-auto">
               {/* APPOINTMENT LIST GOES HERE */}
-              {todayAppointments.length > 0 ? (
-                todayAppointments.map((appointment, index) => (
-                  <div
-                    key={appointment.id}
-                    className="grid grid-cols-4 mx-4 my-3 border-b-1 border-gray-100 font-semibold justify-items-center"
-                  >
-                    <div className="col">
-                      <p>
-                        {appointment.userFirstname} {appointment.userLastname}
-                      </p>
+              {todayAppointments ? (
+                todayAppointments.length > 0 ? (
+                  todayAppointments.map((appointment, index) => (
+                    <div
+                      key={appointment.id}
+                      className="grid grid-cols-4 mx-4 my-3 border-b-1 border-gray-100 font-semibold justify-items-center"
+                    >
+                      <div className="col">
+                        <p>
+                          {appointment.userFirstname} {appointment.userLastname}
+                        </p>
+                      </div>
+                      <div className="col bg-indigo-100 rounded-lg px-2">
+                        <p className="">{appointment.service}</p>
+                      </div>
+                      <div className="col">
+                        <p>{appointment.personnel}</p>
+                      </div>
+                      <div className="col">
+                        <p>{appointment.time.slice(0, 5)}</p>
+                      </div>
                     </div>
-                    <div className="col bg-indigo-100 rounded-lg px-2">
-                      <p className="">{appointment.service}</p>
-                    </div>
-                    <div className="col">
-                      <p>{appointment.personnel}</p>
-                    </div>
-                    <div className="col">
-                      <p>{appointment.time.slice(0, 5)}</p>
-                    </div>
+                  ))
+                ) : (
+                  <div className="w-full my-5 text-center">
+                    <p className="font-semibold text-lg">
+                      No appointments for today.
+                    </p>
                   </div>
-                ))
+                )
               ) : (
-                <div className="w-full my-5 text-center">
-                  <p className="font-semibold text-lg">
-                    No appointments for today.
-                  </p>
-                </div>
+                <Spinner />
               )}
             </div>
           </div>
@@ -211,33 +217,30 @@ function Dashboard() {
             </div>
             <hr className="bg-gray-800 mx-4" />
 
-            <div className="flex flex-row mx-unit-3xl">
-              {dataPie ? (
-                <div className="justify-start h-unit-6xl p-3">
-                  <PieChart data={dataPie} lineWidth={25} paddingAngle={2} />
-                </div>
+            <div className="flex flex-row mx-unit-3xl my-5">
+              {servicesCount ? (
+                <>
+                  <DonutChart
+                    data={dataPie}
+                    category="sales"
+                    index="name"
+                    showLabel={false}
+                    showAnimation
+                    animationDuration={1000}
+                    colors={["indigo-800", "indigo-600", "indigo-400"]}
+                    className="w-40"
+                  />
+                  <Legend
+                    categories={servicesOptions}
+                    colors={["indigo-800", "indigo-600", "indigo-400"]}
+                    className="max-w-xs mx-5"
+                  />
+                </>
               ) : (
-                <div className="w-full my-5 text-center">
-                  <p className="font-semibold text-lg">
-                    No selected services yet
-                  </p>
-                </div>
+                <p className="font-semibold text-center w-full">
+                  No selected services yet
+                </p>
               )}
-              <div className="justify-center text-center my-unit-3xl mx-unit-xl space-y-3">
-                {/*PRINT SERVICE OPTIONS AND COLORS*/}
-                {Object.keys(servicesCount).map((service, index) => (
-                  <div
-                    key={service}
-                    className="flex items-center font-semibold"
-                  >
-                    <span style={{ backgroundColor: colors[index] }}>
-                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </span>
-                    <p className="ml-2">{service}</p>
-                    <p className="ml-2">{servicesCount[service]}</p>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>

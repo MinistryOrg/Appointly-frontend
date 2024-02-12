@@ -7,7 +7,7 @@ export default function ServicesMenu() {
       <div className="w-full">
         <h1 className="text-center font-bold text-main-clr text-4xl my-4">
           Tailored Services, Just for
-          <span className="text-primary-purple">You</span>!
+          <span className="text-primary-purple"> You</span>!
         </h1>
       </div>
       <div className="lg:mx-unit-4xl lg:my-unit-3xl xsm:mx-auto xsm:my-unit-sm w-fit h-full grid gap-x-unit-4xl gap-y-unit-3xl xsm:grid-cols-1 lg:grid-cols-4 justify-center">

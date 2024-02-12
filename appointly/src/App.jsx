@@ -12,7 +12,7 @@ import AppointmentSummary from "./pages/AppointmentSummary";
 import { ShopProvider } from "./contexts/ShopContext";
 import { AppointmentProvider } from "./contexts/AppointmentContext";
 import { AuthProvider } from "./contexts/AuthContext";
-import { AdminTest, TestDate } from "./Example";
+import { Pie, TestDate } from "./Example";
 import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./components/Dashboard";
@@ -21,6 +21,7 @@ import EditShop from "./components/EditShop";
 import EditProfile from "./components/EditProfile";
 import { AdminProvider } from "./contexts/AdminContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import NotAnAdmin from "./pages/NotAnAdmin";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
             <AppointmentProvider>
               <AdminProvider>
                 <Routes>
-                  <Route path="/" element={<LandingPage />} />
+                  <Route index element={<LandingPage />} />
                   <Route path="login" element={<Login />} />
                   <Route path="register" element={<Register />} />
                   <Route path="shops" element={<BrowseShops />} />
@@ -45,7 +46,10 @@ function App() {
                       </ProtectedRoute>
                     }
                   >
-                    <Route element={<Navigate replace to="dashboard" />} />
+                    <Route
+                      index
+                      element={<Navigate replace to="dashboard" />}
+                    />
                     <Route path="dashboard" element={<Dashboard />} />
                     <Route
                       path="appointmentList"
@@ -55,13 +59,14 @@ function App() {
                     <Route path="editProfile" element={<EditProfile />} />
                   </Route>
                   <Route path="*" element={<NotFound />} />
+                  <Route path="notadmin" element={<NotAnAdmin />} />
                 </Routes>
               </AdminProvider>
             </AppointmentProvider>
           </ShopProvider>
         </BrowserRouter>
       </AuthProvider>
-      {/* <AdminTest /> */}
+      {/* <Pie /> */}
     </>
   );
 }

@@ -10,12 +10,21 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  Pagination,
   Select,
   SelectItem,
+  Spinner,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow,
+  getKeyValue,
   useDisclosure,
 } from "@nextui-org/react";
 import { useAdmin } from "../contexts/AdminContext";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { hoursAv } from "../data/shopData";
@@ -31,12 +40,15 @@ function AppointmentsList() {
     "Cost",
     "Manage",
   ];
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpenChange } = useDisclosure();
   const [startDate, setStartDate] = useState("");
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [id, setId] = useState("");
+  const [page, setPage] = useState(1);
+
+  const rowsPerPage = 10;
 
   const {
     listAppointments,
@@ -55,6 +67,13 @@ function AppointmentsList() {
     };
   }, [listAppointments]);
 
+  const totalPages = Math.ceil(listAppointments?.length / rowsPerPage);
+  const indexOfLastRow = page * rowsPerPage;
+  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
+  const currentRows = listAppointments?.slice(indexOfFirstRow, indexOfLastRow);
+
+  // console.log(pages);
+
   function formatDate(dateString) {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     const formattedDate = new Date(dateString).toLocaleDateString(
@@ -65,10 +84,10 @@ function AppointmentsList() {
   }
 
   const onOpenModal = (appointment) => {
-    setId(appointment.id);
+    setId(appointment?.id);
     setSelectedAppointment(appointment);
-    setStartDate(new Date(appointment.date));
-    setSelectedTime(appointment.time.slice(0, 5));
+    setStartDate(new Date(appointment?.date));
+    setSelectedTime(appointment?.time.slice(0, 5));
     onOpenChange();
   };
 
@@ -100,6 +119,8 @@ function AppointmentsList() {
   // console.log(selectedTime);
   // console.log(selectedDate);
 
+  const loadingState = listAppointments?.length === 0 ? "No appointemnts" : "";
+
   return (
     <>
       <main className="p-5 md:ml-64 h-screen pt-20">
@@ -107,83 +128,107 @@ function AppointmentsList() {
           <h1 className="text-2xl font-semibold">Appointments</h1>
         </div>
         <div className="bg-white border-1 border-gray-200 rounded-lg h-96 mx-unit-3xl my-5">
-          <div className="w-full grid grid-cols-1 overflow-y-auto">
-            {/*header */}
-            <div className="grid grid-cols-7  font-semibold justify-items-center gap-x-unit-3xl bg-primary  rounded-t-lg">
-              {labelsAppointment.map((label, index) => (
-                <div key={index} className="col my-2 w-full text-center  ">
-                  <p className="text-white">{label}</p>
-                </div>
-              ))}
-            </div>
-            {/*body */}
-            {listAppointments?.length > 0 ? (
-              listAppointments.map((appointment) => (
-                <div
-                  key={appointment.id}
-                  className="grid grid-cols-7 border-b-1 border-gray-100 font-semibold justify-items-center gap-x-unit-3xl"
+          <div className="w-full grid grid-cols-1 overflow-y-auto p-5">
+            {listAppointments ? (
+              <Table
+                aria-label="Appointments Table"
+                classNames={{
+                  th: ["bg-primary", "text-white", "font-semibold", "text-md"],
+                  td: ["font-semibold"],
+                  tr: ["hover:bg-gray-50", "rounded-2xl"],
+                  tbody: ["rounded-2xl"],
+                }}
+                isHeaderSticky
+                radius="lg"
+                bottomContent={
+                  totalPages > 0 ? (
+                    <div className="flex w-full justify-center">
+                      <Pagination
+                        isCompact
+                        showControls
+                        showShadow
+                        color="primary"
+                        page={page}
+                        total={totalPages}
+                        onChange={(page) => setPage(page)}
+                      />
+                    </div>
+                  ) : null
+                }
+                bottomContentPlacement="outside"
+              >
+                <TableHeader className="bg-primary text-white">
+                  {labelsAppointment?.map((label, index) => (
+                    <TableColumn key={index} className="text-center">
+                      {label}
+                    </TableColumn>
+                  ))}
+                </TableHeader>
+                <TableBody
+                  items={currentRows}
+                  loadingContent={<Spinner />}
+                  loadingState={
+                    listAppointments?.length === 0 ? "loading" : "idle"
+                  }
                 >
-                  <div className="col my-2 w-full text-center  ">
-                    <p className="">
-                      {appointment.userFirstname} {appointment.userLastname}
-                    </p>
-                  </div>
-                  <div className="col my-2 w-full text-center  ">
-                    <p className="">{appointment.service}</p>
-                  </div>
-                  <div className="col my-2 w-full text-center  ">
-                    <p className="">{appointment.personnel}</p>
-                  </div>
-                  <div className="col my-2 w-full text-center  ">
-                    <p className="">{formatDate(appointment.date)}</p>
-                  </div>
-                  <div className="col my-2 w-full text-center  ">
-                    <p className="">{appointment.time.slice(0, 5)}</p>
-                  </div>
-                  <div className="col my-2 w-full text-center  ">
-                    <p className="">{appointment.cost} €</p>
-                  </div>
-                  <div className="col my-2 w-full text-center flex items-center justify-center">
-                    <Dropdown>
-                      <DropdownTrigger>
-                        <Button variant="light">
-                          <svg
-                            class="w-7 h-7 text-gray-800"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-width="2"
-                              d="M12 6h0m0 6h0m0 6h0"
-                            />
-                          </svg>
-                        </Button>
-                      </DropdownTrigger>
-                      <DropdownMenu
-                        aria-label="Action event example"
-                        onAction={(key) => checkOption(key, appointment.id)}
-                      >
-                        <DropdownItem key="Edit">Edit Appointment</DropdownItem>
-                        <DropdownItem
-                          key="Cancel"
-                          className="text-danger"
-                          color="danger"
-                        >
-                          Cancel Appointment
-                        </DropdownItem>
-                      </DropdownMenu>
-                    </Dropdown>
-                  </div>
-                </div>
-              ))
+                  {(appointment) => (
+                    <TableRow key={appointment.id} className="text-center">
+                      <TableCell>{`${appointment.userFirstname} ${appointment.userLastname}`}</TableCell>
+                      <TableCell>{appointment.service}</TableCell>
+                      <TableCell>{appointment.personnel}</TableCell>
+                      <TableCell>{formatDate(appointment.date)}</TableCell>
+                      <TableCell>{appointment.time.slice(0, 5)}</TableCell>
+                      <TableCell>{`${appointment.cost} €`}</TableCell>
+                      <TableCell>
+                        <div className="relative flex justify-center items-center gap-2">
+                          <Dropdown>
+                            <DropdownTrigger>
+                              <Button variant="light">
+                                <svg
+                                  className="w-7 h-7 text-gray-800"
+                                  aria-hidden="true"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeWidth="2"
+                                    d="M12 6h0m0 6h0m0 6h0"
+                                  />
+                                </svg>
+                              </Button>
+                            </DropdownTrigger>
+                            <DropdownMenu
+                              aria-label="Action event example"
+                              onAction={(key) =>
+                                checkOption(key, appointment.id)
+                              }
+                            >
+                              <DropdownItem key="Edit">
+                                Edit Appointment
+                              </DropdownItem>
+                              <DropdownItem
+                                key="Cancel"
+                                className="text-danger"
+                                color="danger"
+                              >
+                                Cancel Appointment
+                              </DropdownItem>
+                            </DropdownMenu>
+                          </Dropdown>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
             ) : (
-              <div className="w-full my-5 text-center">
-                <p className="font-semibold text-lg">No appointments.</p>
-              </div>
+              <p className="font-semibold w-full text-center">
+                No appointments yet <br />
+                Your appointments are going to be shown in this table.
+              </p>
             )}
           </div>
         </div>

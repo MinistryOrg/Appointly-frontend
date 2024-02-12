@@ -1,9 +1,11 @@
 import { Input } from "@nextui-org/react";
 import { useAdmin } from "../contexts/AdminContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Callout from "./ui/Callout";
 
 function EditShop() {
-  const { adminShop, editShop } = useAdmin();
+  const { adminShop, editShop, show, setShow, doneEdit, setDoneEdit } =
+    useAdmin();
   console.log("edit", adminShop);
   const { name, description, address, telephone, servicesOptions, cost } =
     adminShop;
@@ -42,9 +44,58 @@ function EditShop() {
   console.log("services", editedServicesArray);
   console.log(changes);
 
+  console.log("doneEdit", doneEdit);
+
+  function resetInputs() {
+    setNewName(name ? name : "");
+    setNewDescr(description ? description : "");
+    setNewAddr(address ? address : "");
+    setNewTelep(telephone ? telephone : "");
+    setNewServices([...servicesOptions]);
+    setNewCosts([...cost]);
+  }
+
+  function handleButtonClick() {
+    setShow(true);
+    editShop(
+      adminShop.id,
+      editedCostsArray,
+      editedServicesArray,
+      newName,
+      newAddr,
+      newDescr,
+      newTelep
+    );
+  }
+
+  console.log(doneEdit);
+
   return (
     <>
       <main className="p-10 md:ml-64 h-auto pt-20">
+        {show ? (
+          doneEdit ? (
+            <Callout
+              type={"success"}
+              color={"green"}
+              headline={"Successfully edited!"}
+              paragraph={"Changes have been made successfully"}
+              show={show}
+              setShow={setShow}
+            />
+          ) : (
+            <Callout
+              type={"error"}
+              color={"red"}
+              headline={"Failed to edit!"}
+              paragraph={"Something went wrong with the edit"}
+              show={show}
+              setShow={setShow}
+            />
+          )
+        ) : (
+          ""
+        )}
         <h1 className="text-2xl font-semibold mx-unit-3xl">Edit Shop</h1>
 
         <div className="bg-white border-1 border-gray-200 rounded-lg h-auto mx-unit-3xl my-5">
@@ -56,7 +107,7 @@ function EditShop() {
               <p className="w-unit-4xl my-4">Name:</p>
               <Input
                 key="left"
-                defaultValue={name}
+                value={newName}
                 onValueChange={setNewName}
                 variant="bordered"
                 className="my-2"
@@ -71,7 +122,7 @@ function EditShop() {
               <p className="w-unit-4xl my-4">Description:</p>
               <Input
                 key="left"
-                defaultValue={description}
+                value={newDescr}
                 onValueChange={setNewDescr}
                 variant="bordered"
                 className="my-2"
@@ -86,7 +137,7 @@ function EditShop() {
               <p className="w-unit-4xl my-4">Address:</p>
               <Input
                 key="left"
-                defaultValue={address}
+                value={newAddr}
                 onValueChange={setNewAddr}
                 variant="bordered"
                 className="my-2"
@@ -101,7 +152,7 @@ function EditShop() {
               <p className="w-unit-4xl my-4">Telephone:</p>
               <Input
                 key="left"
-                defaultValue={telephone}
+                value={newTelep}
                 onValueChange={setNewTelep}
                 variant="bordered"
                 className="my-2"
@@ -126,7 +177,7 @@ function EditShop() {
                   <p className="w-unit-4xl my-4">Service {index + 1}:</p>
                   <Input
                     key="left"
-                    defaultValue={servicesOptions[index]}
+                    value={newServices[index]}
                     onValueChange={(value) => handleServiceChange(index, value)}
                     variant="bordered"
                     className="my-2"
@@ -141,7 +192,7 @@ function EditShop() {
                   <p className="w-unit-3xl my-4">Price:</p>
                   <Input
                     type="number"
-                    defaultValue={cost[index]}
+                    value={newCosts[index]}
                     onValueChange={(value) => handleCostChange(index, value)}
                     labelPlacement="outside"
                     className="my-2 w-1/2"
@@ -163,24 +214,17 @@ function EditShop() {
           </div>
           <div className="w-full flex flex-row justify-end">
             <div className="p-5">
-              <button className="w-full px-4 py-2 text-black font-medium bg-white hover:bg-gray-300 active:bg-gray-400 border-1 border-gray-300 rounded-lg duration-150">
+              <button
+                className="w-full px-4 py-2 text-black font-medium bg-white hover:bg-gray-300 active:bg-gray-400 border-1 border-gray-300 rounded-lg duration-150"
+                onClick={resetInputs}
+              >
                 Cancel
               </button>
             </div>
             <div className="p-5">
               <button
                 className="w-full px-4 py-2 text-white font-medium bg-btn-purple hover:bg-indigo-800 active:bg-indigo-600 rounded-lg duration-150"
-                onClick={() =>
-                  editShop(
-                    adminShop.id,
-                    editedCostsArray,
-                    editedServicesArray,
-                    newName,
-                    newAddr,
-                    newDescr,
-                    newTelep
-                  )
-                }
+                onClick={() => handleButtonClick()}
               >
                 Save Changes
               </button>

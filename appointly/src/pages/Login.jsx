@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
-import { Input, Checkbox } from "@nextui-org/react";
+import { Input, Checkbox, Spinner } from "@nextui-org/react";
 import { EyeFilledIcon } from "../assets/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../assets/EyeSlashFilledIcon";
 import { useAuth } from "../contexts/AuthContext";
@@ -16,7 +16,7 @@ export default function Login() {
     password,
     setPassword,
     loggedIn,
-    isAdmin,
+    isLoading,
   } = useAuth();
 
   const [isVisible, setIsVisible] = useState(false);
@@ -68,7 +68,7 @@ export default function Login() {
                 labelPlacement="outside"
                 variant="bordered"
                 radius="sm"
-                description="Enter 12 characters and try to use Aa1?/-"
+                description="We recommend to include this variations Aa1?/-"
                 isRequired
                 isInvalid={isInvalid}
                 endContent={
@@ -91,7 +91,7 @@ export default function Login() {
                 }}
               />
             </div>
-            <div className="flex items-center justify-between text-sm">
+            {/* <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-x-3">
                 <Checkbox radius="sm" color="purple">
                   Remember me
@@ -103,9 +103,9 @@ export default function Login() {
               >
                 Forgot password?
               </a>
-            </div>
+            </div> */}
             <button className="w-full px-4 py-2 text-white font-medium bg-btn-sign hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
-              Sign in
+              {isLoading ? <Spinner size="sm" color="default" /> : `Sign in`}
             </button>
             {isInvalid ? (
               <p className="text-center text-error font-semibold">

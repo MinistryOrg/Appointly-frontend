@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import { DonutChart, Legend } from "@tremor/react";
 
 const dataTest = {
   email: "alogo@gmail.com",
@@ -244,4 +245,58 @@ export function AdminTest() {
 
     fetchShopAdmin();
   }, []);
+}
+
+export function Pie() {
+  const sales = [
+    {
+      name: "New York",
+      sales: 980,
+    },
+    {
+      name: "London",
+      sales: 456,
+    },
+    {
+      name: "Hong Kong",
+      sales: 390,
+    },
+    {
+      name: "San Francisco",
+      sales: 240,
+    },
+    {
+      name: "Singapore",
+      sales: 190,
+    },
+  ];
+
+  return (
+    <>
+      {" "}
+      <div className="flex items-center justify-center space-x-6">
+        <DonutChart
+          data={sales}
+          category="sales"
+          index="name"
+          showLabel
+          showAnimation
+          animationDuration={1000}
+          colors={["blue", "cyan", "indigo", "violet", "fuchsia"]}
+          className="w-40"
+        />
+        <Legend
+          categories={[
+            "New York",
+            "London",
+            "Hong Kong",
+            "San Francisco",
+            "Singapore",
+          ]}
+          colors={["blue", "cyan", "indigo", "violet", "fuchsia"]}
+          className="max-w-xs"
+        />
+      </div>
+    </>
+  );
 }

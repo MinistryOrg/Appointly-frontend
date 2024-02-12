@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { EyeSlashFilledIcon } from "../assets/EyeSlashFilledIcon";
 import { EyeFilledIcon } from "../assets/EyeFilledIcon";
 import { useAuth } from "../contexts/AuthContext";
+import Callout from "./ui/Callout";
 
 function EditProfile() {
   const [isVisible, setIsVisible] = useState(false);
@@ -14,7 +15,8 @@ function EditProfile() {
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const { changePassword } = useAuth();
+  const { changePassword, doneEdit, setDoneEdit, showChange, setShowChange } =
+    useAuth();
 
   useEffect(() => {
     if (confirmPassword !== newPassword) {
@@ -26,9 +28,40 @@ function EditProfile() {
     }
   }, [confirmPassword, newPassword]);
 
+  function resetInputs() {
+    setOldPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+  }
+
+  console.log(doneEdit, showChange);
+
   return (
     <>
       <main className="p-10 md:ml-64 h-auto pt-20">
+        {showChange ? (
+          doneEdit ? (
+            <Callout
+              type={"success"}
+              color={"green"}
+              headline={"Change password successfully!"}
+              paragraph={"Changes have been made successfully"}
+              show={showChange}
+              setShow={setShowChange}
+            />
+          ) : (
+            <Callout
+              type={"error"}
+              color={"red"}
+              headline={"Failed to change passowrd!"}
+              paragraph={"Something went wrong!"}
+              show={showChange}
+              setShow={setShowChange}
+            />
+          )
+        ) : (
+          ""
+        )}
         <h1 className="text-2xl font-semibold mx-unit-3xl">Edit Profile</h1>
 
         <h2 className="text-xl font-semibold mx-unit-3xl mt-10">
@@ -38,7 +71,7 @@ function EditProfile() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-
+              setShowChange(true);
               changePassword(oldPassword, newPassword, confirmPassword);
             }}
           >
@@ -71,7 +104,7 @@ function EditProfile() {
                   className=""
                   classNames={{
                     label: "font-semibold",
-                    input: ["bg-white"],
+                    input: ["bg-white", "border-white"],
                     inputWrapper: ["border-1", "h-2/3", "w-1/2"],
                   }}
                 />
@@ -147,7 +180,10 @@ function EditProfile() {
             </div>
             <div className="w-full flex flex-row justify-end">
               <div className="p-5">
-                <button className="w-full px-4 py-2 text-black font-medium bg-white hover:bg-gray-300 active:bg-gray-400 border-1 border-gray-300 rounded-lg duration-150">
+                <button
+                  className="w-full px-4 py-2 text-black font-medium bg-white hover:bg-gray-300 active:bg-gray-400 border-1 border-gray-300 rounded-lg duration-150"
+                  onClick={resetInputs}
+                >
                   Cancel
                 </button>
               </div>

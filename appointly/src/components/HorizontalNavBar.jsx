@@ -1,9 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../src/styles/images/apoinlty_logo.webp";
 import { useAuth } from "../contexts/AuthContext";
+import { UserIcon } from "../assets/UserIcon";
 
 function HorizontalNavBar() {
   const { loggedIn, changeLoggedIn, lastname, firstname } = useAuth();
+  const navigate = useNavigate();
+
+  function logout() {
+    changeLoggedIn(false);
+    localStorage.clear();
+    navigate("/");
+  }
+
   return (
     <>
       <nav className="bg-primary px-4 py-2.5 fixed left-0 right-0 top-0 z-50">
@@ -53,24 +62,18 @@ function HorizontalNavBar() {
             </p>
             <a
               href="/editProfile"
-              className="flex mx-3 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 "
+              className="flex mx-3 text-sm rounded-full md:mr-0 focus:ring-4 hover:text-gray-100 text-white"
               id="user-menu-button"
               aria-expanded="false"
               data-dropdown-toggle="dropdown"
             >
-              <span className="sr-only">Open user menu</span>
-              <img
-                className="w-8 h-8 rounded-full"
-                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
-                alt="user "
-              />
+              <UserIcon />
             </a>
             <Link
               to="#"
               className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300  group"
               onClick={() => {
-                changeLoggedIn(false);
-                localStorage.clear();
+                logout();
               }}
             >
               <svg

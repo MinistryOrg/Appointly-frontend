@@ -10,6 +10,7 @@ function ShopProvider({ children }) {
   const [locationKeys, setLocationKeys] = useState(new Set(["Location"]));
   const [serviceKeys, setServiceKeys] = useState(new Set(["Service"]));
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const selectedLocation = useMemo(
     () => Array.from(locationKeys).join(", ").replaceAll("_", " "),
@@ -36,6 +37,7 @@ function ShopProvider({ children }) {
     });
 
     try {
+      setIsLoading(true);
       const res = await fetch(
         `${shop_url}/shopsByLocationService?${queryParams}`,
         {
@@ -59,6 +61,8 @@ function ShopProvider({ children }) {
       navigate(`/shops`, { state: { shopsData: data, selectedService } });
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -127,6 +131,7 @@ function ShopProvider({ children }) {
         getShop,
         getShopName,
         isOpen,
+        isLoading,
       }}
     >
       {children}

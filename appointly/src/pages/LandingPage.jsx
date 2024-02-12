@@ -14,7 +14,7 @@ export default function LandingPage() {
         <Home />
         <hr className="my-4 mx-5 bg-divider w-auto h-1 rounded-md" />
         <Service />
-        <hr className="my-4 mx-5 bg-divider w-auto h-1 rounded-md" />
+        <hr className="my-4 mx-5 bg-divider w-auto h-1 rounded-md opacity-60" />
         <About />
         <Partneship />
         <Footer />

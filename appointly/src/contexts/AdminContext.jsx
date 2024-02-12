@@ -7,12 +7,12 @@ const user_url =
 
 const AdminContext = createContext();
 
-const colors = ["#5f5ef6", "#4241AC", "#8D8DCD"];
-
 function AdminProvider({ children }) {
   const [adminShop, setAdminShop] = useState([]);
   const [totalCost, setTotalCost] = useState();
   const [listAppointments, setListAppointments] = useState();
+  const [doneEdit, setDoneEdit] = useState(false);
+  const [show, setShow] = useState(false);
 
   async function fetchShopAdmin(email, controller) {
     console.log(email);
@@ -98,25 +98,7 @@ function AdminProvider({ children }) {
         }
       });
     }
-
-    console.log("Services Count:", servicesCount);
     return servicesCount;
-  }
-
-  // Define a function to map services to colors
-  function getServiceColor(service) {
-    if (adminShop.servicesOptions) {
-      const index = adminShop.servicesOptions.indexOf(service);
-      if (index !== -1) {
-        // If service is in servicesOptions, use its index to get the color
-        const color = colors[index];
-        if (color) {
-          return color;
-        }
-      }
-    }
-
-    return "#FFFFFF";
   }
 
   async function cancelAppointment(id) {
@@ -152,12 +134,9 @@ function AdminProvider({ children }) {
   async function editAppointment(id, date, time, appointment) {
     const [hours, minutes] = time.split(":");
     const formattedTime = `${hours}:${minutes}:00`;
-    console.log(formattedTime);
 
     const formattedDate = date.replace(/\//g, "-");
-    console.log(formattedDate);
-    console.log(id);
-    console.log(appointment);
+
     try {
       const res = await fetch(`${admin_url}/editAppointment`, {
         method: "PATCH",
@@ -183,7 +162,6 @@ function AdminProvider({ children }) {
       console.log(error);
     }
   }
-
   async function editShop(
     id,
     newCosts,
@@ -193,16 +171,9 @@ function AdminProvider({ children }) {
     newDescr,
     newTelep
   ) {
-    // console.log("mesa", id);
-    // console.log("mesa", newCosts);
-    // console.log("mesa", newServices);
-    // console.log("mesa", newName);
-    // console.log("mesa", newAddr);
-    // console.log("mesa", newDescr);
-    // console.log("mesa", newTelep);
-
     try {
-      const res = fetch(`${admin_url}/editShop`, {
+      setDoneEdit(false);
+      const res = await fetch(`${admin_url}/editShop`, {
         method: "PATCH",
         headers: {
           Accept: "application/json",
@@ -220,9 +191,16 @@ function AdminProvider({ children }) {
           servicesOptions: newServices,
         }),
       });
-      if (!res.ok) throw new Error("something went wrong");
+
+      if (!res.ok) {
+        setDoneEdit(false);
+        throw new Error("something went wrong");
+      }
+
+      setDoneEdit(true);
     } catch (error) {
       console.log(error);
+      // setDoneEdit(false);
     }
   }
 
@@ -235,10 +213,13 @@ function AdminProvider({ children }) {
         listAppointments,
         getServices,
         totalCost,
-        getServiceColor,
+        doneEdit,
         cancelAppointment,
         editAppointment,
         editShop,
+        setDoneEdit,
+        show,
+        setShow,
       }}
     >
       {children}

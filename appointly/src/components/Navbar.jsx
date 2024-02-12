@@ -29,6 +29,7 @@ export default function NavBar() {
     { navText: "Services", link: "/#services" },
     { navText: "About", link: "/#about" },
     { navText: "Contact", link: "/#contact" },
+    { navText: "Admin", link: "/dashboard" },
   ];
 
   const isLinkActive = (link) => {
@@ -49,7 +50,7 @@ export default function NavBar() {
       height={`4.5rem`}
     >
       <ScrollToHashElement />
-      <NavbarContent className="hidden sm:flex gap-10" justify="start">
+      <NavbarContent className="hidden sm:flex gap-9" justify="start">
         {navItems.map((menuItem, index) => (
           <NavbarItem key={index}>
             <Link

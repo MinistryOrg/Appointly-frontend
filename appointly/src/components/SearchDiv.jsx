@@ -4,6 +4,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Button,
+  Spinner,
 } from "@nextui-org/react";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
@@ -31,6 +32,7 @@ export default function SearchDiv() {
     selectedLocation,
     selectedService,
     handleSearchShop,
+    isLoading,
   } = useShops();
 
   return (
@@ -120,10 +122,10 @@ export default function SearchDiv() {
       <div className="lg:basis-1/2 xsm:basis-1/3">
         <Button
           className="capitalize h-full lg:w-unit-5xl xsm:w-full font-bold text-lg bg-primary text-white"
-          startContent={<MagnifyingGlassIcon />}
+          startContent={isLoading ? "" : <MagnifyingGlassIcon />}
           onClick={handleSearchShop}
         >
-          Search
+          {isLoading ? <Spinner color="default" /> : "Search"}
         </Button>
       </div>
     </div>

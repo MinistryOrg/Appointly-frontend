@@ -1,7 +1,7 @@
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
 
-function NotFound() {
+function NotAnAdmin() {
   return (
     <>
       <NavBar />
@@ -9,15 +9,15 @@ function NotFound() {
         <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-screen md:px-8">
           <div className="max-w-lg mx-auto space-y-6 text-center">
             <h3 className="text-gray-800 text-4xl font-semibold sm:text-5xl">
-              Page not found
+              Not an Admin
             </h3>
             <p className="text-gray-600 font-semibold">
-              Sorry, the page you are looking for could not be found or has been
-              removed.
+              It seems you don't own any shop or you are apart of the apointly
+              family. Go back and give us a call or an email to fix that.
             </p>
             <a
               href="/"
-              className="text-white duration-150 hover:text-primary font-medium inline-flex items-center gap-x-1 bg-dark-primary px-5 py-2 rounded-lg"
+              className="text-white duration-150 hover:bg-primary font-medium inline-flex items-center gap-x-1 bg-dark-primary px-5 py-2 rounded-lg"
             >
               Go back
             </a>
@@ -29,4 +29,4 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+export default NotAnAdmin;

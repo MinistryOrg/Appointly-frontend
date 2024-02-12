@@ -1,16 +1,15 @@
 import img1 from "../styles/images/about_img.png";
 import prev1 from "../styles/images/prev.png";
 import prev2 from "../styles/images/prev2.png";
-
 function About() {
   return (
     <div id="about">
       <h1 className="text-center font-bold text-main-clr text-4xl my-4">
         About us
       </h1>
-      <div className="grid xsm:grip-col-1 xsm:mx-unit-lg lg:grid-cols-2 md:mx-unit-6xl gap-6 font-semibold text-lg my-unit-xl">
-        <div className="col">
-          <p className="my-unit-2xl mx-5">
+      <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-4 font-semibold text-lg justify-items-center md:mx-unit-sm xsm:mx-unit-md lg:mx-unit-6xl ">
+        <div className="p-4">
+          <p>
             Welcome to <span className="text-primary font-bold">Apointly</span>,
             the leading online booking platform for all your appointment needs.
             Whether you're looking for a haircut, a manicure, a car repair, or a
@@ -27,36 +26,38 @@ function About() {
             can easily find and book available appointments at your convenience.
           </p>
         </div>
-        <div className="col flex flex-row justify-center ">
+        <div className="p-4 ">
           <img
             src={img1}
             alt="1"
-            className="w-unit-7xl  rounded-full shadow-lg p-7"
+            className="w-unit-5xl rounded-full shadow-lg p-0 my-5"
           />
         </div>
-        <div className="col">
-          <div class="flex">
-            <div class="overflow-hidden rounded-xl bg-gray-100 shadow-lg">
-              <img
-                src={prev2}
-                loading="lazy"
-                alt=" by Manny Moreno"
-                class="w-full h-unit-6xl object-cover object-center border border-gray-300 rounded-xl"
-              />
-            </div>
+        <div className="p-4 xsm:invisible lg:visible md:visible mb-unit-4xl">
+          <div className="flex xsm:hidden md:inline ">
+            <div class="flex ">
+              <div class="overflow-hidden rounded-xl bg-gray-100 shadow-lg">
+                <img
+                  src={prev2}
+                  loading="lazy"
+                  alt=" by Manny Moreno"
+                  class="w-full h-unit-6xl object-cover object-center border border-gray-300 rounded-xl"
+                />
+              </div>
 
-            <div class="relative left-10 top-10 z-10 -ml-10 overflow-hidden rounded-xl shadow-lg md:-left-12 md:top-32 lg:m-0 p-0">
-              <img
-                src={prev1}
-                loading="lazy"
-                alt=" by Kaung Htet"
-                class="h-unit-6xl w-full object-cover object-center border border-gray-300 rounded-xl"
-              />
+              <div class="relative left-10 top-10 z-10 -ml-10 overflow-hidden rounded-xl shadow-lg md:-left-12 md:top-32 lg:m-0 p-0">
+                <img
+                  src={prev1}
+                  loading="lazy"
+                  alt=" by Kaung Htet"
+                  class="h-unit-6xl w-full object-cover object-center border border-gray-300 rounded-xl"
+                />
+              </div>
             </div>
           </div>
         </div>
-        <div className="col">
-          <p className="xsm:my-unit-xl md:my-unit-4xl mx-5">
+        <div className="p-4">
+          <p>
             Not only do we make booking appointments a breeze for customers, but
             we also provide a streamlined management system for business owners.
             Our platform allows each shop to have its own dedicated admin
@@ -75,8 +76,8 @@ function About() {
             fast-paced digital world.
           </p>
         </div>
-        <div className="col-span-2 lg:mx-unit-3xl">
-          <p className="font-semibold text-xl p-7 rounded-xl border-2 border-light-purple">
+        <div className="xsm:col-span-1 lg:col-span-2">
+          <p className="p-7 rounded-xl border-3 border-light-purple">
             Our mission at Apointly is to simplify the process of appointment
             booking and make it a stress-free experience for both customers and
             service providers. So why wait? Start using Apointly today and say

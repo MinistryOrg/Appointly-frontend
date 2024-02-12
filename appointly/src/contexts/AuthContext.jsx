@@ -19,6 +19,10 @@ function AuthProvider({ children }) {
   const [isInvalid, setIsInvalid] = useState(false);
   const [role, setRole] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [doneEdit, setDoneEdit] = useState(false);
+  const [showChange, setShowChange] = useState(false);
 
   useEffect(() => {
     if (role) {
@@ -32,6 +36,7 @@ function AuthProvider({ children }) {
     const abortController = new AbortController();
     const url = BASE_URL + `/authenticate`;
     try {
+      setIsLoading(true);
       const res = await fetch(url, {
         signal: abortController.signal,
         method: "POST",
@@ -58,6 +63,8 @@ function AuthProvider({ children }) {
       changeLoggedIn(true, decode.email);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
   useEffect(() => {
@@ -95,7 +102,9 @@ function AuthProvider({ children }) {
     setEmail(userEmail);
     setLastname(lastname);
     setFirstname(firstname);
-    setRole(role);
+    setRole(role); // <--- Setting the role state
+
+    // Use the updated role to set isAdmin
     setIsAdmin(role === "ADMIN");
 
     if (value === false) {
@@ -118,28 +127,30 @@ function AuthProvider({ children }) {
 
     const url = BASE_URL + `/password`;
     const abortController = new AbortController();
-    const res = await fetch(url, {
-      signal: abortController.signal,
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      mode: "cors",
-      body: JSON.stringify({
-        oldPassword: oldPassword,
-        newPassword: newPassword,
-        confirmationPassword: confirmPassword,
-      }),
-    });
-
-    if (!res.ok) {
-      throw new Error("something went wrong");
-    } else {
-    }
-
     try {
+      setDoneEdit(false);
+      const res = await fetch(url, {
+        signal: abortController.signal,
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        mode: "cors",
+        body: JSON.stringify({
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+          confirmationPassword: confirmPassword,
+        }),
+      });
+
+      if (!res.ok) {
+        setDoneEdit(false);
+        throw new Error("something went wrong");
+      }
+
+      setDoneEdit(true);
     } catch (error) {
       console.log(error);
     }
@@ -162,6 +173,11 @@ function AuthProvider({ children }) {
         role,
         isAdmin,
         changePassword,
+        isLoading,
+        doneEdit,
+        setDoneEdit,
+        showChange,
+        setShowChange,
       }}
     >
       {children}
