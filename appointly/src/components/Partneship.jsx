@@ -19,7 +19,7 @@ function Partneship() {
             </p>
             <div className="flex flex-col space-y-5">
               <Button
-                className="capitalize w-1/2 h-auto py-3 px-5 font-bold text-lg bg-primary text-white"
+                className="capitalize xsm:w-auto lg:w-1/2 h-auto py-3 px-5 font-bold text-lg bg-primary text-white"
                 startContent={<BriefcaseIcon />}
                 as={Link}
                 href="#"
@@ -28,10 +28,10 @@ function Partneship() {
               </Button>
 
               <h2 className="font-semibold">
-                If you are a member already join in here.
+                If you're already a member, log in here.
               </h2>
               <Button
-                className="capitalize w-1/2 h-auto py-3 px-5 font-bold text-lg bg-dark-primary text-white"
+                className="capitalize xsm:w-auto lg:w-1/2 h-auto py-3 px-5 font-bold text-lg bg-dark-primary text-white"
                 startContent={
                   <svg
                     className="w-6 h-6 text-white transition duration-75  group-hover:text-gray-300 "
@@ -47,7 +47,7 @@ function Partneship() {
                 as={Link}
                 href="/dashboard"
               >
-                Admin Dashboard
+                Go to admin dashboard
               </Button>
             </div>
           </div>

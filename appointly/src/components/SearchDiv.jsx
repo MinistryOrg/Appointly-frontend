@@ -36,13 +36,13 @@ export default function SearchDiv() {
   } = useShops();
 
   return (
-    <div className="bg-div-lp shadow-md rounded-md lg:h-16 sm:h-auto lg:max-w-3xl sm:w-auto p-2 my-8 flex lg:flex-row xsm:flex-col gap-4">
+    <div className="bg-div-lp shadow-md rounded-md lg:h-16 sm:h-auto lg:max-w-3xl sm:w-auto p-2 my-8 flex md:flex-row xsm:flex-col gap-4">
       <div className="lg:basis-1/2 xsm:basis-1/3">
         <Dropdown>
           <DropdownTrigger>
             <Button
               variant="bordered"
-              className="capitalize h-full lg:w-unit-5xl xsm:w-full font-bold text-lg"
+              className="capitalize xsm:h-unit-2xl lg:h-full lg:w-unit-5xl xsm:w-full font-bold text-lg"
             >
               {selectedLocation}
             </Button>
@@ -55,6 +55,7 @@ export default function SearchDiv() {
             selectedKeys={locationKeys}
             onSelectionChange={setLocationKeys}
             disabledKeys={["Thessalonikh"]}
+            className="xsm:w-unit-6xl md:w-full"
             itemClasses={{
               base: [
                 "rounded-md",
@@ -83,7 +84,7 @@ export default function SearchDiv() {
           <DropdownTrigger>
             <Button
               variant="bordered"
-              className="capitalize h-full lg:w-unit-5xl xsm:w-full font-bold text-lg"
+              className="capitalize xsm:h-unit-2xl lg:h-full lg:w-unit-5xl xsm:w-full font-bold text-lg"
             >
               {selectedService}
             </Button>
@@ -96,6 +97,7 @@ export default function SearchDiv() {
             selectedKeys={serviceKeys}
             onSelectionChange={setServiceKeys}
             disabledKeys={["Trainer"]}
+            className="xsm:w-unit-6xl md:w-full"
             itemClasses={{
               base: [
                 "rounded-md",
@@ -121,7 +123,7 @@ export default function SearchDiv() {
       </div>
       <div className="lg:basis-1/2 xsm:basis-1/3">
         <Button
-          className="capitalize h-full lg:w-unit-5xl xsm:w-full font-bold text-lg bg-primary text-white"
+          className="capitalize xsm:h-unit-2xl lg:h-full lg:w-unit-5xl xsm:w-full font-bold text-lg bg-primary text-white"
           startContent={isLoading ? "" : <MagnifyingGlassIcon />}
           onClick={handleSearchShop}
         >

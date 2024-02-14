@@ -4,7 +4,6 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Input,
   Modal,
   ModalBody,
   ModalContent,
@@ -20,11 +19,10 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-  getKeyValue,
   useDisclosure,
 } from "@nextui-org/react";
 import { useAdmin } from "../contexts/AdminContext";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { hoursAv } from "../data/shopData";
@@ -32,9 +30,9 @@ import { subDays, format } from "date-fns";
 
 function AppointmentsList() {
   const labelsAppointment = [
-    "Name",
-    "Service",
     "Personnel",
+    "Service",
+    "Name",
     "Date",
     "Time",
     "Cost",
@@ -124,10 +122,10 @@ function AppointmentsList() {
   return (
     <>
       <main className="p-5 md:ml-64 h-screen pt-20">
-        <div className="w-full mx-unit-3xl">
+        <div className="w-full xsm:mx-unit-lg lg:mx-unit-3xl ">
           <h1 className="text-2xl font-semibold">Appointments</h1>
         </div>
-        <div className="bg-white border-1 border-gray-200 rounded-lg h-96 mx-unit-3xl my-5">
+        <div className="bg-white border-1 border-gray-200 rounded-lg xsm:mx-unit-lg lg:mx-unit-3xl my-5 h-auto">
           <div className="w-full grid grid-cols-1 overflow-y-auto p-5">
             {listAppointments ? (
               <Table
@@ -173,9 +171,9 @@ function AppointmentsList() {
                 >
                   {(appointment) => (
                     <TableRow key={appointment.id} className="text-center">
-                      <TableCell>{`${appointment.userFirstname} ${appointment.userLastname}`}</TableCell>
-                      <TableCell>{appointment.service}</TableCell>
                       <TableCell>{appointment.personnel}</TableCell>
+                      <TableCell>{appointment.service}</TableCell>
+                      <TableCell>{`${appointment.userFirstname} ${appointment.userLastname}`}</TableCell>
                       <TableCell>{formatDate(appointment.date)}</TableCell>
                       <TableCell>{appointment.time.slice(0, 5)}</TableCell>
                       <TableCell>{`${appointment.cost} €`}</TableCell>

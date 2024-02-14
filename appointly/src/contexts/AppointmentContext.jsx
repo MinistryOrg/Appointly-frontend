@@ -15,7 +15,7 @@ const AppointmentContext = createContext();
 
 function AppointmentProvider({ children }) {
   // use state for service
-  const [service, setService] = useState("");
+  const [selectedService, setSelectedService] = useState("");
   const [selectedCost, setSelectedCost] = useState("");
   //use state for personnel
   const [selectedPersonnel, setSelectedPersonnel] = useState("");
@@ -33,6 +33,8 @@ function AppointmentProvider({ children }) {
   const [bookedTimes, setBookedTimes] = useState([]);
   const [allTimesBooked, setAllTimesBooked] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const { getShopName } = useShops();
   const { loggedIn } = useAuth();
   console.log("loggedIn", loggedIn);
@@ -44,6 +46,7 @@ function AppointmentProvider({ children }) {
 
     console.log("APO TO CONTEXT BROOO", shopName);
     try {
+      setIsLoading(true);
       if (!loggedIn) {
         navigate("/login");
         return;
@@ -58,7 +61,7 @@ function AppointmentProvider({ children }) {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           body: JSON.stringify({
-            service: service,
+            service: selectedService,
             personnel: selectedPersonnel,
             cost: selectedCost,
             date: formattedDate,
@@ -74,6 +77,8 @@ function AppointmentProvider({ children }) {
       navigate("/");
     } catch (error) {
       console.error("Error booking appointment:", error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -100,8 +105,8 @@ function AppointmentProvider({ children }) {
   return (
     <AppointmentContext.Provider
       value={{
-        service,
-        setService,
+        selectedService,
+        setSelectedService,
         selectedCost,
         setSelectedCost,
         selectedPersonnel,
@@ -125,6 +130,7 @@ function AppointmentProvider({ children }) {
         bookedTimes,
         allTimesBooked,
         setAllTimesBooked,
+        isLoading,
       }}
     >
       {children}

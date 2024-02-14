@@ -1,14 +1,23 @@
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
-import { Avatar, Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import {
+  Avatar,
+  Card,
+  CardBody,
+  CardFooter,
+  Image,
+  Skeleton,
+} from "@nextui-org/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Partner } from "../components/ui/Partner";
 import StarRating from "../components/ui/StarRating";
-import { barber_url } from "../data/shopData";
+import { barber_url, mech_url, nail_url } from "../data/shopData";
+import { useState } from "react";
 
 export default function BrowseShops() {
   const { state } = useLocation();
   const shopsData = state?.shopsData || [];
+  const [isLoaded, setIsLoaded] = useState(shopsData ? true : false);
   const selectedService = state?.selectedService || "";
   const navigate = useNavigate();
 
@@ -39,6 +48,18 @@ export default function BrowseShops() {
     // Navigate to the individual shop with its ID
   }
 
+  const { service } = shopsData[0];
+
+  console.log("Service", service);
+
+  const serviceUrls = {
+    "Barber Shop": barber_url,
+    "Nail Salon": nail_url,
+    Mechanic: mech_url,
+    // Add more service types if needed
+  };
+  const serviceUrl = serviceUrls[selectedService] || "";
+
   return (
     <>
       <NavBar />
@@ -48,11 +69,11 @@ export default function BrowseShops() {
         </div>
         <div className="grid lg:grid-cols-3 sm:grid-cols-2 xsm:grid-cols-1 gap-10 lg:mx-unit-3xl sm:mx-unit-sm lg:my-unit-xl sm:my-unit-sm">
           {shopsData.map((shop, index) => (
-            <div className="p-0 m-0" key={index}>
+            <div className="p-0 lg:m-0 xsm:mx-4 xsm:mb-5" key={index}>
               <Card
                 shadow="sm"
                 radius="sm"
-                className=""
+                className="p-0"
                 isPressable
                 onPress={() => {
                   console.log(shop.id);
@@ -60,32 +81,34 @@ export default function BrowseShops() {
                 }}
               >
                 <CardBody className="overflow-visible p-0">
-                  <Image
-                    shadow="sm"
-                    width={500}
-                    radius="none"
-                    alt="awdawdwa"
-                    className="w-full object-cover"
-                    src={`${barber_url}${shop.backgroundImgPath}`}
-                  />
+                  <Skeleton isLoaded={isLoaded} className="rounded-lg">
+                    <Image
+                      shadow="sm"
+                      width={500}
+                      radius="lg"
+                      alt="awdawdwa"
+                      className="w-auto object-cover"
+                      src={`${serviceUrl}${shop.backgroundImgPath}`}
+                    />
+                  </Skeleton>
                 </CardBody>
                 <CardFooter className="text-small justify-between rounded-none">
                   <div className="w-full grid lg:grid-cols-3 xsm:grid-cols-2">
-                    <div className="px-0">
+                    <div className="px-0 my-2 mx-2">
                       <Avatar
-                        src="../../src/styles/images/shop_logo_2.png"
+                        src={`${serviceUrl}${shop.shopLogo}`}
                         isBordered
                         className="w-24 h-24"
                       />
                     </div>
                     <div
                       className={`text-start font-bold mt-1.5 ${
-                        shop.partner ? "" : "w-max"
+                        shop.partner ? "" : "w-max space-y-1"
                       }`}
                       key={index}
                     >
                       <p>{shop.name}</p>
-                      <p>{shop.location}</p>
+                      <p>{shop.address}</p>
                       <p>{shop.telephone}</p>
                       <div className="flex flex-row gap-x-3 w-full">
                         <p className="text-lg">{shop.rating}</p>

@@ -9,6 +9,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/flowbite-react/lib/esm/**/*.js",
   ],
   theme: {
     transparent: "transparent",
@@ -24,6 +25,7 @@ export default {
       colors: {
         "primary-purple": "#342AA1",
         "dark-primary": "#272078",
+        "dark-hover": "#221c66",
         "light-purple": "#CCD5FF",
         book: "#5f5ef6",
         "white-text": "#FFFFFF",

@@ -23,6 +23,17 @@
   background: #34307f81;
 }
 
+@media screen and (-moz-touch-enabled: 1) {
+  /* Mozilla Firefox specific styles */
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  /* Webkit (Chrome, Safari) specific styles */
+}
+.transition-transform {
+  transition: transform 0.3s ease;
+}
+
 html {
   background-color: #f8f8fe;
 }

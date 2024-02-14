@@ -22,6 +22,7 @@ import EditProfile from "./components/EditProfile";
 import { AdminProvider } from "./contexts/AdminContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotAnAdmin from "./pages/NotAnAdmin";
+import TestSide from "./TestSide";
 
 function App() {
   return (
@@ -66,7 +67,7 @@ function App() {
           </ShopProvider>
         </BrowserRouter>
       </AuthProvider>
-      {/* <Pie /> */}
+      {/* <TestSide /> */}
     </>
   );
 }

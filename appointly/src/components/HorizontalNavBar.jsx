@@ -2,10 +2,16 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../src/styles/images/apoinlty_logo.webp";
 import { useAuth } from "../contexts/AuthContext";
 import { UserIcon } from "../assets/UserIcon";
+import { initFlowbite } from "flowbite";
+import { useEffect } from "react";
 
 function HorizontalNavBar() {
-  const { loggedIn, changeLoggedIn, lastname, firstname } = useAuth();
+  const { changeLoggedIn, lastname, firstname } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    initFlowbite();
+  }, []);
 
   function logout() {
     changeLoggedIn(false);
@@ -22,7 +28,9 @@ function HorizontalNavBar() {
               data-drawer-target="drawer-navigation"
               data-drawer-toggle="drawer-navigation"
               aria-controls="drawer-navigation"
-              className="p-2 mr-2 text-white hover:text-gray-400 rounded-lg cursor-pointer md:hidden "
+              type="button"
+              className="p-2 mr-2 text-white hover:text-gray-400 focus:text-gray-400 rounded-lg cursor-pointer md:hidden "
+              // onClick={() => toggleSidebar()}
             >
               <svg
                 aria-hidden="true"
@@ -53,7 +61,11 @@ function HorizontalNavBar() {
               <span className="sr-only">Toggle sidebar</span>
             </button>
             <a href="/" className="flex items-center justify-between mr-4">
-              <img src={logo} className="h-5 px-6" alt="Flowbite Logo" />
+              <img
+                src={logo}
+                className="xsm:h-3 md:h-4 lg:h-5 xsm:px-4 lg:px-6"
+                alt="Flowbite Logo"
+              />
             </a>
           </div>
           <div className="flex items-center lg:order-2 px-9 space-x-4">

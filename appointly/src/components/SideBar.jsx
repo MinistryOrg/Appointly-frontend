@@ -1,21 +1,24 @@
-import { UsersIcon } from "@heroicons/react/24/solid";
-import logo from "../../src/styles/images/apoinlty_logo.webp";
 import { Link } from "react-router-dom";
+import { initFlowbite } from "flowbite";
+import { useEffect } from "react";
 
 function SideBar() {
+  useEffect(() => {
+    initFlowbite();
+  }, []);
   return (
-    <>
+    <div>
       <aside
-        id="logo-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-full pt-20 transition-transform -translate-x-full bg-dark-primary border-r border-gray-200 sm:translate-x-0 rounded-br-lg"
-        aria-label="Sidebar"
+        id="drawer-navigation"
+        className="fixed top-0 left-0 z-40 w-64 h-full pt-20 transition-transform  -translate-x-full bg-dark-primary border-r border-gray-200 sm:translate-x-0 rounded-br-lg"
+        aria-label="Sidenav"
       >
         <div className="h-full px-1 pb-4 overflow-y-auto bg-dark-primary rounded-br-3xl">
-          <ul className="space-y-2 font-medium text-lg">
-            <li>
+          <ul className="space-y-2 font-medium text-lg mr-5">
+            <li className="hover:bg-dark-hover border-white rounded-lg">
               <Link
                 to="/dashboard"
-                className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300 group"
+                className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300  group"
               >
                 <svg
                   className="w-6 h-6 text-white transition duration-75  group-hover:text-gray-300 "
@@ -30,7 +33,7 @@ function SideBar() {
                 <span className="ms-3">Dashboard</span>
               </Link>
             </li>
-            <li>
+            <li className="hover:bg-dark-hover border-white rounded-lg">
               <Link
                 to="/appointmentList"
                 className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300 group"
@@ -49,12 +52,12 @@ function SideBar() {
                   />
                 </svg>
 
-                <span className="flex-1 ms-3 whitespace-nowrap">
+                <span className="flex-1 ms-3 whitespace-nowrap 	">
                   Appointments
                 </span>
               </Link>
             </li>
-            <li>
+            <li className="hover:bg-dark-hover  border-white rounded-lg">
               <Link
                 to="/editShop"
                 className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300 group"
@@ -76,8 +79,8 @@ function SideBar() {
                 <span className="flex-1 ms-3 whitespace-nowrap">Shop</span>
               </Link>
             </li>
-            <hr className="opacity-75" />
-            <li>
+            <hr className="opacity-25" />
+            <li className="hover:bg-dark-hover  border-white rounded-lg">
               <Link
                 to="/editProfile"
                 className="flex items-center p-2 text-white rounded-lg  hover:text-gray-300  group"
@@ -102,7 +105,7 @@ function SideBar() {
           </ul>
         </div>
       </aside>
-    </>
+    </div>
   );
 }
 

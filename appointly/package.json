@@ -17,6 +17,8 @@
     "@remixicon/react": "^4.1.1",
     "@tremor/react": "^3.13.4",
     "date-fns": "^3.3.1",
+    "flowbite": "^2.3.0",
+    "flowbite-react": "^0.7.2",
     "framer-motion": "^10.16.9",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",

@@ -1,11 +1,10 @@
 import { Input } from "@nextui-org/react";
 import { useAdmin } from "../contexts/AdminContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Callout from "./ui/Callout";
 
 function EditShop() {
-  const { adminShop, editShop, show, setShow, doneEdit, setDoneEdit } =
-    useAdmin();
+  const { adminShop, editShop, show, setShow, doneEdit } = useAdmin();
   console.log("edit", adminShop);
   const { name, description, address, telephone, servicesOptions, cost } =
     adminShop;
@@ -96,14 +95,16 @@ function EditShop() {
         ) : (
           ""
         )}
-        <h1 className="text-2xl font-semibold mx-unit-3xl">Edit Shop</h1>
+        <h1 className="text-2xl font-semibold xsm:mx-unit-lg lg:mx-unit-3xl ">
+          Edit Shop
+        </h1>
 
-        <div className="bg-white border-1 border-gray-200 rounded-lg h-auto mx-unit-3xl my-5">
+        <div className="bg-white border-1 border-gray-200 rounded-lg h-auto xsm:mx-unit-lg lg:mx-unit-3xl my-5">
           <h2 className="text-xl font-semibold mx-unit-2xl mt-10">
             Update shop's general infromation
           </h2>
-          <div className="w-full grid grid-cols-2 p-5 gap-10 font-semibold my-5 ">
-            <div className="col flex flex-row w-full px-10 ">
+          <div className="w-full grid xsm:grid-cols-1 lg:grid-cols-2 p-5 gap-10 font-semibold my-5 ">
+            <div className="col flex xsm:flex-col lg:flex-row w-full px-10 ">
               <p className="w-unit-4xl my-4">Name:</p>
               <Input
                 key="left"
@@ -118,7 +119,7 @@ function EditShop() {
                 }}
               />
             </div>
-            <div className="col flex flex-row w-full px-10 ">
+            <div className="col flex  xsm:flex-col lg:flex-row w-full px-10 ">
               <p className="w-unit-4xl my-4">Description:</p>
               <Input
                 key="left"
@@ -133,7 +134,7 @@ function EditShop() {
                 }}
               />
             </div>
-            <div className="col flex flex-row w-full px-10 ">
+            <div className="col flex  xsm:flex-col lg:flex-row w-full px-10 ">
               <p className="w-unit-4xl my-4">Address:</p>
               <Input
                 key="left"
@@ -148,7 +149,7 @@ function EditShop() {
                 }}
               />
             </div>
-            <div className="col flex flex-row w-full px-10 ">
+            <div className="col flex  xsm:flex-col lg:flex-row w-full px-10 ">
               <p className="w-unit-4xl my-4">Telephone:</p>
               <Input
                 key="left"
@@ -170,10 +171,10 @@ function EditShop() {
             Update shop services
           </h2>
 
-          <div className="w-full grid grid-cols-2 p-5 gap-10 font-semibold my-5">
+          <div className="w-full grid xsm:grid-col-1 lg:grid-cols-2 p-5 gap-10 font-semibold my-5">
             {servicesOptions.map((_, index) => (
               <>
-                <div className="col flex flex-row w-full px-10 ">
+                <div className="col flex  xsm:flex-col lg:flex-row w-full px-10 ">
                   <p className="w-unit-4xl my-4">Service {index + 1}:</p>
                   <Input
                     key="left"
@@ -188,7 +189,7 @@ function EditShop() {
                     }}
                   />
                 </div>
-                <div className="col flex flex-row w-full px-10 ">
+                <div className="col flex  xsm:flex-col lg:flex-row w-full px-10 ">
                   <p className="w-unit-3xl my-4">Price:</p>
                   <Input
                     type="number"
@@ -212,7 +213,7 @@ function EditShop() {
               </>
             ))}
           </div>
-          <div className="w-full flex flex-row justify-end">
+          <div className="w-full flex  xsm:flex-col lg:flex-row justify-end">
             <div className="p-5">
               <button
                 className="w-full px-4 py-2 text-black font-medium bg-white hover:bg-gray-300 active:bg-gray-400 border-1 border-gray-300 rounded-lg duration-150"

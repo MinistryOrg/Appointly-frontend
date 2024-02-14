@@ -5,7 +5,7 @@ import SideBar from "../components/SideBar";
 function AdminPanel() {
   return (
     <>
-      <div className="antialiased">
+      <div className="antialiased bg-gray-50">
         <HorizontalNavBar />
         <SideBar />
         <Outlet />

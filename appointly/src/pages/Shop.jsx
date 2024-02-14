@@ -7,6 +7,8 @@ import {
   Card,
   CardFooter,
   Badge,
+  Spinner,
+  Skeleton,
 } from "@nextui-org/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -14,11 +16,15 @@ import { useShops } from "../contexts/ShopContext";
 import ShopImageGrid from "../components/ShopImageGrid";
 import { PartnerStar } from "../components/ui/Partner";
 import StarRating from "../components/ui/StarRating";
-import { barber_url } from "../data/shopData";
+import { barber_url, nail_url, mech_url } from "../data/shopData";
+import { LocationIcon } from "../assets/LocationIcon";
+import { StoreIcon } from "../assets/StoreIcon";
+import { PhoneIcon } from "../assets/PhoneIcon";
+import { RatingIcon } from "../assets/RatingIcon";
 
 export default function Shop() {
   const { id } = useParams();
-  const { getShop, currentShop, isOpen } = useShops();
+  const { getShop, currentShop, isOpen, isLoading } = useShops();
   const navigate = useNavigate();
   useEffect(
     function () {
@@ -41,6 +47,8 @@ export default function Shop() {
     shopImg,
     serviceImg,
     about,
+    service,
+    shopLogo,
   } = currentShop;
 
   console.log(currentShop);
@@ -49,6 +57,17 @@ export default function Shop() {
     navigate(`/appointment/${id}`);
   }
 
+  console.log("isLoading", isLoading);
+
+  const serviceUrls = {
+    "Barber Shop": barber_url,
+    "Nail Salon": nail_url,
+    Mechanic: mech_url,
+    // Add more service types if needed
+  };
+  const serviceUrl = serviceUrls[service] || "";
+
+  console.log("serviceUrl", serviceUrl);
   return (
     <>
       <NavBar />
@@ -61,30 +80,36 @@ export default function Shop() {
         <div className="grid md:grid-rows-2 lg:grid-flow-col xsm:grid-flow-row lg:gap-y-2 lg:gap-x-5 xsm:gap-y-4 md:gap-x-9 lg:mx-unit-5xl lg:{mt-unit-2xl, mb-unit-xl} xsm:mx-unit-sm xsm:my-unit-sm h-1/2">
           {shopImg && shopImg.length === 3 ? (
             <>
-              <div className="lg:row-span-2 xsm:row-span-1 h-auto p-0 mb-6">
-                <img
-                  alt="NextUI hero "
-                  src={`${barber_url}${shopImg[0]}`}
-                  className="lg:w-full h-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-xl"
-                />
+              <div className="lg:row-span-2 xsm:row-span-1 h-auto p-0 my-0">
+                <Skeleton isLoaded={!isLoading} className="rounded-lg">
+                  <img
+                    alt="NextUI hero "
+                    src={`${serviceUrl}${shopImg[0]}`}
+                    className="lg:w-auto h-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-xl"
+                  />
+                </Skeleton>
               </div>
               <div className="col h-auto p-0 m-0 rounded-md">
-                <img
-                  alt="NextUI hero "
-                  src={`${barber_url}${shopImg[1]}`}
-                  className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 rounded-xl"
-                />
+                <Skeleton isLoaded={!isLoading} className="rounded-lg">
+                  <img
+                    alt="NextUI hero "
+                    src={`${serviceUrl}${shopImg[1]}`}
+                    className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 rounded-xl"
+                  />
+                </Skeleton>
               </div>
               <div className="col-span-1 h-auto p-0 m-0">
-                <img
-                  alt="NextUI hero "
-                  src={`${barber_url}${shopImg[2]}`}
-                  className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-md"
-                />
+                <Skeleton isLoaded={!isLoading} className="rounded-lg">
+                  <img
+                    alt="NextUI hero "
+                    src={`${serviceUrl}${shopImg[2]}`}
+                    className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-md"
+                  />
+                </Skeleton>
               </div>
             </>
           ) : (
-            <p>Error: Invalid shopImg data</p>
+            <Spinner size="lg" />
           )}
         </div>
         <div className="flex lg:flex-row md:flex-row lg:flex-nowrap md:flex-wrap xsm:flex-col w-auto lg:mx-unit-5xl lg:mb-unit-xl xsm:mx-unit-xl content-center">
@@ -99,32 +124,39 @@ export default function Shop() {
                 >
                   <Avatar
                     isBordered
-                    src="../../src/styles/images/shop_logo.png"
+                    src={`${serviceUrl}${shopLogo}`}
                     className="h-44 w-44"
                   />
                 </Badge>
               ) : (
                 <Avatar
                   isBordered
-                  src="../../src/styles/images/shop_logo.png"
+                  src={`${serviceUrl}${shopLogo}`}
                   className="h-44 w-44"
                 />
               )}
             </div>
           </div>
-          <div className=" w-full md:text-start xsm:text-center font-bold lg:my-8 xsm:my-2 lg:basis-unit-8xl md:basis-unit-xl xsm:basis-auto">
-            <p className="text-2xl">{name}</p>
+          <div className=" w-full md:text-start xsm:text-center font-bold lg:my-8 xsm:my-2 lg:basis-unit-9xl md:basis-unit-xl xsm:basis-auto">
+            <p className="text-3xl">{name}</p>
             <div className="flex flex-row xsm:justify-center md:justify-normal  w-full">
-              <p className={isOpen ? "text-lime-900" : "text-red-800"}>
-                {isOpen ? "Open " : "Closed. "}&nbsp;
+              <StoreIcon className="w-7 h-7" />
+              &nbsp;
+              <p className={isOpen ? "text-lime-700" : "text-red-800"}>
+                {isOpen ? "Open" : "Closed. "}&nbsp;
               </p>
-              <p>{isOpen ? ` until ${closeHour}` : ` Opens at ${openHour}`}</p>
+              <p>{isOpen ? `until ${closeHour}` : ` Opens at ${openHour}`}</p>
             </div>
-            <p>
+            <p className="flex flex-row xsm:justify-center md:justify-start">
+              <LocationIcon className="w-7 h-7" /> &nbsp;
               {address}, {location}
             </p>
-            <p>{telephone}</p>
+            <p className="flex flex-row xsm:justify-center md:justify-start">
+              <PhoneIcon className="w-7 h-7" /> &nbsp;
+              {telephone}
+            </p>
             <div className="flex flex-row xsm:justify-center md:justify-normal  gap-x-3w-full">
+              <RatingIcon className="w-7 h-7 text-main-clr" /> &nbsp;
               <p>{rating}</p>
               <StarRating rating={rating} />
             </div>
@@ -148,27 +180,29 @@ export default function Shop() {
         <div className="h-auto my-unit-3xl xsm:mx-unit-2xl lg:mx-unit-0 flex xsm:flex-col lg:flex-row justify-center sm:gap-unit-md lg:gap-unit-5xl xsm:gap-y-unit-xl">
           {servicesOptions && servicesOptions.length > 0 ? (
             servicesOptions.map((_, index) => (
-              <div key={index} className="justify-center">
-                <Card radius="lg" shadow="none" className="border-none">
-                  <Image
-                    alt={`service${index + 1}`}
-                    className="object-cover"
-                    height={250}
-                    src={`${barber_url}${serviceImg[index]}`}
-                    width={280}
-                  />
-                  <CardFooter className="justify-between  overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)]  ml-1 z-10">
-                    <div className="w-full">
-                      <h1 className="text-center font-bold text-2xl my-unit-md">
-                        {servicesOptions[index]}
-                      </h1>
-                    </div>
-                  </CardFooter>
-                </Card>
+              <div key={index} className="flex justify-center">
+                <Skeleton isLoaded={!isLoading} className="rounded-lg">
+                  <Card radius="lg" shadow="none" className="border-none">
+                    <Image
+                      alt={`service${index + 1}`}
+                      className="object-cover"
+                      height={250}
+                      src={`${serviceUrl}${serviceImg[index]}`}
+                      width={280}
+                    />
+                    <CardFooter className="justify-between  overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)]  ml-1 z-10">
+                      <div className="w-full">
+                        <h1 className="text-center font-bold text-2xl my-unit-md">
+                          {servicesOptions[index]}
+                        </h1>
+                      </div>
+                    </CardFooter>
+                  </Card>
+                </Skeleton>
               </div>
             ))
           ) : (
-            <p>No services available.</p>
+            <Spinner size="lg" />
           )}
         </div>
         <div className="lg:w-fit xsm:w-full md:text-start xsm:text-center font-bold my-10 md:mx-unit-5xl xsm:mx-unit-0">
@@ -176,7 +210,7 @@ export default function Shop() {
         </div>
         <div>
           <p className="lg:mx-unit-5xl xsm:mx-unit-md my-5 font-semibold">
-            {about}
+            {about ? about : <Spinner />}
           </p>
         </div>
         <div className="lg:w-fit xsm:w-full md:text-start xsm:text-center font-bold my-10 md:mx-unit-5xl xsm:mx-unit-0">
@@ -207,23 +241,33 @@ export default function Shop() {
                 </tr>
                 <tr>
                   <td>Tuesday</td>
-                  <td>09:00 - 21:00</td>
+                  <td>
+                    {openHour} - {closeHour}
+                  </td>
                 </tr>
                 <tr>
                   <td>Wednesday</td>
-                  <td>09:00 - 17:00 </td>
+                  <td>
+                    {openHour} - {closeHour}
+                  </td>
                 </tr>
                 <tr>
                   <td>Thursday</td>
-                  <td>09:00 - 21:00</td>
+                  <td>
+                    {openHour} - {closeHour}
+                  </td>
                 </tr>
                 <tr>
                   <td>Friday</td>
-                  <td>09:00 - 21:00</td>
+                  <td>
+                    {openHour} - {closeHour}
+                  </td>
                 </tr>
                 <tr>
                   <td>Saturday</td>
-                  <td>09:00 - 18:00</td>
+                  <td>
+                    {openHour} - {closeHour}
+                  </td>
                 </tr>
                 <tr>
                   <td>Sunday</td>

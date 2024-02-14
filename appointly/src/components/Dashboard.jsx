@@ -70,9 +70,11 @@ function Dashboard() {
   return (
     <>
       <main className="p-10 md:ml-64 h-auto pt-20">
-        <h1 className="text-2xl font-semibold mx-unit-3xl my-2">{name}</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 mx-unit-3xl">
-          <div className="bg-white border-1 border-gray-200 rounded-lg h-16 md:h-32">
+        <h1 className="text-2xl font-semibold xsm:mx-unit-lg lg:mx-unit-3xl my-2 ">
+          {name}
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 xsm:mx-unit-lg lg:mx-unit-3xl">
+          <div className="bg-white border-1 border-gray-200 rounded-lg h-auto md:h-32">
             <div className="flex flex-row my-3 mx-5">
               <div className="bg-blue-300 rounded-full p-3 m-5">
                 <svg
@@ -97,7 +99,7 @@ function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="bg-white border-1 border-gray-200 rounded-lg h-16 md:h-32">
+          <div className="bg-white border-1 border-gray-200 rounded-lg h-auto md:h-auto">
             <div className="flex flex-row my-3 mx-5">
               <div className="bg-green-300 rounded-full p-3 m-5">
                 <svg
@@ -121,7 +123,7 @@ function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="bg-white border-1 border-gray-200 rounded-lg h-16 md:h-32">
+          <div className="bg-white border-1 border-gray-200 rounded-lg h-auto md:h-auto">
             <div className="flex flex-row my-3 mx-5">
               <div className="bg-yellow-200 rounded-full p-3 m-5">
                 <svg
@@ -142,7 +144,7 @@ function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="bg-white border-1 border-gray-200 rounded-lg h-16 md:h-32">
+          <div className="bg-white border-1 border-gray-200 rounded-lg h-auto md:h-auto">
             <div className="flex flex-row my-3 mx-5">
               <div className="bg-purple-300 rounded-full p-3 m-5">
                 <svg
@@ -168,13 +170,13 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4 mb-4 mx-unit-3xl">
-          <div className="bg-white border-1 border-gray-200 rounded-lg h-48 md:h-full">
+        <div className="grid xsm:grid-cols-1 lg:grid-cols-2 gap-4 mb-4 xsm:mx-unit-lg lg:mx-unit-3xl">
+          <div className="bg-white border-1 border-gray-200 rounded-lg xsm:h-48 md:h-auto overflow-y-auto overflow-x-hidden">
             <div className="w-full m-4">
               <h1 className="font-semibold text-xl">Today's Appointments</h1>
             </div>
             <hr className="bg-gray-800 mx-4" />
-            <div className="w-full grid grid-cols-1 overflow-y-auto">
+            <div className="w-full grid grid-cols-1">
               {/* APPOINTMENT LIST GOES HERE */}
               {todayAppointments ? (
                 todayAppointments.length > 0 ? (
@@ -211,13 +213,13 @@ function Dashboard() {
               )}
             </div>
           </div>
-          <div className="bg-white border-1 border-gray-200 rounded-lg h-48 md:h-full">
+          <div className="bg-white border-1 border-gray-200 rounded-lg h-auto md:h-full">
             <div className="w-full m-4">
               <h1 className="font-semibold text-xl">Your Services</h1>
             </div>
             <hr className="bg-gray-800 mx-4" />
 
-            <div className="flex flex-row mx-unit-3xl my-5">
+            <div className="flex flex-row xsm:mx-unit-lg lg:mx-unit-3xl my-5">
               {servicesCount ? (
                 <>
                   <DonutChart
@@ -244,7 +246,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="border-2 border-gray-200 rounded-lg mb-4 mx-unit-3xl">
+        <div className="border-2 border-gray-200 rounded-lg mb-4 xsm:mx-unit-lg lg:mx-unit-3xl">
           <div className="relative h-96">
             <img
               src={img}

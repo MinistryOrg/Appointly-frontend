@@ -68,12 +68,15 @@ function ShopProvider({ children }) {
 
   async function getShop(id) {
     try {
+      setIsLoading(true);
       const res = await fetch(`${shop_url}/searchShopById?id=${id}`);
       const data = await res.json();
       console.log("Fetch ", data);
       setCurrentShop(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 

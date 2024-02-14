@@ -83,11 +83,11 @@ function Calendar({ openHour, closeHour }) {
   }
 
   function goToPreviousMonth() {
-    // Disable the back arrow if the current month is being viewed
-    const backButton = document.getElementById("backButton");
-    if (currentDate.getMonth() === 0) {
-      backButton.disabled = true;
-    }
+    // // Disable the back arrow if the current month is being viewed
+    // const backButton = document.getElementById("backButton");
+    // if (currentDate.getMonth() === 0) {
+    //   backButton.disabled = true;
+    // }
 
     setCurrentDate(
       new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
@@ -148,6 +148,8 @@ function Calendar({ openHour, closeHour }) {
           ? "bg-gray-200 cursor-not-allowed"
           : "";
 
+        const isSunday = j === 0; // Sunday is the first day of the week
+
         if ((i === 0 && j < firstDayOfMonth) || dayCounter > daysInMonth) {
           days.push(
             <div
@@ -157,14 +159,17 @@ function Calendar({ openHour, closeHour }) {
           );
         } else {
           const dayClass = isCurrentDay
-            ? "bg-violet-100"
-            : "hover:bg-violet-100";
+            ? "cursor-pointer bg-violet-100  text-primary hover:bg-violet-100 "
+            : "cursor-pointer hover:bg-violet-100";
           const disableClass = isBeforeCurrentDate ? "cursor-not-allowed" : "";
+          const sundayClass = isSunday
+            ? "cursor-not-allowed bg-gray-100 text-gray-500"
+            : "hover:bg-gray-200";
 
           days.push(
             <div
               key={`${i}-${j}`}
-              className={`border ${dayClass} ${disableClass} p-10 cursor-pointer rounded-xl text-primary ${allTimesBookedClass}`}
+              className={`border ${sundayClass} ${dayClass} ${disableClass} p-10 rounded-xl  ${allTimesBookedClass} `}
               onClick={generateDayClickHandler(dayCounter)}
             >
               {dayCounter}
@@ -245,7 +250,7 @@ function Calendar({ openHour, closeHour }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-7 w-auto">
+          <div className="grid grid-cols-7 w-auto text-primary">
             {renderCalendar(appointmentDate)}
           </div>
         </div>

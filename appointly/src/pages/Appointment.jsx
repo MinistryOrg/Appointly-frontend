@@ -14,7 +14,7 @@ export default function Appointment() {
   const { id } = useParams();
   const { getShop, currentShop } = useShops();
   const {
-    service,
+    selectedService,
     selectedPersonnel,
     selectedDate,
     selectedTime,
@@ -43,7 +43,7 @@ export default function Appointment() {
       handleNext("date");
     } else if (currentPage === "date") {
       if (
-        service &&
+        selectedService &&
         selectedPersonnel &&
         selectedDate &&
         selectedTime &&

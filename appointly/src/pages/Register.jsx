@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
-import { Input } from "@nextui-org/react";
+import { Input, Spinner } from "@nextui-org/react";
 import { EyeFilledIcon } from "../assets/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../assets/EyeSlashFilledIcon";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ export default function Register() {
   const [confirmPasword, setConfirmPassword] = useState("");
   const [isInvalid, setIsInvalid] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -35,6 +36,7 @@ export default function Register() {
     e.preventDefault();
     const abortController = new AbortController();
     try {
+      setIsLoading(true);
       const res = await fetch(
         `https://appointly-production.up.railway.app/api/v1/auth/appointly/register`,
         {
@@ -58,6 +60,8 @@ export default function Register() {
       navigate("/login");
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -191,7 +195,7 @@ export default function Register() {
                   : `bg-btn-sign hover:bg-indigo-500 active:bg-indigo-600  duration-150`
               }`}
             >
-              Register
+              {isLoading ? <Spinner color="default" /> : "Register"}
             </button>
           </form>
           <p className="text-center">
