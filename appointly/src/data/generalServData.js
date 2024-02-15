@@ -1,17 +1,17 @@
 export const generalData = [
   {
     alt: "service1",
-    imageSrc: "../../src/assets/images/service1.png",
+    imageSrc: "service1.png",
     description: "Book with confidence.",
   },
   {
     alt: "service2",
-    imageSrc: "../../src/assets/images/service2.png",
+    imageSrc: "service2.png",
     description: "You choose the where and when.",
   },
   {
     alt: "service3",
-    imageSrc: "../../src/assets/images/service3.png",
+    imageSrc: "service3.png",
     description: "Enjoy your new style.",
   },
 ];

@@ -1,6 +1,7 @@
 import { Card, Image } from "@nextui-org/react";
 import { generalData } from "../data/generalServData";
 import ServicesMenu from "./ServiceMenu";
+import { getImageURL } from "../utils/image-util";
 function Service() {
   return (
     <div className="m-unit-xl h-auto w-auto" id="services">
@@ -16,7 +17,7 @@ function Service() {
                 alt={card.alt}
                 className="object-cover"
                 height={250}
-                src={card.imageSrc}
+                src={getImageURL(card.imageSrc)}
                 width={280}
               />
             </Card>
