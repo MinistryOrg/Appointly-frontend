@@ -22,8 +22,6 @@ function Dashboard() {
     [fetchShopAdmin]
   );
 
-  const [appointmentsCount, setAppointmentsCount] = useState(undefined);
-  const [revenue, setRevenue] = useState(undefined);
   useEffect(() => {
     const delay = 500 + 500;
     const timerId = setTimeout(() => {

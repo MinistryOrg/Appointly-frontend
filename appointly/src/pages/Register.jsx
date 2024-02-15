@@ -77,7 +77,7 @@ export default function Register() {
           </div>
           <form onSubmit={register} className="space-y-5">
             <div>
-              <div className="grid lg:grid-cols-4 xsm:grid-rows-1 gap-x-unit-60 w-full">
+              <div className="grid lg:grid-cols-2 xsm:grid-rows-1 gap-x-4 w-full">
                 <div className="w-full">
                   <Input
                     type="text"
