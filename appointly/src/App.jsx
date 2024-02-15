@@ -12,7 +12,6 @@ import AppointmentSummary from "./pages/AppointmentSummary";
 import { ShopProvider } from "./contexts/ShopContext";
 import { AppointmentProvider } from "./contexts/AppointmentContext";
 import { AuthProvider } from "./contexts/AuthContext";
-import { Pie, TestDate } from "./Example";
 import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./components/Dashboard";
@@ -22,7 +21,6 @@ import EditProfile from "./components/EditProfile";
 import { AdminProvider } from "./contexts/AdminContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotAnAdmin from "./pages/NotAnAdmin";
-import TestSide from "./TestSide";
 
 function App() {
   return (
@@ -67,7 +65,6 @@ function App() {
           </ShopProvider>
         </BrowserRouter>
       </AuthProvider>
-      {/* <TestSide /> */}
     </>
   );
 }

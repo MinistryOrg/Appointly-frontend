@@ -1,17 +1,17 @@
 export const generalData = [
   {
     alt: "service1",
-    imageSrc: "../../src/styles/images/service1.png",
+    imageSrc: "../../src/assets/images/service1.png",
     description: "Book with confidence.",
   },
   {
     alt: "service2",
-    imageSrc: "../../src/styles/images/service2.png",
+    imageSrc: "../../src/assets/images/service2.png",
     description: "You choose the where and when.",
   },
   {
     alt: "service3",
-    imageSrc: "../../src/styles/images/service3.png",
+    imageSrc: "../../src/assets/images/service3.png",
     description: "Enjoy your new style.",
   },
 ];
@@ -19,22 +19,22 @@ export const generalData = [
 export const serviceShopData = [
   {
     alt: "shoptype1",
-    imageSrc: "../../src/styles/images/barber_srv.svg",
+    imageSrc: "../../src/assets/images/barber_srv.svg",
     description: "Barber shop",
   },
   {
     alt: "shoptype2",
-    imageSrc: "../../src/styles/images/nail_srv.svg",
+    imageSrc: "../../src/assets/images/nail_srv.svg",
     description: "Nail salon",
   },
   {
     alt: "shoptype3",
-    imageSrc: "../../src/styles/images/mechanic_srv.svg",
+    imageSrc: "../../src/assets/images/mechanic_srv.svg",
     description: "Mechanic",
   },
   {
     alt: "shoptype4",
-    imageSrc: "../../src/styles/images/trainer_srv.svg",
+    imageSrc: "../../src/assets/images/trainer_srv.svg",
     description: "Personal Trainer",
   },
 ];
