@@ -1,5 +1,6 @@
 import { Card, Image } from "@nextui-org/react";
 import { serviceShopData } from "../data/generalServData";
+import { getImageURL } from "../utils/image-util";
 
 export default function ServicesMenu() {
   return (
@@ -22,7 +23,7 @@ export default function ServicesMenu() {
                 alt={type.alt}
                 className="object-cover justify-center bg-inherit"
                 height={300}
-                src={type.imageSrc}
+                src={getImageURL(type.imageSrc)}
                 width={300}
               />
             </Card>

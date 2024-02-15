@@ -1,5 +1,6 @@
 import { Image, Button, Link } from "@nextui-org/react";
 import { BriefcaseIcon } from "@heroicons/react/24/solid";
+import { getImageURL } from "../utils/image-util";
 function Partneship() {
   return (
     <div className="m-unit-xl mx-0" id="contact">
@@ -56,7 +57,7 @@ function Partneship() {
               <Image
                 width={250}
                 alt="NextUI hero Image"
-                src="../../src/styles/images/memberImg.webp"
+                src={getImageURL("memberImg.webp")}
                 className="justify-center"
               />
             </div>

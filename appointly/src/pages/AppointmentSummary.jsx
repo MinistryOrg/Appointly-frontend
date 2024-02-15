@@ -17,6 +17,12 @@ import {
   ClockIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
+import {
+  getBarberImagesUrl,
+  getImageURL,
+  getMechImagesUrl,
+  getNailImagesUrl,
+} from "../utils/image-util";
 
 function AppointmentSummary() {
   const {
@@ -42,13 +48,14 @@ function AppointmentSummary() {
   } = currentShop;
 
   const serviceUrls = {
-    "Barber Shop": barber_url,
-    "Nail Salon": nail_url,
-    Mechanic: mech_url,
+    "Barber Shop": getBarberImagesUrl,
+    "Nail Salon": getNailImagesUrl,
+    Mechanic: getMechImagesUrl,
+    // Add more service types if needed
   };
-  const serviceUrl = serviceUrls[service] || "";
+  const getImageUrlFunction = serviceUrls[service] || getImageURL;
 
-  console.log("serviceUrl", serviceUrl);
+  console.log("serviceUrl", getImageUrlFunction);
 
   return (
     <>
@@ -58,7 +65,7 @@ function AppointmentSummary() {
           <div className="p-0">
             {backgroundImgPath ? (
               <img
-                src={`${serviceUrl}${backgroundImgPath}`}
+                src={getImageUrlFunction(backgroundImgPath)}
                 alt="t"
                 className="w-unit-8xl rounded-lg"
               />
@@ -78,7 +85,7 @@ function AppointmentSummary() {
                 >
                   <Avatar
                     isBordered
-                    src={`${serviceUrl}${shopLogo}`}
+                    src={getImageUrlFunction(shopLogo)}
                     className="h-44 w-44"
                   />
                 </Badge>
@@ -86,7 +93,7 @@ function AppointmentSummary() {
             ) : (
               <Avatar
                 isBordered
-                src={`${serviceUrl}${shopLogo}`}
+                src={getImageUrlFunction(shopLogo)}
                 className="h-44 w-44"
               />
             )}

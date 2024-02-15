@@ -13,6 +13,11 @@ import { Partner } from "../components/ui/Partner";
 import StarRating from "../components/ui/StarRating";
 import { barber_url, mech_url, nail_url } from "../data/shopData";
 import { useState } from "react";
+import {
+  getBarberImagesUrl,
+  getMechImagesUrl,
+  getNailImagesUrl,
+} from "../utils/image-util";
 
 export default function BrowseShops() {
   const { state } = useLocation();
@@ -53,12 +58,12 @@ export default function BrowseShops() {
   console.log("Service", service);
 
   const serviceUrls = {
-    "Barber Shop": barber_url,
-    "Nail Salon": nail_url,
-    Mechanic: mech_url,
+    "Barber Shop": getBarberImagesUrl,
+    "Nail Salon": getNailImagesUrl,
+    Mechanic: getMechImagesUrl,
     // Add more service types if needed
   };
-  const serviceUrl = serviceUrls[selectedService] || "";
+  const getImageUrlFunction = serviceUrls[selectedService] || "";
 
   return (
     <>
@@ -88,7 +93,7 @@ export default function BrowseShops() {
                       radius="lg"
                       alt="awdawdwa"
                       className="w-auto object-cover"
-                      src={`${serviceUrl}${shop.backgroundImgPath}`}
+                      src={getImageUrlFunction(shop.backgroundImgPath)}
                     />
                   </Skeleton>
                 </CardBody>
@@ -96,7 +101,7 @@ export default function BrowseShops() {
                   <div className="w-full grid lg:grid-cols-3 xsm:grid-cols-2">
                     <div className="px-0 my-2 mx-2">
                       <Avatar
-                        src={`${serviceUrl}${shop.shopLogo}`}
+                        src={getImageUrlFunction(shop.shopLogo)}
                         isBordered
                         className="w-24 h-24"
                       />

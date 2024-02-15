@@ -21,6 +21,12 @@ import { LocationIcon } from "../assets/LocationIcon";
 import { StoreIcon } from "../assets/StoreIcon";
 import { PhoneIcon } from "../assets/PhoneIcon";
 import { RatingIcon } from "../assets/RatingIcon";
+import {
+  getBarberImagesUrl,
+  getImageURL,
+  getMechImagesUrl,
+  getNailImagesUrl,
+} from "../utils/image-util";
 
 export default function Shop() {
   const { id } = useParams();
@@ -60,14 +66,14 @@ export default function Shop() {
   console.log("isLoading", isLoading);
 
   const serviceUrls = {
-    "Barber Shop": barber_url,
-    "Nail Salon": nail_url,
-    Mechanic: mech_url,
+    "Barber Shop": getBarberImagesUrl,
+    "Nail Salon": getNailImagesUrl,
+    Mechanic: getMechImagesUrl,
     // Add more service types if needed
   };
-  const serviceUrl = serviceUrls[service] || "";
+  const getImageUrlFunction = serviceUrls[service] || getImageURL;
 
-  console.log("serviceUrl", serviceUrl);
+  console.log("serviceUrl", getBarberImagesUrl);
   return (
     <>
       <NavBar />
@@ -84,7 +90,7 @@ export default function Shop() {
                 <Skeleton isLoaded={!isLoading} className="rounded-lg">
                   <img
                     alt="NextUI hero "
-                    src={`${serviceUrl}${shopImg[0]}`}
+                    src={getImageUrlFunction(shopImg[0])}
                     className="lg:w-auto h-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-xl"
                   />
                 </Skeleton>
@@ -93,7 +99,7 @@ export default function Shop() {
                 <Skeleton isLoaded={!isLoading} className="rounded-lg">
                   <img
                     alt="NextUI hero "
-                    src={`${serviceUrl}${shopImg[1]}`}
+                    src={getImageUrlFunction(shopImg[1])}
                     className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 rounded-xl"
                   />
                 </Skeleton>
@@ -102,7 +108,7 @@ export default function Shop() {
                 <Skeleton isLoaded={!isLoading} className="rounded-lg">
                   <img
                     alt="NextUI hero "
-                    src={`${serviceUrl}${shopImg[2]}`}
+                    src={getImageUrlFunction(shopImg[2])}
                     className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-md"
                   />
                 </Skeleton>
@@ -124,14 +130,14 @@ export default function Shop() {
                 >
                   <Avatar
                     isBordered
-                    src={`${serviceUrl}${shopLogo}`}
+                    src={getImageUrlFunction(shopLogo)}
                     className="h-44 w-44"
                   />
                 </Badge>
               ) : (
                 <Avatar
                   isBordered
-                  src={`${serviceUrl}${shopLogo}`}
+                  src={getImageUrlFunction(shopLogo)}
                   className="h-44 w-44"
                 />
               )}
@@ -187,7 +193,7 @@ export default function Shop() {
                       alt={`service${index + 1}`}
                       className="object-cover"
                       height={250}
-                      src={`${serviceUrl}${serviceImg[index]}`}
+                      src={getImageUrlFunction(serviceImg[index])}
                       width={280}
                     />
                     <CardFooter className="justify-between  overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)]  ml-1 z-10">

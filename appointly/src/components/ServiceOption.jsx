@@ -3,6 +3,12 @@ import { useAppointment } from "../contexts/AppointmentContext";
 import { useShops } from "../contexts/ShopContext";
 import { barber_url, nail_url, mech_url } from "../data/shopData";
 import { useState } from "react";
+import {
+  getBarberImagesUrl,
+  getImageURL,
+  getMechImagesUrl,
+  getNailImagesUrl,
+} from "../utils/image-util";
 
 export default function ServiceOption() {
   const { selectedService, setSelectedService, setSelectedCost, selectedCost } =
@@ -11,12 +17,12 @@ export default function ServiceOption() {
   const { servicesOptions, serviceImg, cost, service } = currentShop;
 
   const serviceUrls = {
-    "Barber Shop": barber_url,
-    "Nail Salon": nail_url,
-    Mechanic: mech_url,
+    "Barber Shop": getBarberImagesUrl,
+    "Nail Salon": getNailImagesUrl,
+    Mechanic: getMechImagesUrl,
     // Add more service types if needed
   };
-  const serviceUrl = serviceUrls[service] || "";
+  const getImageUrlFunction = serviceUrls[service] || getImageURL;
 
   return (
     <div>
@@ -38,7 +44,7 @@ export default function ServiceOption() {
                   alt="service1"
                   className="object-cover"
                   height={250}
-                  src={`${serviceUrl}${serviceImg[index]}`}
+                  src={getImageUrlFunction(serviceImg[index])}
                   width={280}
                 />
                 <CardFooter className="justify-between  overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)]  ml-1 z-10">

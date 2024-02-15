@@ -19,22 +19,22 @@ export const generalData = [
 export const serviceShopData = [
   {
     alt: "shoptype1",
-    imageSrc: "../../src/assets/images/barber_srv.svg",
+    imageSrc: "barber_srv.svg",
     description: "Barber shop",
   },
   {
     alt: "shoptype2",
-    imageSrc: "../../src/assets/images/nail_srv.svg",
+    imageSrc: "nail_srv.svg",
     description: "Nail salon",
   },
   {
     alt: "shoptype3",
-    imageSrc: "../../src/assets/images/mechanic_srv.svg",
+    imageSrc: "mechanic_srv.svg",
     description: "Mechanic",
   },
   {
     alt: "shoptype4",
-    imageSrc: "../../src/assets/images/trainer_srv.svg",
+    imageSrc: "trainer_srv.svg",
     description: "Personal Trainer",
   },
 ];
