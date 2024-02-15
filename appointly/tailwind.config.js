@@ -16,7 +16,7 @@ export default {
 
     extend: {
       screens: {
-        xsm: "430px",
+        xsm: "360px",
       },
       backgroundImage: {
         "landing-page": "url('../../src/styles/images/lp.png')",
