@@ -138,6 +138,7 @@ function AdminProvider({ children }) {
     const formattedDate = date.replace(/\//g, "-");
 
     console.log(id);
+    console.log(formattedDate);
 
     try {
       const res = await fetch(`${admin_url}/editAppointment`, {
