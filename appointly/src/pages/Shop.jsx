@@ -105,14 +105,14 @@ export default function Shop() {
                   <Avatar
                     isBordered
                     src={getImageUrlFunction(shopLogo)}
-                    className="h-auto w-auto"
+                    className="h-40 w-40"
                   />
                 </Badge>
               ) : (
                 <Avatar
                   isBordered
                   src={getImageUrlFunction(shopLogo)}
-                  className="h-auto w-auto"
+                  className="h-40 w-40"
                 />
               )}
             </div>
