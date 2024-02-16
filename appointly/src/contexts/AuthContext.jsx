@@ -19,16 +19,10 @@ function AuthProvider({ children }) {
   const [role, setRole] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadData, setLoadData] = useState(true);
 
   const [doneEdit, setDoneEdit] = useState(false);
   const [showChange, setShowChange] = useState(false);
-
-  useEffect(() => {
-    if (role) {
-      // Check if the role is "ADMIN"
-      setIsAdmin(role === "ADMIN");
-    }
-  }, [role]);
 
   async function login(e) {
     e.preventDefault();
@@ -81,11 +75,23 @@ function AuthProvider({ children }) {
           setEmail(decodedToken.email);
           setLastname(decodedToken.lastname);
           setFirstname(decodedToken.firstname);
-          setRole(decodedToken.role);
+          setRole(decodedToken.role); // Make sure to set the role correctly
           setIsAdmin(decodedToken.role === "ADMIN");
+
+          // Call changeLoggedIn with the correct role value
+          changeLoggedIn(
+            true,
+            decodedToken.email,
+            decodedToken.lastname,
+            decodedToken.firstname,
+            decodedToken.role
+          );
         }
       } catch (error) {
         console.error("Invalid token:", error.message);
+      } finally {
+        // Set loading to false once the data is processed
+        setLoadData(false);
       }
     }
   }, [token]);
@@ -95,18 +101,20 @@ function AuthProvider({ children }) {
     userEmail = "",
     lastname = "",
     firstname = "",
-    role = ""
+    userRole = ""
   ) {
+    console.log("Received userRole:", userRole); // Add this line for logging
+
     setLoggedIn(value);
     setEmail(userEmail);
     setLastname(lastname);
     setFirstname(firstname);
-    setRole(role); // <--- Setting the role state
+    setRole(userRole); // Set the role state
 
     // Use the updated role to set isAdmin
-    setIsAdmin(role === "ADMIN");
+    setIsAdmin(userRole === "ADMIN"); // Set isAdmin based on the userRole
 
-    if (value === false) {
+    if (!value) {
       localStorage.clear();
       setEmail("");
       setLastname("");
@@ -118,6 +126,14 @@ function AuthProvider({ children }) {
       setIsInvalid(false);
     }
   }
+
+  useEffect(() => {
+    if (role) {
+      // Check if the role is "ADMIN"
+      setIsAdmin(role === "ADMIN");
+      console.log("isAdminContext", isAdmin);
+    }
+  }, [role]);
 
   async function changePassword(oldPassword, newPassword, confirmPassword) {
     console.log(oldPassword);
@@ -177,6 +193,7 @@ function AuthProvider({ children }) {
         setDoneEdit,
         showChange,
         setShowChange,
+        loadData,
       }}
     >
       {children}

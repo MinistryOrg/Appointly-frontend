@@ -1,9 +1,8 @@
 import img from "../styles/images/blur_img.png";
-import { PieChart } from "react-minimal-pie-chart";
 import { Spinner, Tooltip } from "@nextui-org/react";
 import { useAdmin } from "../contexts/AdminContext";
 import { useAuth } from "../contexts/AuthContext";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { DonutChart, Legend } from "@tremor/react";
 
 function Dashboard() {
@@ -26,11 +25,12 @@ function Dashboard() {
     const delay = 500 + 500;
     const timerId = setTimeout(() => {
       const controller = new AbortController();
-      fetchShopAdminMemoized(email, controller);
 
-      if (adminShop && adminShop.name) {
-        fetchAppointments(adminShop.name, controller);
-      }
+      fetchShopAdminMemoized(email, controller).then(() => {
+        if (adminShop && adminShop.name) {
+          return fetchAppointments(adminShop.name, controller);
+        }
+      });
 
       return () => {
         controller.abort();
@@ -40,6 +40,7 @@ function Dashboard() {
     // Clear the timer if the dependencies change before the delay expires
     return () => clearTimeout(timerId);
   }, [email, adminShop, adminShop.name, fetchShopAdminMemoized]);
+
   const { name, rating } = adminShop;
 
   console.log("adminshop", adminShop);
@@ -58,6 +59,7 @@ function Dashboard() {
     : [];
 
   const servicesCount = getServices(listAppointments);
+
   const servicesOptions = adminShop.servicesOptions || [];
 
   const dataPie = servicesOptions.map((service, index) => ({
@@ -69,7 +71,7 @@ function Dashboard() {
     <>
       <main className="p-10 md:ml-64 h-auto pt-20">
         <h1 className="text-2xl font-semibold xsm:mx-unit-lg lg:mx-unit-3xl my-2 ">
-          {name}
+          {name ? name : <Spinner color="default" />}
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4 xsm:mx-unit-lg lg:mx-unit-3xl">
           <div className="bg-white border-1 border-gray-200 rounded-lg h-auto md:h-32">
@@ -92,7 +94,16 @@ function Dashboard() {
               <div className="text-lg font-semibold flex flex-col my-5 w-full">
                 <p className="mx-5">Appointments</p>
                 <p className="mx-5">
-                  {listAppointments?.length > 0 ? listAppointments.length : "0"}
+                  {/* {listAppointments?.length > 0 ? listAppointments.length : "0"} */}
+                  {listAppointments ? (
+                    listAppointments?.length > 0 ? (
+                      listAppointments?.length
+                    ) : (
+                      "0"
+                    )
+                  ) : (
+                    <Spinner color="default" />
+                  )}
                 </p>
               </div>
             </div>
@@ -117,7 +128,18 @@ function Dashboard() {
               </div>
               <div className="text-lg font-semibold flex flex-col my-5 w-full">
                 <p className="mx-5">Revenue</p>
-                <p className=" mx-5">{totalCost ? totalCost : "0"} €</p>
+                <p className=" mx-5">
+                  {/* {totalCost ? totalCost : "0"}  */}
+                  {totalCost ? (
+                    totalCost ? (
+                      `${totalCost} €`
+                    ) : (
+                      "0 €"
+                    )
+                  ) : (
+                    <Spinner color="default" />
+                  )}
+                </p>
               </div>
             </div>
           </div>
@@ -176,38 +198,42 @@ function Dashboard() {
             <hr className="bg-gray-800 mx-4" />
             <div className="w-full grid grid-cols-1">
               {/* APPOINTMENT LIST GOES HERE */}
+
               {todayAppointments ? (
                 todayAppointments.length > 0 ? (
                   todayAppointments.map((appointment, index) => (
                     <div
                       key={appointment.id}
-                      className="grid grid-cols-4 mx-4 my-3 border-b-1 border-gray-100 font-semibold justify-items-center"
+                      className="grid grid-rows-auto mx-4 my-1 border-b-1 border-gray-100 font-semibold "
                     >
-                      <div className="col">
-                        <p>
-                          {appointment.userFirstname} {appointment.userLastname}
-                        </p>
-                      </div>
-                      <div className="col bg-indigo-100 rounded-lg px-2">
-                        <p className="">{appointment.service}</p>
-                      </div>
-                      <div className="col">
-                        <p>{appointment.personnel}</p>
-                      </div>
-                      <div className="col">
-                        <p>{appointment.time.slice(0, 5)}</p>
+                      <div className="grid grid-cols-4 justify-items-center hover:bg-gray-100 rounded-md p-1">
+                        <div className="col">
+                          <p>
+                            {appointment.userFirstname}{" "}
+                            {appointment.userLastname}
+                          </p>
+                        </div>
+                        <div className="col bg-indigo-100 rounded-lg px-2">
+                          <p className="">{appointment.service}</p>
+                        </div>
+                        <div className="col">
+                          <p>{appointment.personnel}</p>
+                        </div>
+                        <div className="col">
+                          <p>{appointment.time.slice(0, 5)}</p>
+                        </div>
                       </div>
                     </div>
                   ))
                 ) : (
-                  <div className="w-full my-5 text-center">
-                    <p className="font-semibold text-lg">
-                      No appointments for today.
-                    </p>
-                  </div>
+                  <Spinner color="default" className="my-5" />
                 )
               ) : (
-                <Spinner />
+                <div className="w-full my-5 text-center">
+                  <p className="font-semibold text-lg">
+                    No appointments for today.
+                  </p>
+                </div>
               )}
             </div>
           </div>
@@ -230,10 +256,11 @@ function Dashboard() {
                     colors={["indigo-800", "indigo-600", "indigo-400"]}
                     className="w-40"
                   />
+
                   <Legend
                     categories={servicesOptions}
                     colors={["indigo-800", "indigo-600", "indigo-400"]}
-                    className="max-w-xs mx-5"
+                    className="w-auto mx-5"
                   />
                 </>
               ) : (

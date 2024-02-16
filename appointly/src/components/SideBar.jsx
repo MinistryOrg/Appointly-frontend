@@ -14,7 +14,7 @@ function SideBar() {
         aria-label="Sidenav"
       >
         <div className="h-full px-1 pb-4 overflow-y-auto bg-dark-primary rounded-br-3xl">
-          <ul className="space-y-2 font-medium text-lg mr-5">
+          <ul className="space-y-2 font-semibold text-lg mr-5">
             <li className="hover:bg-dark-hover border-white rounded-lg">
               <Link
                 to="/dashboard"

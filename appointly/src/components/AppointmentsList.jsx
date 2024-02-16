@@ -27,9 +27,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { hoursAv } from "../data/shopData";
 import { subDays, format } from "date-fns";
+import { EditIcon } from "../assets/EditIcon";
+import { TrashIcon } from "../assets/TrashIcon";
 
 function AppointmentsList() {
   const labelsAppointment = [
+    "",
     "Personnel",
     "Service",
     "Name",
@@ -114,11 +117,6 @@ function AppointmentsList() {
     setSelectedTime(e.target.value);
   };
 
-  // console.log(selectedTime);
-  // console.log(selectedDate);
-
-  const loadingState = listAppointments?.length === 0 ? "No appointemnts" : "";
-
   return (
     <>
       <main className="p-5 md:ml-64 h-screen pt-20">
@@ -126,6 +124,9 @@ function AppointmentsList() {
           <h1 className="text-2xl font-semibold">Appointments</h1>
         </div>
         <div className="bg-white border-1 border-gray-200 rounded-lg xsm:mx-unit-lg lg:mx-unit-3xl my-5 h-auto">
+          <div className="flex flex-row justify-start m-2 text-main-clr font-semibold">
+            <p>Total Appointments: {listAppointments?.length}</p>
+          </div>
           <div className="w-full grid grid-cols-1 overflow-y-auto p-5">
             {listAppointments ? (
               <Table
@@ -137,6 +138,8 @@ function AppointmentsList() {
                   tbody: ["rounded-2xl"],
                 }}
                 isHeaderSticky
+                color="default"
+                selectionMode="single"
                 radius="lg"
                 bottomContent={
                   totalPages > 0 ? (
@@ -169,8 +172,9 @@ function AppointmentsList() {
                     listAppointments?.length === 0 ? "loading" : "idle"
                   }
                 >
-                  {(appointment) => (
+                  {currentRows.map((appointment, index) => (
                     <TableRow key={appointment.id} className="text-center">
+                      <TableCell>{index + 1}</TableCell>
                       <TableCell>{appointment.personnel}</TableCell>
                       <TableCell>{appointment.service}</TableCell>
                       <TableCell>{`${appointment.userFirstname} ${appointment.userLastname}`}</TableCell>
@@ -204,13 +208,20 @@ function AppointmentsList() {
                                 checkOption(key, appointment.id)
                               }
                             >
-                              <DropdownItem key="Edit">
+                              <DropdownItem
+                                key="Edit"
+                                className="font-semibold"
+                                startContent={
+                                  <EditIcon className="text-main-clr w-4 h-4 " />
+                                }
+                              >
                                 Edit Appointment
                               </DropdownItem>
                               <DropdownItem
                                 key="Cancel"
-                                className="text-danger"
+                                className="text-danger font-semibold"
                                 color="danger"
+                                startContent={<TrashIcon className="w-4 h-4" />}
                               >
                                 Cancel Appointment
                               </DropdownItem>
@@ -219,7 +230,7 @@ function AppointmentsList() {
                         </div>
                       </TableCell>
                     </TableRow>
-                  )}
+                  ))}
                 </TableBody>
               </Table>
             ) : (

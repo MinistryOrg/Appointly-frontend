@@ -16,7 +16,6 @@ import { useShops } from "../contexts/ShopContext";
 import ShopImageGrid from "../components/ShopImageGrid";
 import { PartnerStar } from "../components/ui/Partner";
 import StarRating from "../components/ui/StarRating";
-import { barber_url, nail_url, mech_url } from "../data/shopData";
 import { LocationIcon } from "../assets/LocationIcon";
 import { StoreIcon } from "../assets/StoreIcon";
 import { PhoneIcon } from "../assets/PhoneIcon";
@@ -82,38 +81,13 @@ export default function Shop() {
           <h1 className="text-3xl font-bold">{name}</h1>
           <p className="text-gray-400 font-semibold">{description}</p>
         </div>
-        {/* <ShopImageGrid shopImgs={shopImg} /> */}
         <div className="grid md:grid-rows-2 lg:grid-flow-col xsm:grid-flow-row lg:gap-y-2 lg:gap-x-5 xsm:gap-y-4 md:gap-x-9 lg:mx-unit-5xl lg:{mt-unit-2xl, mb-unit-xl} xsm:mx-unit-sm xsm:my-unit-sm h-1/2">
           {shopImg && shopImg.length === 3 ? (
-            <>
-              <div className="lg:row-span-2 xsm:row-span-1 h-auto p-0 my-0">
-                <Skeleton isLoaded={!isLoading} className="rounded-lg">
-                  <img
-                    alt="NextUI hero "
-                    src={getImageUrlFunction(shopImg[0])}
-                    className="lg:w-auto h-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-xl"
-                  />
-                </Skeleton>
-              </div>
-              <div className="col h-auto p-0 m-0 rounded-md">
-                <Skeleton isLoaded={!isLoading} className="rounded-lg">
-                  <img
-                    alt="NextUI hero "
-                    src={getImageUrlFunction(shopImg[1])}
-                    className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 rounded-xl"
-                  />
-                </Skeleton>
-              </div>
-              <div className="col-span-1 h-auto p-0 m-0">
-                <Skeleton isLoaded={!isLoading} className="rounded-lg">
-                  <img
-                    alt="NextUI hero "
-                    src={getImageUrlFunction(shopImg[2])}
-                    className="lg:w-full md:w-screen sm:w-7/12 p-0 m-0 object-fill rounded-md"
-                  />
-                </Skeleton>
-              </div>
-            </>
+            <ShopImageGrid
+              isLoading={isLoading}
+              getImageUrlFunction={getImageUrlFunction}
+              shopImg={shopImg}
+            />
           ) : (
             <Spinner size="lg" />
           )}
@@ -131,14 +105,14 @@ export default function Shop() {
                   <Avatar
                     isBordered
                     src={getImageUrlFunction(shopLogo)}
-                    className="h-44 w-44"
+                    className="h-auto w-auto"
                   />
                 </Badge>
               ) : (
                 <Avatar
                   isBordered
                   src={getImageUrlFunction(shopLogo)}
-                  className="h-44 w-44"
+                  className="h-auto w-auto"
                 />
               )}
             </div>
@@ -243,7 +217,9 @@ export default function Shop() {
               <tbody className="">
                 <tr className="">
                   <td>Monday</td>
-                  <td>CLOSED</td>
+                  <td>
+                    {openHour} - {closeHour}
+                  </td>
                 </tr>
                 <tr>
                   <td>Tuesday</td>

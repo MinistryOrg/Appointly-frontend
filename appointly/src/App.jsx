@@ -58,6 +58,7 @@ function App() {
                     <Route path="editProfile" element={<EditProfile />} />
                   </Route>
                   <Route path="*" element={<NotFound />} />
+                  {/* <Route index element={<Navigate replace to="notadmin" />} /> */}
                   <Route path="notadmin" element={<NotAnAdmin />} />
                 </Routes>
               </AdminProvider>
