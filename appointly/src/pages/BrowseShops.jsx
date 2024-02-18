@@ -11,7 +11,6 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { Partner } from "../components/ui/Partner";
 import StarRating from "../components/ui/StarRating";
-import { barber_url, mech_url, nail_url } from "../data/shopData";
 import { useState } from "react";
 import {
   getBarberImagesUrl,

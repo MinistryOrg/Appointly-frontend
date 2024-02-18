@@ -19,8 +19,8 @@ export default {
         xsm: "360px",
       },
       backgroundImage: {
-        "landing-page": "url('../../src/styles/images/lp.png')",
-        "service1-lp": "url('../../src/styles/images/service1.webp')",
+        "landing-page": "url('../../src/assets/images/lp.png')",
+        "service1-lp": "url('../../src/assets/images/service1.webp')",
       },
       colors: {
         "primary-purple": "#342AA1",

@@ -21,6 +21,8 @@ import EditProfile from "./components/EditProfile";
 import { AdminProvider } from "./contexts/AdminContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotAnAdmin from "./pages/NotAnAdmin";
+import SuccessAppoint from "./pages/SuccessAppoint";
+import FailedAppoint from "./pages/FailedAppoint";
 
 function App() {
   return (
@@ -58,8 +60,10 @@ function App() {
                     <Route path="editProfile" element={<EditProfile />} />
                   </Route>
                   <Route path="*" element={<NotFound />} />
-                  {/* <Route index element={<Navigate replace to="notadmin" />} /> */}
+                  <Route index element={<Navigate replace to="notadmin" />} />
                   <Route path="notadmin" element={<NotAnAdmin />} />
+                  <Route path="success" element={<SuccessAppoint />} />
+                  <Route path="failed" element={<FailedAppoint />} />
                 </Routes>
               </AdminProvider>
             </AppointmentProvider>

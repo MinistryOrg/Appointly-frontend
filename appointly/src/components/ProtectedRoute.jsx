@@ -8,11 +8,11 @@ function ProtectedRoute({ children }) {
   const { isAdmin, loggedIn, loadData } = useAuth();
 
   useEffect(() => {
-    if (loadData) {
-      <Spinner />;
+    if (!loggedIn) {
+      navigate("/login");
     } else {
-      if (!loggedIn) {
-        navigate("/login");
+      if (!loadData) {
+        <Spinner />;
       } else {
         navigate(isAdmin ? "/dashboard" : "/notadmin", { replace: true });
       }

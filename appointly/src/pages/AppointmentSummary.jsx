@@ -3,7 +3,6 @@ import NavBar from "../components/Navbar";
 import { useShops } from "../contexts/ShopContext";
 import { useAppointment } from "../contexts/AppointmentContext";
 import StarRating from "../components/ui/StarRating";
-import { barber_url, mech_url, nail_url } from "../data/shopData";
 import { Avatar, Badge, Spinner } from "@nextui-org/react";
 import { PartnerStar } from "../components/ui/Partner";
 import { LocationIcon } from "../assets/LocationIcon";

@@ -1,4 +1,4 @@
-import img from "../styles/images/blur_img.png";
+import img from "../assets/images/blur_img.png";
 import { Spinner, Tooltip } from "@nextui-org/react";
 import { useAdmin } from "../contexts/AdminContext";
 import { useAuth } from "../contexts/AuthContext";

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import NavBar from "../components/Navbar";
-import { Input, Checkbox, Spinner } from "@nextui-org/react";
+import { Input, Spinner } from "@nextui-org/react";
 import { EyeFilledIcon } from "../assets/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../assets/EyeSlashFilledIcon";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import img from "../styles/images/sign_in_img.png";
+import img from "../assets/images/sign_in_img.png";
 
 export default function Login() {
   const {

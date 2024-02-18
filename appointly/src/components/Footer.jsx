@@ -1,4 +1,4 @@
-import logo from "../../src/styles/images/apoinlty_logo.png";
+import logo from "../../src/assets/images/apoinlty_logo.png";
 import { footerNavs } from "../data/generalServData";
 export default function Footer() {
   return (

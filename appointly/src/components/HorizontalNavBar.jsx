@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../src/styles/images/apoinlty_logo.webp";
+import logo from "../../src/assets/images/apoinlty_logo.webp";
 import { useAuth } from "../contexts/AuthContext";
 import { UserIcon } from "../assets/UserIcon";
 import { initFlowbite } from "flowbite";

@@ -1,6 +1,6 @@
-import img1 from "../styles/images/about_img.png";
-import prev1 from "../styles/images/prev.png";
-import prev2 from "../styles/images/prev2.png";
+import img1 from "../assets/images/about_img.png";
+import prev1 from "../assets/images/prev.png";
+import prev2 from "../assets/images/prev2.png";
 function About() {
   return (
     <div id="about">

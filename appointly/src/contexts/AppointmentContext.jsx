@@ -74,9 +74,21 @@ function AppointmentProvider({ children }) {
 
       // Handle the API response as needed
       console.log("Appointment booked:", data);
-      navigate("/");
+      // Check if the booking was successful
+      if (res.ok) {
+        console.log("Appointment booked successfully:", data);
+        // Redirect to success page
+        navigate("/success");
+      } else {
+        // Handle the case when booking fails (e.g., display an error message)
+        console.error("Error booking appointment:", data);
+        // Redirect to something went wrong page
+        navigate("/failed");
+      }
     } catch (error) {
       console.error("Error booking appointment:", error);
+      // Redirect to something went wrong page
+      navigate("/failed");
     } finally {
       setIsLoading(false);
     }

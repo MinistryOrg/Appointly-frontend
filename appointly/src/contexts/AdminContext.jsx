@@ -2,8 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const admin_url =
   "https://appointly-production.up.railway.app/api/v1/appointly/admin";
-const user_url =
-  "https://appointly-production.up.railway.app/api/v1/appointly/user";
 
 const AdminContext = createContext();
 
@@ -136,9 +134,6 @@ function AdminProvider({ children }) {
     const formattedTime = `${hours}:${minutes}:00`;
 
     const formattedDate = date.replace(/\//g, "-");
-
-    console.log(id);
-    console.log("TEST", formattedDate);
 
     try {
       const res = await fetch(`${admin_url}/editAppointment`, {

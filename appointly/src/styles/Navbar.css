@@ -1,4 +1,0 @@
-/* CSS Modules feature */
-.nav a:global(.active) {
-  color: hotpink;
-}

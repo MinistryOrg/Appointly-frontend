@@ -19,7 +19,7 @@ function AuthProvider({ children }) {
   const [role, setRole] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [loadData, setLoadData] = useState(true);
+  const [loadData, setLoadData] = useState(false);
 
   const [doneEdit, setDoneEdit] = useState(false);
   const [showChange, setShowChange] = useState(false);
@@ -91,7 +91,7 @@ function AuthProvider({ children }) {
         console.error("Invalid token:", error.message);
       } finally {
         // Set loading to false once the data is processed
-        setLoadData(false);
+        setLoadData(true);
       }
     }
   }, [token]);

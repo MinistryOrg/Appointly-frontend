@@ -17,7 +17,7 @@ function NotFound() {
             </p>
             <a
               href="/"
-              className="text-white duration-150 hover:text-primary font-medium inline-flex items-center gap-x-1 bg-dark-primary px-5 py-2 rounded-lg"
+              className="text-white duration-150 hover:bg-primary font-medium inline-flex items-center gap-x-1 bg-dark-primary px-5 py-2 rounded-lg"
             >
               Go back
             </a>

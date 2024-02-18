@@ -1,8 +1,6 @@
 import { Card, CardFooter, Image, Spinner } from "@nextui-org/react";
 import { useAppointment } from "../contexts/AppointmentContext";
 import { useShops } from "../contexts/ShopContext";
-import { barber_url, nail_url, mech_url } from "../data/shopData";
-import { useState } from "react";
 import {
   getBarberImagesUrl,
   getImageURL,
