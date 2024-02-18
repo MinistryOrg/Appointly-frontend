@@ -88,6 +88,7 @@ function AppointmentsList() {
     setId(appointment?.id);
     setSelectedAppointment(appointment);
     setStartDate(new Date(appointment?.date));
+    setSelectedDate(new Date(appointment?.date));
     setSelectedTime(appointment?.time.slice(0, 5));
     onOpenChange();
   };
@@ -116,6 +117,8 @@ function AppointmentsList() {
   const handleSelectionChange = (e) => {
     setSelectedTime(e.target.value);
   };
+
+  console.log("Selected Date", selectedDate);
 
   return (
     <>
@@ -296,9 +299,12 @@ function AppointmentsList() {
                 <Button
                   color="primary"
                   onPress={() => {
+                    const dateToUse =
+                      format(selectedDate, "yyyy/MM/dd") ||
+                      selectedAppointment.date;
                     editAppointment(
                       id,
-                      selectedDate,
+                      dateToUse,
                       selectedTime,
                       selectedAppointment
                     );
