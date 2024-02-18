@@ -1,4 +1,4 @@
-import StarIcon from "../../styles/images/staricon.svg";
+import StarIcon from "../../assets/images/staricon.svg";
 
 function Partner() {
   return (
