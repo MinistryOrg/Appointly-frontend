@@ -199,14 +199,14 @@ function Dashboard() {
             <div className="w-full grid grid-cols-1">
               {/* APPOINTMENT LIST GOES HERE */}
 
-              {todayAppointments ? (
-                todayAppointments.length > 0 ? (
-                  todayAppointments.map((appointment, index) => (
-                    <div
-                      key={appointment.id}
-                      className="grid grid-rows-auto mx-4 my-1 border-b-1 border-gray-100 font-semibold "
-                    >
-                      <div className="grid grid-cols-4 justify-items-center hover:bg-gray-100 rounded-md p-1">
+              {listAppointments ? (
+                listAppointments.length > 0 ? (
+                  todayAppointments.length > 0 ? (
+                    todayAppointments.map((appointment, index) => (
+                      <div
+                        key={appointment.id}
+                        className="grid grid-cols-4 justify-items-center hover:bg-gray-100 rounded-md p-1 font-semibold"
+                      >
                         <div className="col">
                           <p>
                             {appointment.userFirstname}{" "}
@@ -223,17 +223,19 @@ function Dashboard() {
                           <p>{appointment.time.slice(0, 5)}</p>
                         </div>
                       </div>
+                    ))
+                  ) : (
+                    <div className="w-full my-5 text-center">
+                      <p className="font-semibold text-lg">
+                        No appointments for today.
+                      </p>
                     </div>
-                  ))
+                  )
                 ) : (
                   <Spinner color="default" className="my-5" />
                 )
               ) : (
-                <div className="w-full my-5 text-center">
-                  <p className="font-semibold text-lg">
-                    No appointments for today.
-                  </p>
-                </div>
+                <Spinner color="default" className="my-5" />
               )}
             </div>
           </div>
