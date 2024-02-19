@@ -83,7 +83,7 @@ export default function NavBar() {
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent justify="end" className="gap-6">
-        <NavbarItem className=" lg:flex">
+        <NavbarItem className="hidden md:flex">
           {loggedIn ? (
             <span className="flex gap-2 text-white">
               <p className="text-white font-semibold">
@@ -131,6 +131,21 @@ export default function NavBar() {
             </Link>
           </NavbarMenuItem>
         ))}
+        <hr />
+        <NavbarMenuItem>
+          {loggedIn ? (
+            <span className="flex gap-2 text-primary">
+              {/* <UserIcon /> */}
+              <p className="text-primary font-bold">
+                {firstname} {lastname}
+              </p>
+            </span>
+          ) : (
+            <NavLink className="text-primary font-bold" to="/login">
+              Login
+            </NavLink>
+          )}
+        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   );

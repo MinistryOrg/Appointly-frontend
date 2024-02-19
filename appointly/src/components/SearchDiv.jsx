@@ -36,7 +36,7 @@ export default function SearchDiv() {
   } = useShops();
 
   return (
-    <div className="bg-div-lp shadow-md rounded-md lg:h-16 sm:h-auto lg:max-w-3xl sm:w-auto p-2 my-8 flex md:flex-row xsm:flex-col gap-4">
+    <div className="bg-div-lp shadow-md rounded-md lg:h-16 sm:h-auto lg:max-w-3xl xsm:w-auto p-2 my-8 flex md:flex-row xsm:flex-col gap-4">
       <div className="lg:basis-1/2 xsm:basis-1/3">
         <Dropdown>
           <DropdownTrigger>
@@ -55,7 +55,7 @@ export default function SearchDiv() {
             selectedKeys={locationKeys}
             onSelectionChange={setLocationKeys}
             disabledKeys={["Thessalonikh"]}
-            className="xsm:w-unit-6xl md:w-full"
+            className="xsm:w-full md:w-full"
             itemClasses={{
               base: [
                 "rounded-md",
@@ -97,7 +97,7 @@ export default function SearchDiv() {
             selectedKeys={serviceKeys}
             onSelectionChange={setServiceKeys}
             disabledKeys={["Trainer"]}
-            className="xsm:w-unit-6xl md:w-full"
+            className="xsm:w-full md:w-full"
             itemClasses={{
               base: [
                 "rounded-md",
