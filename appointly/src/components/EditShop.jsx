@@ -1,10 +1,14 @@
 import { Input } from "@nextui-org/react";
 import { useAdmin } from "../contexts/AdminContext";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Callout from "./ui/Callout";
+import { useAuth } from "../contexts/AuthContext";
 
 function EditShop() {
-  const { adminShop, editShop, show, setShow, doneEdit } = useAdmin();
+  const { email } = useAuth();
+
+  const { adminShop, editShop, show, setShow, doneEdit, fetchShopAdmin } =
+    useAdmin();
   console.log("edit", adminShop);
   const { name, description, address, telephone, servicesOptions, cost } =
     adminShop;
@@ -19,6 +23,26 @@ function EditShop() {
   const [newCosts, setNewCosts] = useState(
     Array.isArray(cost) ? [...cost] : []
   );
+
+  const fetchShopAdminMemoized = useMemo(
+    () => fetchShopAdmin,
+    [fetchShopAdmin]
+  );
+
+  useEffect(() => {
+    const delay = 500 + 500;
+    const timerId = setTimeout(() => {
+      const controller = new AbortController();
+
+      fetchShopAdminMemoized(email, controller);
+      return () => {
+        controller.abort();
+      };
+    }, delay);
+
+    // Clear the timer if the dependencies change before the delay expires
+    return () => clearTimeout(timerId);
+  }, [email, adminShop, adminShop.name, fetchShopAdminMemoized]);
 
   // Update service at a specific index
   const handleServiceChange = (index, value) => {
