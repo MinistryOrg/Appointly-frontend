@@ -13,8 +13,12 @@ function EditShop() {
   const [newDescr, setNewDescr] = useState(description ? description : "");
   const [newAddr, setNewAddr] = useState(address ? address : "");
   const [newTelep, setNewTelep] = useState(telephone ? telephone : "");
-  const [newServices, setNewServices] = useState([...servicesOptions]);
-  const [newCosts, setNewCosts] = useState([...cost]);
+  const [newServices, setNewServices] = useState(
+    Array.isArray(servicesOptions) ? [...servicesOptions] : []
+  );
+  const [newCosts, setNewCosts] = useState(
+    Array.isArray(cost) ? [...cost] : []
+  );
 
   // Update service at a specific index
   const handleServiceChange = (index, value) => {
@@ -29,13 +33,17 @@ function EditShop() {
     updatedCosts[index] = value;
     setNewCosts(updatedCosts);
   };
-  const editedServicesArray = servicesOptions.map((originalService, index) =>
-    newServices[index] !== undefined ? newServices[index] : originalService
-  );
+  const editedServicesArray = Array.isArray(servicesOptions)
+    ? servicesOptions.map((originalService, index) =>
+        newServices[index] !== undefined ? newServices[index] : originalService
+      )
+    : [];
 
-  const editedCostsArray = cost.map((originalCost, index) =>
-    newCosts[index] !== undefined ? parseInt(newCosts[index]) : originalCost
-  );
+  const editedCostsArray = Array.isArray(cost)
+    ? cost.map((originalCost, index) =>
+        newCosts[index] !== undefined ? parseInt(newCosts[index]) : originalCost
+      )
+    : [];
 
   const changes = [newName, newDescr, newAddr, newTelep];
 
@@ -172,46 +180,49 @@ function EditShop() {
           </h2>
 
           <div className="w-full grid xsm:grid-col-1 lg:grid-cols-2 p-5 gap-10 font-semibold my-5">
-            {servicesOptions.map((_, index) => (
-              <>
-                <div className="col flex  xsm:flex-col lg:flex-row w-full px-10 ">
-                  <p className="w-unit-4xl my-4">Service {index + 1}:</p>
-                  <Input
-                    key="left"
-                    value={newServices[index]}
-                    onValueChange={(value) => handleServiceChange(index, value)}
-                    variant="bordered"
-                    className="my-2"
-                    classNames={{
-                      label: "font-semibold",
-                      input: ["bg-white"],
-                      inputWrapper: ["border-1", "h-2/3"],
-                    }}
-                  />
-                </div>
-                <div className="col flex  xsm:flex-col lg:flex-row w-full px-10 ">
-                  <p className="w-unit-3xl my-4">Price:</p>
-                  <Input
-                    type="number"
-                    value={newCosts[index]}
-                    onValueChange={(value) => handleCostChange(index, value)}
-                    labelPlacement="outside"
-                    className="my-2 w-1/2"
-                    variant="bordered"
-                    classNames={{
-                      label: "font-semibold",
-                      input: ["bg-white"],
-                      inputWrapper: ["border-1", "h-2/3"],
-                    }}
-                    endContent={
-                      <div className="pointer-events-none flex items-center">
-                        <span className="text-default-500 text-small">€</span>
-                      </div>
-                    }
-                  />
-                </div>
-              </>
-            ))}
+            {Array.isArray(servicesOptions) &&
+              servicesOptions.map((_, index) => (
+                <>
+                  <div className="col flex  xsm:flex-col lg:flex-row w-full px-10 ">
+                    <p className="w-unit-4xl my-4">Service {index + 1}:</p>
+                    <Input
+                      key="left"
+                      value={newServices[index]}
+                      onValueChange={(value) =>
+                        handleServiceChange(index, value)
+                      }
+                      variant="bordered"
+                      className="my-2"
+                      classNames={{
+                        label: "font-semibold",
+                        input: ["bg-white"],
+                        inputWrapper: ["border-1", "h-2/3"],
+                      }}
+                    />
+                  </div>
+                  <div className="col flex  xsm:flex-col lg:flex-row w-full px-10 ">
+                    <p className="w-unit-3xl my-4">Price:</p>
+                    <Input
+                      type="number"
+                      value={newCosts[index]}
+                      onValueChange={(value) => handleCostChange(index, value)}
+                      labelPlacement="outside"
+                      className="my-2 w-1/2"
+                      variant="bordered"
+                      classNames={{
+                        label: "font-semibold",
+                        input: ["bg-white"],
+                        inputWrapper: ["border-1", "h-2/3"],
+                      }}
+                      endContent={
+                        <div className="pointer-events-none flex items-center">
+                          <span className="text-default-500 text-small">€</span>
+                        </div>
+                      }
+                    />
+                  </div>
+                </>
+              ))}
           </div>
           <div className="w-full flex  xsm:flex-col lg:flex-row justify-end">
             <div className="p-5">
