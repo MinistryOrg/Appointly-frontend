@@ -1,7 +1,9 @@
 # Appointly-frontend
 
-react
-tailwind
-NextUI
-framer motion
-react-router
+
+## For the UI:
+    -tailwindcss
+    -NextUI
+    -framer motion
+### Why it was made.
+This is a University project.
