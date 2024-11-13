@@ -1,6 +1,6 @@
 # Appointly-frontend
 
-![apointly-prev](https://github.com/user-attachments/assets/89ae25d5-28fb-400e-ba27-10fefbd56ae6)
+![2024-11-13_18-56](https://github.com/user-attachments/assets/df24e2bb-180b-4765-8f9e-3ff136dc5da3)
 
 ## About the project:
 This web application was created for a university assignment. It's a booking appointment website that allows users to easily schedule appointments at stores like barber shops, nail salons etc. It also features an admin dashboard for store owners to manage appointments and monitor their store's performance.
